@@ -528,15 +528,22 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 .tt-top{flex-wrap:nowrap!important;align-items:center!important}
 .tt-vo{font-size:.75rem!important;padding:5px 10px!important;margin-right:2px!important}
 .tt-skip{font-size:.75rem!important;padding:6px 8px!important}
-.tt-btns .btn{font-size:1.04rem!important;min-height:49px!important;padding:11px 25px!important}
+.tt-btns .btn{font-size:.88rem!important;min-height:42px!important;padding:9px 21px!important}
 @media (max-width:640px){
  .tt-vo{font-size:.62rem!important;padding:4px 8px!important}
  .tt-skip{font-size:.62rem!important;padding:5px 6px!important}
- .tt-btns .btn{font-size:.83rem!important;min-height:39px!important;padding:8px 16px!important}
+ .tt-btns .btn{font-size:.71rem!important;min-height:33px!important;padding:7px 14px!important}
  .tt-id .tt-n{font-size:.72rem!important}
 }
 
 .ob.ob-over{background:rgba(4,12,10,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}.ob.ob-over .ob-bg{display:none}
+
+.tt-bub{display:flex!important;flex-direction:column}.tt-bub .tt-tx{margin-top:auto!important;margin-bottom:auto!important}.tt-bub .tt-top,.tt-bub .tt-btns{flex:none}
+
+.tt-bub{overflow:hidden!important}
+.tt-bub .tt-tx{flex:0 1 auto!important;min-height:0!important;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.tt-bub .tt-btns{position:static!important;bottom:auto!important;padding:10px 0 0!important;margin-top:8px!important}
+.tt-bub .tt-tx{padding:0 .4rem 0 .45rem}
 </style>
 
 <div class="wrap">
@@ -2198,7 +2205,7 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
           {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget e obiettivi), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
    percorso:[{tab:'percorso',t:'#pitch',x:function(){return '<b>Il mio percorso</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
-             {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è perché è importante, la <b>mini-missione</b> e la lista delle cose da fare. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
+             {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è la spiegazione del <b>perché è importante</b>, le <b>mini-missioni</b> e la lista delle cose da fare per completarle. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
    passi:[{tab:'percorso',t:'#steps',x:function(){return 'I 7 passi, in ordine:'+P7}},
           {tab:'percorso',t:'#steps',x:function(){return 'Si sbloccano <b>uno dopo l\'altro</b>: un passo conta solo se tutti quelli prima sono completi. Se una voce torna incompleta, il lucchetto di quel passo ricompare.'}},
           {tab:'percorso',t:'#steps',x:function(){return 'Molti passi si completano in altre sezioni: il pulsante dentro ogni passo (per esempio «Vai al Budget») ti porta nel punto giusto. Fondo di emergenza e debiti, invece, si compilano direttamente qui.'}}],
@@ -2252,11 +2259,12 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
     document.getElementById('tt-prev').style.visibility=i?'visible':'hidden';
     document.getElementById('tt-next').textContent=st.cf?st.cf:(i===steps.length-1?'Ho capito':'Avanti');if(st.cf){var pv=document.getElementById('tt-prev');pv.textContent='Annulla';pv.style.visibility='visible'}else document.getElementById('tt-prev').textContent='Indietro';
     var html=(typeof st.x==='function'?st.x():st.x).replace('{N}',esc2(C().name||'il tuo assistente')),tmp=document.createElement('div');tmp.innerHTML=html;var full=tmp.textContent.length,n=0;
-    var avd=document.getElementById('tt-av');avd.classList.add('talk');tx.innerHTML=html;speak(tmp.textContent);
+    var avd=document.getElementById('tt-av');avd.classList.add('talk');var bub0=document.querySelector('.tt-bub');if(bub0)bub0.style.minHeight='';tx.style.height='';tx.innerHTML=html;speak(tmp.textContent);
     if(st.form){var f=document.createElement('div');f.innerHTML="  <div class=\"co-f\">\n   <div class=\"co-n\"><label class=\"l\" for=\"cot-name\">Come vuoi chiamarmi?</label><input type=\"text\" id=\"cot-name\" maxlength=\"12\" placeholder=\"Leo\" data-co=\"name\"></div>\n   <div class=\"co-c\"><div><label class=\"l\" for=\"cot-hc\">Capelli</label><input type=\"color\" id=\"cot-hc\" data-co=\"hair\" value=\"#2b170e\"></div>\n   <div><label class=\"l\" for=\"cot-j1\">Maglia</label><input type=\"color\" id=\"cot-j1\" data-co=\"c1\" value=\"#f2c21a\"></div>\n   <div><label class=\"l\" for=\"cot-j2\">Dettagli</label><input type=\"color\" id=\"cot-j2\" data-co=\"c2\" value=\"#1f4fa0\"></div></div>\n   <button type=\"button\" class=\"co-rs\" data-co-reset>Colori originali</button>\n  </div>";tx.appendChild(f.firstElementChild);bindCo(tx);quiet(avd);box.classList.add('mid');document.getElementById('tt-n').textContent='';lift(null);paint();return}
+    if(bub0){void bub0.offsetHeight;tx.style.height='';tx.style.height=tx.scrollHeight+'px'}
     var walker=[];(function w(nd){Array.prototype.forEach.call(nd.childNodes,function(c){if(c.nodeType===3){walker.push([c,c.textContent]);c.textContent=''}else w(c)})})(tx);
     var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function put(k){var left=k;var bb=document.querySelector('.tt-bub');if(bb)bb.scrollTop=bb.scrollHeight;walker.forEach(function(p){var take=Math.max(0,Math.min(p[1].length,left));p[0].textContent=p[1].slice(0,take);left-=p[1].length})}
+    function put(k){var left=k;tx.scrollTop=tx.scrollHeight;walker.forEach(function(p){var take=Math.max(0,Math.min(p[1].length,left));p[0].textContent=p[1].slice(0,take);left-=p[1].length})}
     if(rm){put(full);quiet(avd)}else typing=setInterval(function(){n+=2;put(n);if(n>=full){clearInterval(typing);typing=0;quiet(avd)}},16);
     tx.dataset.full=full;box.classList.toggle('mid',!tgt());if(!tgt())lift(null)}
   var speaking=0,vo=document.getElementById('tt-vo'),canTTS=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);
