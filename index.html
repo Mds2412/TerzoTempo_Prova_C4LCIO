@@ -535,6 +535,8 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
  .tt-btns .btn{font-size:.83rem!important;min-height:39px!important;padding:8px 16px!important}
  .tt-id .tt-n{font-size:.72rem!important}
 }
+
+.ob.ob-over{background:rgba(4,12,10,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}.ob.ob-over .ob-bg{display:none}
 </style>
 
 <div class="wrap">
@@ -703,7 +705,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
   </ul></div>
   <h2>Budget: spese a sinistra, entrate a destra</h2>
   <p class="lead">Le voci mensili vengono moltiplicate per 12. Le voci annuali vengono divise per 12 per mostrare il peso sul mese. I dati restano solo nel tuo browser.</p>
-  <div class="banner" id="b-banner"><span>Ci sono valori d'esempio. Sostituiscili con i tuoi.</span><span><button class="btn ghost" id="b-clear" type="button">Azzera tutto</button> <button class="btn ghost" id="b-keep" type="button">Ho capito</button></span></div>
+  <div class="banner" id="b-banner"><span>Vuoi ricominciare da capo?</span><span><button class="btn ghost" id="b-clear" type="button">Azzera tutto</button></span></div>
   <div class="strip" aria-live="polite">
     <div><small>Avanzo al mese</small><b id="k-m">–</b></div>
     <div><small>Avanzo all'anno</small><b id="k-a">–</b></div>
@@ -714,7 +716,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
   <div class="card tw"><table id="b-sum"></table></div>
   <p class="note">Il tasso è lo stesso su base mensile e annua perché le voci annuali sono divise su 12 mesi. Nel mese in cui paghi bollo, assicurazione o tasse il saldo reale sarà più basso. Le fasce del tasso sono regole pratiche, non norme.</p>
   <div class="card" style="margin-bottom:16px"><div class="fields" style="margin:0 0 12px;max-width:300px"><div><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate (%)</label><input type="text" inputmode="decimal" id="obj" placeholder="es. 15"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
-  <div class="toolbar"><button class="btn" id="b-rand" type="button">Riempi con dati casuali</button><button class="btn ghost" id="b-open" type="button">Apri tutte le voci</button><button class="btn ghost" id="b-close" type="button">Chiudi tutte</button></div>
+  <div class="toolbar"><button class="btn ghost" id="b-open" type="button">Apri tutte le voci</button><button class="btn ghost" id="b-close" type="button">Chiudi tutte</button></div>
   <div class="bgrid" id="b-grid">
     <div class="col" id="col-exp"><h3 class="side">Spese <span id="tot-exp"></span></h3></div>
     <div class="col" id="col-inc"><h3 class="side">Entrate <span id="tot-inc"></span></h3></div>
@@ -831,15 +833,12 @@ function num(v){
 /* ---------- stato ---------- */
 function defaults(){
   return {
-    tab:'home', exDone:false, obj:'15',
-    goals:{r0:'1500',i0:'500',r12:'3000',i12:'2000',r60:'10000',i60:'12000',ret:'0'},
-    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'8000',altri:'0',ore:'10',pag:'tr',altro:'0',ese:'0'},
-    sim:{altro:'0',add:'3',rid:true,min:false,rinc:false,inail:'0',rimb:'4300',cmp:'lD',lD:'12000',lE:'6000',lP:'3000'},
+    tab:'home', exDone:true, obj:'0',
+    goals:{r0:'0',i0:'0',r12:'0',i12:'0',r60:'0',i60:'0',ret:'0'},
+    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0'},
+    sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0'},
     comp:{},
-    bud:{m_affitto:'450',m_luce:'45',m_gas:'60',m_internet:'25',m_mobile:'10',m_spesa:'220',m_fuori:'80',m_carb:'120',m_palestra:'30',m_stream:'15',m_uscite:'100',
-         a_rca:'450',a_bollo:'200',a_agonistica:'50',a_scarpini:'150',a_vacanze:'800',
-         sv_pac:'100',D_a_rca:'2027-02-28',D_a_bollo:'2027-01-31',D_a_vacanze:'2027-07-15',
-         im_stip:'1100',ia_tredicesima:'1100',ia_calcio_a:'4800'}
+    bud:{}
   };
 }
 var S=null;
@@ -1296,7 +1295,7 @@ R.bud=function(){
   renderSched(SCH,ent,sur);
   renderGoals();
   R.home();
-  $('#b-banner').hidden=!!S.exDone;
+  
 };
 
 /* ---------- dati casuali ---------- */
@@ -1699,8 +1698,7 @@ var FAQ=[
  {t:"Usare l'app",a:[
   {t:"Dove trovo cosa",q:[
    ["Da dove comincio?","Dal Budget (i tuoi conti), poi Contratto e Conformità (il tuo rapporto con il club) e Simulatore netto (quanto resta in tasca).","App"],
-   ["I miei dati dove vanno?","Restano solo nel tuo browser, non vengono inviati altrove.","App"],
-   ["Come cambio i dati d'esempio?","Nel Budget usa «Azzera tutto» e inserisci i tuoi.","App"]]}
+   ["I miei dati dove vanno?","Restano solo nel tuo browser, non vengono inviati altrove.","App"]]}
  ]}
 ]}
 ];
@@ -1738,7 +1736,7 @@ $('#faq-q').addEventListener('input',function(){R.faq();fitSoon()});
 var PSTEPS=[
  {n:1,t:'Budget',tab:'budget',go:'Vai al Budget',
   why:'Scrivi cosa entra e cosa esce. Senza questo, tutto il resto è alla cieca.',
-  how:'<b>Mini-missione:</b> inserisci nel Budget almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta. Se vedi valori d\'esempio, sostituiscili o premi «Ho capito».'},
+  how:'<b>Mini-missione:</b> inserisci nel Budget almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
  {n:2,t:'Obiettivi di risparmio',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
   how:'<b>Mini-missione:</b> nel Budget, in «Obiettivi», inserisci il risparmio che vuoi avere tra 12 mesi.'},
@@ -2198,7 +2196,7 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
    ask:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Piacere! ')+'Ora ti guiderò in un breve tour dell\'app, va bene?'}}],
    intro:[{t:null,x:function(){return (C().name?'Sono <b>{N}</b>. ':'')+'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
           {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget e obiettivi), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
-   percorso:[{tab:'percorso',t:'#pitch',x:function(){return '<b>Il mio percorso</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando lo sblocchi, il lucchetto si sblocca e il tuo giocatore dribbla fino al cono successivo.'}},
+   percorso:[{tab:'percorso',t:'#pitch',x:function(){return '<b>Il mio percorso</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
              {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è perché è importante, la <b>mini-missione</b> e la lista delle cose da fare. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
    passi:[{tab:'percorso',t:'#steps',x:function(){return 'I 7 passi, in ordine:'+P7}},
@@ -2209,7 +2207,7 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
          {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}},
          {tab:'home',t:'#percorso',x:function(){return 'In fondo, <b>Come sta andando il mio percorso?</b>: dove vuoi arrivare, quanti soldi hai già messo da parte e quali passi restano da fare.'}}],
    obiettivi:[{tab:'obiettivi',t:'#goals-card',x:function(){return '<b>Obiettivi di risparmio</b>, il passo 2: quanto vuoi avere da parte tra 12 mesi e tra 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. Servono anche per i passi 6 e 7.'}}],
-   budget:[{tab:'budget',t:'.strip',x:function(){return '<b>Budget</b>, il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi. Se vedi valori d\'esempio, usa «Azzera tutto» per partire da zero.'}},
+   budget:[{tab:'budget',t:'.strip',x:function(){return '<b>Budget</b>, il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi.'}},
            {tab:'budget',t:'#b-grid',x:function(){return (M()?'Prima le <b>spese</b>, più sotto le <b>entrate</b>':'A sinistra le <b>spese</b>, a destra le <b>entrate</b>')+', divise in gruppi come Casa, Calcio, Lavoro. Scrivi cifre <b>nette</b>: le voci mensili vengono moltiplicate per 12, quelle annuali divise per 12. Nelle entrate del calcio scegli quante mensilità paga il club.'}},
            {tab:'budget',t:'#sv-panel',x:function(){return '<b>Già messo da parte</b>: quanto metti da parte ogni mese per PAC, fondo emergenza o pensione integrativa. Non è una spesa: sono soldi tuoi. Servono per i passi 4, 6 e 7.'}}],
    contratto:[{tab:'contratto',t:'#eng-form',x:function(){return '<b>Contratto</b>, il passo 3. Inserisci ruolo, categoria, età, compenso e ore settimanali di allenamento. Più sono precisi i dati, più è preciso il risultato.'}},
@@ -2335,7 +2333,7 @@ $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){showTa
   function sum(){var P=S.prof,t=[];if(P.nome||P.cognome)t.push(((P.nome||'')+' '+(P.cognome||'')).trim());t.push('maglia n. '+(P.num||'10'));$('#pf-sum').textContent=t.join(' \u00b7 ')}
   function apply(){sum();if(window.TT3D&&window.TT3D.setName)if(window.TT3D&&window.TT3D.setColors)window.TT3D.setColors(S.prof.c1,S.prof.c2);if(window.TT3D&&window.TT3D.setLook)window.TT3D.setLook({hair:S.prof.hc,boot:S.prof.bc,sex:S.prof.sex,pitch:S.prof.pc});if(window.TT3D&&window.TT3D.setName)window.TT3D.setName(S.prof.cognome,S.prof.num)}
   function open(){var P=S.prof;$('#ob-nome').value=P.nome||'';$('#ob-cogn').value=P.cognome||'';$('#ob-hc').value=P.hc||'#21140c';$('#ob-pc').value=P.pc||'#2a7a4a';$('#ob-bc').value=P.bc||'#ff4091';$$('[name=ob-sex]').forEach(function(r){r.checked=r.value===(P.sex||'m')});$('#ob-c1').value=P.c1||'#f5b70f';$('#ob-c2').value=P.c2||'#0f3b2e';kit();$('#ob-num').value=P.num||'10';$('#ob-err').textContent='';ob.hidden=false;setTimeout(function(){$('#ob-nome').focus()},30)}
-  function close(){ob.hidden=true;S.prof.done=1;save();apply();if(window.ttCoachPaint)window.ttCoachPaint();if(window.ttTourAuto)window.ttTourAuto()}
+  function close(){ob.hidden=true;ob.classList.remove('ob-over');S.prof.done=1;save();apply();if(window.ttCoachPaint)window.ttCoachPaint();if(window.ttTourAuto)window.ttTourAuto()}
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var nome=$('#ob-nome').value.trim(),cogn=$('#ob-cogn').value.trim(),num=$('#ob-num').value.trim(),er=$('#ob-err');
@@ -2345,15 +2343,15 @@ $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){showTa
   });
   $('#ob-skip').addEventListener('click',close);
   ob.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
-  $('#pf-edit').addEventListener('click',open);
+  $('#pf-edit').addEventListener('click',function(){ob.classList.add('ob-over');open()});ob.addEventListener('click',function(e){if(e.target===ob&&ob.classList.contains('ob-over'))close()});
   sum();if(!S.prof.done)open();
 })();
 $$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;S.used.goals=1;save();R.bud()})});
 var oi=$('#obj');oi.value=S.obj||'';oi.addEventListener('input',function(){S.obj=oi.value;save();R.bud()});
-$('#b-rand').addEventListener('click',function(){S.bud=randomBud();S.exDone=false;save();syncInputs();R.bud()});
+
 function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});R.bud()}
 $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttConfirm('Ei, sei sicuro di voler cancellare tutto? <b>Non sarà possibile ripristinare i dati</b> una volta cancellati: dovrai reinserirli da zero.','Sì, cancella tutto',budReset);else if(confirm('Cancellare tutto il budget?'))budReset()});
-$('#b-keep').addEventListener('click',function(){S.exDone=true;save();R.bud()});
+
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
 $('#b-close').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=false})});
 
@@ -2366,7 +2364,7 @@ $('#b-close').addEventListener('click',function(){$$('#p-budget details').forEac
   ov.addEventListener('click',function(e){if(e.target===ov)close()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close()});
 })();
-if(S.v!==2){S.bud=randomBud();S.exDone=false;S.v=2;save()}
+if(S.v!==3){if(!S.exDone){S.bud={};S.exDone=true}S.v=3;save()}
 buildQ();buildBudget();bindAll();renderAll();R.bud();
 
 (function(){
