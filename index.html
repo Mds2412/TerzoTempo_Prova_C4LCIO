@@ -544,6 +544,9 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 .tt-bub .tt-tx{flex:0 1 auto!important;min-height:0!important;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .tt-bub .tt-btns{position:static!important;bottom:auto!important;padding:10px 0 0!important;margin-top:8px!important}
 .tt-bub .tt-tx{padding:0 .4rem 0 .45rem}
+
+.bgrp .gok{display:none;align-items:center;justify-content:center;width:1.25em;height:1.25em;margin-left:.55em;border-radius:50%;background:#1f9d55;color:#fff;font-size:.78em;font-weight:800;line-height:1;vertical-align:middle}
+.bgrp.gdone .gok{display:inline-flex}
 </style>
 
 <div class="wrap">
@@ -1222,7 +1225,7 @@ function buildBudget(){
     if(sec.key==='SV'){buildSv();return}
     var html='<div class="sec"><h4>'+sec.t+'</h4><p>'+sec.s+'</p>';
     sec.g.forEach(function(g,gi){
-      html+='<details open><summary><span class="gn">'+g[0]+'</span><span class="gt" id="gt_'+sec.key+gi+'"></span></summary><div class="rows'+(sec.key==='EA'?' ea':'')+'"><div class="rowh"><span></span><span>'+sec.h[0]+'</span><span>'+sec.h[1]+'</span></div>';
+      html+='<details class="bgrp"><summary><span class="gn">'+g[0]+'<span class="gok" aria-label="Completato" title="Completato">&#10003;</span></span><span class="gt" id="gt_'+sec.key+gi+'"></span></summary><div class="rows'+(sec.key==='EA'?' ea':'')+'"><div class="rowh"><span></span><span>'+sec.h[0]+'</span><span>'+sec.h[1]+'</span></div>';
       if(sec.key==='IM'&&g[0]==='Calcio'){html+='<div class="row"><label for="b_mens">Mensilità pagate dal club (per stagione)</label><div class="eur nc"><select id="b_mens" data-mens aria-label="Mensilità pagate dal club">'+[8,9,10,11,12].map(function(n){return '<option value="'+n+'"'+(String(n)===String(S.mens||'12')?' selected':'')+'>'+n+' mesi</option>'}).join('')+'</select></div><output>× '+(S.mens||'12')+'</output></div>'}
       g[1].forEach(function(it){
         var id=sec.p+it[0];
@@ -1236,6 +1239,19 @@ function buildBudget(){
     $(sec.col).insertAdjacentHTML('beforeend',html);
   });
   bindBud($('#col-exp'));bindBud($('#col-inc'));
+  budBadges(false);
+  ['input','change'].forEach(function(ev){$('#p-budget').addEventListener(ev,function(e){var d=e.target.closest&&e.target.closest('details.bgrp');if(d)budBadges(ev==='change',d)})});
+}
+function budBadges(closeNew,only){
+  $$('#p-budget details.bgrp').forEach(function(d){
+    if(only&&d!==only)return;
+    var ins=$$('.row input[data-bud]',d).filter(function(i){return !i.closest('.row').querySelector('input.cl')});
+    var ok=ins.length>0&&ins.every(function(i){return String(i.value).trim()!==''});
+    d.classList.toggle('gdone',ok);
+    if(!ok)delete d.dataset.shut;
+    else if(closeNew&&!d.dataset.shut){d.dataset.shut='1';d.open=false}
+    else if(!closeNew&&!only&&!d.dataset.shut&&!d.open)d.dataset.shut='1';
+  });
 }
 function renderSched(L,ent,sur){
   var el=$('#b-sched');
@@ -2094,7 +2110,7 @@ function ttGoPerc(){
 function ttWatch(){var c=pCur();if(pLast===null){pLast=c;return}if(c!==pLast)updatePerc()}
 function updatePerc(){
   var cur=pCur(),vert=window.innerWidth<640;
-  if(pLast!==null&&cur>pLast)ttGoPerc();
+  if(pLast!==null&&cur>pLast){ttGoPerc();if(window.ttCelebrate)window.ttCelebrate(cur)}
   if(pLast!==null&&cur!==pLast){var nd=$('#step-'+(cur+1));if(nd)nd.open=true}
   pLast=cur;
   if(window.TT3D&&window.TT3D.setName)window.TT3D.setName(S.prof&&S.prof.cognome,S.prof&&S.prof.num);if(window.TT3D&&window.TT3D.setColors)window.TT3D.setColors(S.prof&&S.prof.c1,S.prof&&S.prof.c2);if(window.TT3D&&window.TT3D.setLook&&S.prof)window.TT3D.setLook({hair:S.prof.hc,boot:S.prof.bc,sex:S.prof.sex,pitch:S.prof.pc});
@@ -2154,7 +2170,7 @@ function buildPerc(){
   window.addEventListener('resize',function(){if($('#p-percorso').hidden)return;var v=window.innerWidth<640;if(v!==pVert)updatePerc()});
 }
 R.perc=updatePerc;
-window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)},open:function(n){var d=$('#step-'+n);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}},steps:PSTEPS.map(function(s){return {n:s.n,t:({1:'Budget',2:'Obiettivi di risparmio',3:'Contratto in regola',4:'Fondo e assicurazione',5:'Analisi debiti',6:'Investire',7:'Lungo termine e pensione'})[s.n]}})};
+window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){return pCrit(n)},open:function(n){var d=$('#step-'+n);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}},steps:PSTEPS.map(function(s){return {n:s.n,t:({1:'Budget',2:'Obiettivi di risparmio',3:'Contratto in regola',4:'Fondo e assicurazione',5:'Analisi debiti',6:'Investire',7:'Lungo termine e pensione'})[s.n]}})};
 (function(){var b=document.getElementById('thm');if(!b)return;
   function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.querySelector('.thm-t').textContent=d?'Chiaro':'Scuro';b.setAttribute('aria-label',d?'Passa al tema chiaro':'Passa al tema scuro');var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d?'#0c1714':'#f2f5f3')}
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
@@ -2229,7 +2245,15 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
   var steps=[],i=0,typing=0,box=document.getElementById('tt-box'),tx=document.getElementById('tt-tx'),raf=0;
   function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
-  window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttConfirm=function(x,lab,yes){steps=[{x:x,cf:lab,yes:yes}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
+  window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
+  window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();
+    setTimeout(function(){if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
+      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Ti riporto al Budget, così puoi continuare a inserire le voci che mancano.','Vai al Budget',function(){showTab('budget');setTimeout(function(){var g=document.getElementById('b-grid');if(g)window.scrollTo({top:Math.max(0,g.getBoundingClientRect().top+window.scrollY-24),behavior:'smooth'})},120)},'Resto qui');return}
+      if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
+      var nx=PS[n],ntab=nx.tab||'percorso';
+      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Vuoi che ti spieghi cosa ti aspetta nel prossimo passo?','Sì, spiegami',function(){
+        window.ttCustom([{tab:ntab,t:ntab==='percorso'?function(){var d=document.getElementById('step-'+nx.n);if(d)d.open=true;return d}:null,x:'<b>Passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>Cosa ti aspetta: '+nx.how.replace(/^<b>Mini-missione:<\/b>\s*/,'')}])},'No, grazie')},5500)};
+  window.ttConfirm=function(x,lab,yes,no){steps=[{x:x,cf:lab,yes:yes,no:no}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   function finish(){navTok++;cancelAnimationFrame(window.__ttRaf);stopSpeak();lift(null);TT.hidden=true;clearInterval(typing);cancelAnimationFrame(raf);document.documentElement.classList.remove('tt-on');if(!S.tourDone&&!(steps[0]&&steps[0].cf)){S.tourDone=1;save()}}
   function tgt(){var st=steps[i];if(!st.t)return null;return typeof st.t==='function'?st.t():document.querySelector(st.t)}
   var lifted=null;
@@ -2257,7 +2281,7 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
     clearTimeout(window.__ttLf);cancelAnimationFrame(window.__ttRaf);window.__ttScroll=1;setTimeout(function(){var e=tgt();if(e&&getComputedStyle(e).position!=='fixed'){var r=e.getBoundingClientRect(),off=Math.max(0,st.t==='.tabs'?r.top+window.scrollY-16:window.scrollY+r.top-(M()?24:40)),y0=window.scrollY,dy=off-y0,dur=Math.min(3200,Math.max(1300,Math.abs(dy)*1.6));if(Math.abs(dy)<4){window.__ttScroll=0;lift(e);return}lift(null);var t0=performance.now(),rm2=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm2){window.scrollTo(0,off);window.__ttScroll=0;lift(tgt());return}var ez=function(p){return p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2};var stp=function(now){var p=Math.min(1,(now-t0)/dur);window.scrollTo(0,y0+dy*ez(p));if(p<1)window.__ttRaf=requestAnimationFrame(stp);else{window.__ttScroll=0;lift(tgt())}};window.__ttRaf=requestAnimationFrame(stp)}else if(e){window.__ttScroll=0;lift(e)}},260);
     document.getElementById('tt-n').textContent=steps.length>1?(i+1)+' di '+steps.length:'';
     document.getElementById('tt-prev').style.visibility=i?'visible':'hidden';
-    document.getElementById('tt-next').textContent=st.cf?st.cf:(i===steps.length-1?'Ho capito':'Avanti');if(st.cf){var pv=document.getElementById('tt-prev');pv.textContent='Annulla';pv.style.visibility='visible'}else document.getElementById('tt-prev').textContent='Indietro';
+    document.getElementById('tt-next').textContent=st.cf?st.cf:(i===steps.length-1?'Ho capito':'Avanti');if(st.cf){var pv=document.getElementById('tt-prev');pv.textContent=st.no||'Annulla';pv.style.visibility='visible'}else document.getElementById('tt-prev').textContent='Indietro';
     var html=(typeof st.x==='function'?st.x():st.x).replace('{N}',esc2(C().name||'il tuo assistente')),tmp=document.createElement('div');tmp.innerHTML=html;var full=tmp.textContent.length,n=0;
     var avd=document.getElementById('tt-av');avd.classList.add('talk');var bub0=document.querySelector('.tt-bub');if(bub0)bub0.style.minHeight='';tx.style.height='';tx.innerHTML=html;speak(tmp.textContent);
     if(st.form){var f=document.createElement('div');f.innerHTML="  <div class=\"co-f\">\n   <div class=\"co-n\"><label class=\"l\" for=\"cot-name\">Come vuoi chiamarmi?</label><input type=\"text\" id=\"cot-name\" maxlength=\"12\" placeholder=\"Leo\" data-co=\"name\"></div>\n   <div class=\"co-c\"><div><label class=\"l\" for=\"cot-hc\">Capelli</label><input type=\"color\" id=\"cot-hc\" data-co=\"hair\" value=\"#2b170e\"></div>\n   <div><label class=\"l\" for=\"cot-j1\">Maglia</label><input type=\"color\" id=\"cot-j1\" data-co=\"c1\" value=\"#f2c21a\"></div>\n   <div><label class=\"l\" for=\"cot-j2\">Dettagli</label><input type=\"color\" id=\"cot-j2\" data-co=\"c2\" value=\"#1f4fa0\"></div></div>\n   <button type=\"button\" class=\"co-rs\" data-co-reset>Colori originali</button>\n  </div>";tx.appendChild(f.firstElementChild);bindCo(tx);quiet(avd);box.classList.add('mid');document.getElementById('tt-n').textContent='';lift(null);paint();return}
@@ -2357,7 +2381,7 @@ $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){showTa
 $$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;S.used.goals=1;save();R.bud()})});
 var oi=$('#obj');oi.value=S.obj||'';oi.addEventListener('input',function(){S.obj=oi.value;save();R.bud()});
 
-function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});R.bud()}
+function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});R.bud();budBadges(false)}
 $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttConfirm('Ei, sei sicuro di voler cancellare tutto? <b>Non sarà possibile ripristinare i dati</b> una volta cancellati: dovrai reinserirli da zero.','Sì, cancella tutto',budReset);else if(confirm('Cancellare tutto il budget?'))budReset()});
 
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
