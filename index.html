@@ -81,7 +81,7 @@ html.ttm .dvb{display:none}
 .tt-av{width:96px;height:96px;flex:none;border-radius:50%;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.4);animation:ttb 2.4s ease-in-out infinite}
 @keyframes ttb{50%{transform:translateY(-5px)}}
 .tt-bub{flex:1;min-width:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px 16px 16px 4px;padding:10px 14px 12px;box-shadow:0 12px 40px rgba(0,0,0,.4)}
-.tt-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}.tt-top b{font-size:.95rem}
+.tt-id{flex:1;display:flex;flex-direction:column;min-width:0;line-height:1.15}.tt-id .tt-n{flex:none!important;margin-top:2px}.tt-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}.tt-top b{font-size:.95rem}
 .tt-n{font-size:.75rem;color:var(--muted);flex:1}
 .tt-vo{border:1px solid var(--line);background:transparent;color:var(--muted);font:700 .76rem var(--f-body);cursor:pointer;padding:4px 9px;border-radius:99px;margin-right:6px;white-space:nowrap}.tt-vo[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.tt-vo[hidden]{display:none}
 .tt-skip{border:0;background:none;color:var(--muted);font:600 .8rem var(--f-body);cursor:pointer;padding:6px}
@@ -512,13 +512,29 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
  .tt-bub{right:8px!important;left:8px!important;width:auto!important;bottom:calc(var(--avh)*.9 + 4px)!important;max-height:calc(100vh - var(--avh)*.9 - 20px);padding:14px 16px 16px!important}
  .tt-top b{font-size:1.1rem!important}
  .tt-tx{font-size:1.15rem!important}
- .tt-btns .btn{font-size:1.02rem!important;min-height:48px!important;padding:10px 20px!important}
+ .tt-btns .btn{font-size:.92rem!important;min-height:43px!important;padding:9px 18px!important}
+ .tt-vo{font-size:.75rem!important;padding:5px 10px!important}
+ .tt-skip{font-size:.75rem!important;padding:6px 8px!important}
  .tt-bub::before{right:calc(var(--avh)*.3)!important;top:auto!important;bottom:-12px!important}
 }
 .pitch-wrap{max-width:none!important}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;border-bottom:0;padding:0}
 .tg,.tg+.tg{background:var(--surface);border:1px solid var(--line);border-radius:12px;min-width:0}
 @media (min-width:641px){.tg,.tg+.tg{padding:10px 12px}.tgb{flex-wrap:wrap}}
+
+/* tt-final-sizes */
+.tt-id{display:flex!important;flex-direction:column!important;align-items:flex-start!important;flex:1 1 auto!important;min-width:0}
+.tt-id .tt-n{display:block!important;flex:none!important;margin:2px 0 0!important;font-size:.85rem!important}
+.tt-top{flex-wrap:nowrap!important;align-items:center!important}
+.tt-vo{font-size:.75rem!important;padding:5px 10px!important;margin-right:2px!important}
+.tt-skip{font-size:.75rem!important;padding:6px 8px!important}
+.tt-btns .btn{font-size:1.04rem!important;min-height:49px!important;padding:11px 25px!important}
+@media (max-width:640px){
+ .tt-vo{font-size:.62rem!important;padding:4px 8px!important}
+ .tt-skip{font-size:.62rem!important;padding:5px 6px!important}
+ .tt-btns .btn{font-size:.83rem!important;min-height:39px!important;padding:8px 16px!important}
+ .tt-id .tt-n{font-size:.72rem!important}
+}
 </style>
 
 <div class="wrap">
@@ -555,7 +571,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
  <div class="tt-ov" id="tt-ov"></div>
  <div class="tt-box" id="tt-box" role="dialog" aria-live="polite" aria-label="Spiegazione guidata">
   <div class="tt-av" id="tt-av" aria-hidden="true"><canvas class="co-cv"></canvas></div>
-  <div class="tt-bub"><div class="tt-top"><b class="cname"></b><span class="tt-n" id="tt-n"></span><button type="button" class="tt-vo" id="tt-vo" aria-pressed="false" title="Fatti leggere ad alta voce">&#128266; Voce</button><button type="button" class="tt-skip" id="tt-skip">Esci</button></div>
+  <div class="tt-bub"><div class="tt-top"><div class="tt-id"><b class="cname"></b><span class="tt-n" id="tt-n"></span></div><button type="button" class="tt-vo" id="tt-vo" aria-pressed="false" title="Fatti leggere ad alta voce">&#128266; Voce</button><button type="button" class="tt-skip" id="tt-skip">Esci</button></div>
    <div class="tt-tx" id="tt-tx"></div>
    <div class="tt-btns"><button type="button" class="btn ghost" id="tt-prev">Indietro</button><button type="button" class="btn" id="tt-next">Avanti</button></div></div>
  </div>
@@ -2179,7 +2195,8 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
   function T(){return M()?'Tocca':'Clicca'}
   var SEC={
    hello:[{t:null,form:1,x:function(){return 'Ciao, sono il tuo assistente personale. <b>Chiamami come vuoi e personalizzami come preferisci.</b>'}}],
-   intro:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Eccomi! ')+' '+'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
+   ask:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Piacere! ')+'Ora ti guiderò in un breve tour dell\'app, va bene?'}}],
+   intro:[{t:null,x:function(){return (C().name?'Sono <b>{N}</b>. ':'')+'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
           {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget e obiettivi), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
    percorso:[{tab:'percorso',t:'#pitch',x:function(){return '<b>Il mio percorso</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando lo sblocchi, il lucchetto si sblocca e il tuo giocatore dribbla fino al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
@@ -2205,7 +2222,7 @@ window.ttPerc={refresh:function(){updatePerc()},crit:function(n){return pCrit(n)
    end:[{t:'#hlb',x:function(){return 'Ultima cosa: quando hai un dubbio '+(M()?'tocca':'clicca')+' <b>Hai bisogno di aiuto?</b> e torno io a spiegarti la schermata dove sei.'+(M()?'':' In alto a destra cambi tema chiaro o scuro.')+' Buon percorso!'}}]
   };
   var steps=[],i=0,typing=0,box=document.getElementById('tt-box'),tx=document.getElementById('tt-tx'),raf=0;
-  function build(k){if(k==='first')return SEC.hello.concat(SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
+  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttConfirm=function(x,lab,yes){steps=[{x:x,cf:lab,yes:yes}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   function finish(){navTok++;cancelAnimationFrame(window.__ttRaf);stopSpeak();lift(null);TT.hidden=true;clearInterval(typing);cancelAnimationFrame(raf);document.documentElement.classList.remove('tt-on');if(!S.tourDone&&!(steps[0]&&steps[0].cf)){S.tourDone=1;save()}}
