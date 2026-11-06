@@ -1,0 +1,36 @@
+TERZO TEMPO - COME PUBBLICARE LA VERSIONE DI PROVA (gratis, circa 10 minuti)
+
+1) Vai su github.com e crea un account gratuito (se non ce l'hai).
+2) Clicca "New repository". Nome: un nome NON indovinabile, per esempio tt-prova-k7x2 (non 'terzotempo'). Scegli "Public". Crea.
+3) Clicca "uploading an existing file" e trascina TUTTI i file di questa cartella
+   (index.html, robots.txt, manifest.webmanifest, sw.js e la cartella icons). Poi "Commit changes".
+4) Vai in Settings > Pages. In "Branch" scegli main e cartella /(root). Salva.
+5) Dopo 1-2 minuti il tuo link sara: https://TUONOME.github.io/tt-prova-k7x2/
+   (compare in alto nella pagina Pages). Quello e il link da mandare.
+
+COME LO INSTALLANO GLI UTENTI
+- iPhone: aprire il link con Safari > tasto Condividi > "Aggiungi alla schermata Home".
+- Android: aprire il link con Chrome > menu (tre puntini) > "Installa app" / "Aggiungi a schermata Home".
+- Computer: Chrome o Edge > icona "Installa" nella barra dell'indirizzo.
+
+DATI
+- Restano solo nel dispositivo di chi usa l'app. Nessun server, nessun account.
+- Non passano da un dispositivo all'altro: per questo c'e "Salva i miei dati" / "Ripristina i dati"
+  nel menu "Hai bisogno di aiuto?".
+- Su iPhone i dati sono piu al sicuro se l'app e installata sulla Home.
+
+AGGIORNAMENTI
+- Quando cambi index.html su GitHub, gli utenti vedono la nuova versione alla riapertura
+  (a volte alla seconda). Se serve forzarla, cambia 'terzotempo-v1' in sw.js (es. v2).
+
+FEEDBACK
+- Nel file index.html cerca FB_URL='' e incolla tra gli apici il link del tuo Google Form (o Tally).
+  Finche e vuoto, il pulsante "Manda un feedback" resta nascosto. Il testo compilato viene copiato negli appunti.
+- Nessun numero di telefono e presente nel codice.
+
+PRIVACY DEL LINK (importante)
+- GitHub Pages gratuito e PUBBLICO: chiunque abbia il link puo aprirlo. Non esiste una versione gratuita con accesso solo su invito.
+- Per renderlo "solo con link": nome del repository non indovinabile, nessuna indicizzazione sui motori di ricerca
+  (gia inclusa: tag noindex e robots.txt), link condiviso solo da te.
+- Il repository deve essere pubblico, quindi anche il codice e leggibile da chi lo trova (non contiene dati personali).
+- Per un accesso davvero riservato (solo email autorizzate) serve Cloudflare Pages + Cloudflare Access (gratis fino a 50 persone), ma e piu complicato.
