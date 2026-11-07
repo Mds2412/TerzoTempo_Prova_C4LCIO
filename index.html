@@ -1,4 +1,5 @@
-<meta charset="utf-8"><meta name="robots" content="noindex,nofollow,noarchive">
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <title>Terzo Tempo</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
@@ -591,6 +592,14 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 #lt-card .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 
 .tt-flash{animation:ttf 2.4s ease}@keyframes ttf{0%,60%{box-shadow:0 0 0 4px var(--accent);background:var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
+
+.row label.wk.mo input{width:2.7rem;height:auto;min-height:0;padding:2px 4px;text-align:center;font-size:.8rem;border-radius:6px}
+
+.tabs [data-tab].locked{opacity:.6;cursor:not-allowed}
+.tabs [data-tab].locked:hover{background:inherit}
+.lk{display:inline-block;width:.8em;height:.8em;margin-left:.35em;vertical-align:-.08em}
+.lk svg{width:100%;height:100%;display:block;fill:currentColor}
+.hlp-i.locked{opacity:.7}
 </style>
 
 <div class="wrap">
@@ -894,7 +903,7 @@ function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAl
 var eur0=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0,useGrouping:'always'});
 function eur(v){return eur0.format(Math.round(v))}
 function pct(v){return (v*100).toLocaleString('it-IT',{maximumFractionDigits:1})+'%'}
-function mm(sec,id){return sec.freq==='M'?(id==='im_calcio_m'?(num(S.mens)||12):(S.bud['W_'+id]?52:12)):1}
+function mm(sec,id){if(sec.freq!=='M')return 1;if(id==='im_calcio_m')return num(S.mens)||12;var mo=num(S.bud['M_'+id]);mo=(mo>=1&&mo<=12)?mo:12;return S.bud['W_'+id]?52*mo/12:mo}
 function num(v){
   if(typeof v==='number')return isFinite(v)?v:0;
   var s=String(v==null?'':v).trim().replace(/\s|€/g,'');
@@ -1220,10 +1229,10 @@ var B_INC_A=[
 ];
 var esc=function(t){return String(t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')};
 var SECS=[
- {key:'EM',col:'#col-exp',freq:'M',p:'m_',t:'Spese mensili',s:'Ogni importo viene moltiplicato per 12. Se una spesa la sai a settimana, spunta «lo inserisco a settimana»: viene moltiplicata per 52 settimane.',g:B_EXP_M,h:['€ al mese','€ all\'anno']},
+ {key:'EM',col:'#col-exp',freq:'M',p:'m_',t:'Spese mensili',s:'Ogni importo viene moltiplicato per 12. Se una spesa la sai a settimana, spunta «lo inserisco a settimana»: viene moltiplicata per 52 settimane. Se la paghi solo alcuni mesi (ad esempio la palestra per 8), scrivi i mesi in «Considera per… mesi l\'anno».',g:B_EXP_M,h:['€ al mese','€ all\'anno']},
  {key:'EA',col:'#col-exp',freq:'A',p:'a_',t:'Spese annuali',s:'Ogni importo viene diviso per 12 per vedere il peso sul mese.',g:B_EXP_A,h:['€ all\'anno','€ al mese']},
  {key:'SV',col:'#sv-body',freq:'M',p:'sv_',t:'Già messo da parte ogni mese',s:'Non è una spesa: sono soldi che ti avanzano e hai già messo da parte.',g:B_SAVE,h:['€ al mese','€ all\'anno']},
- {key:'IM',col:'#col-inc',freq:'M',p:'im_',t:'Entrate mensili',s:'Importi netti. Ogni importo viene moltiplicato per 12 (o per 52 se lo inserisci a settimana). Fa eccezione il compenso calcio mensile: usa le mensilità che scegli qui sotto.',g:B_INC_M,h:['€ al mese','€ all\'anno']},
+ {key:'IM',col:'#col-inc',freq:'M',p:'im_',t:'Entrate mensili',s:'Importi netti. Ogni importo viene moltiplicato per 12 (o per 52 se lo inserisci a settimana), oppure per i mesi che indichi in «Considera per… mesi l\'anno». Fa eccezione il compenso calcio mensile: usa le mensilità che scegli qui sotto.',g:B_INC_M,h:['€ al mese','€ all\'anno']},
  {key:'IA',col:'#col-inc',freq:'A',p:'ia_',t:'Entrate annuali',s:'Importi netti. Ogni importo viene diviso per 12 per il mese.',g:B_INC_A,h:['€ all\'anno','€ al mese']}
 ];
 SECS.forEach(function(sec){sec.g.forEach(function(g,gi){g[1].push(['x'+gi,null])})});
@@ -1262,6 +1271,9 @@ function bindBud(root){
   $$('[data-bd]',root).forEach(function(p){p.addEventListener('change',function(){
     var t=p.parentNode.querySelector('[data-bt]');if(t){t.value=fmtD(p.value);t.classList.remove('bad')}})});
   $$('[data-mens]',root).forEach(function(el){el.addEventListener('change',function(){S.mens=el.value;var o=el.parentNode.parentNode.querySelector('output');if(o)o.textContent='× '+el.value;save();R.bud()})});
+  $$('[data-mo]',root).forEach(function(el){var k=el.getAttribute('data-mo');
+    el.addEventListener('input',function(){var v=el.value.replace(/[^0-9]/g,'');if(v!==el.value)el.value=v;var n=parseInt(v,10);if(n>=1&&n<=12)S.bud['M_'+k]=String(n);else delete S.bud['M_'+k];save();R.bud()});
+    el.addEventListener('change',function(){var n=parseInt(el.value,10);if(!(n>=1&&n<=12)){el.value='';delete S.bud['M_'+k];save();R.bud()}})});
   $$('[data-wk]',root).forEach(function(el){el.addEventListener('change',function(){var k=el.getAttribute('data-wk');if(el.checked)S.bud['W_'+k]=1;else delete S.bud['W_'+k];var i=$('#b_'+k);if(i)i.placeholder=el.checked?'0 a sett.':'0';save();R.bud()})});
   $$('[data-bud]',root).forEach(function(el){
     el.addEventListener('input',function(){var k=el.getAttribute('data-bud');S.bud[k]=el.value;if(el.value!=='')S.bt[k]=1;save();R.bud()});
@@ -1295,7 +1307,7 @@ function buildBudget(){
       g[1].forEach(function(it){
         var id=sec.p+it[0];
         var lab=it[1]===null?'<input type="text" class="cl" id="bl_'+id+'" data-bl="'+id+'" aria-label="Voce personalizzata" placeholder="Altro…" value="'+esc(S.bud['L_'+id]||'')+'">':'<label for="b_'+id+'">'+it[1]+'</label>';
-        var wkOk=(sec.key==='EM'||sec.key==='IM')&&id!=='im_calcio_m',wk=wkOk?'<label class="wk" for="w_'+id+'"><input type="checkbox" id="w_'+id+'" data-wk="'+id+'"'+(S.bud['W_'+id]?' checked':'')+'> lo inserisco a settimana<span class="wkm" id="wk_'+id+'"></span></label>':'';
+        var wkOk=(sec.key==='EM'||sec.key==='IM')&&id!=='im_calcio_m',wk=wkOk?'<label class="wk" for="w_'+id+'"><input type="checkbox" id="w_'+id+'" data-wk="'+id+'"'+(S.bud['W_'+id]?' checked':'')+'> lo inserisco a settimana<span class="wkm" id="wk_'+id+'"></span></label><label class="wk mo" for="mo_'+id+'">Considera per <input type="text" inputmode="numeric" maxlength="2" id="mo_'+id+'" data-mo="'+id+'" value="'+esc(S.bud['M_'+id]||'')+'" placeholder="12" aria-label="Numero di mesi l\'anno"> mesi l\'anno</label>':'';
         html+='<div class="row"><div class="lc">'+lab+wk+'</div><div class="eur"><input type="text" inputmode="decimal" id="b_'+id+'" data-bud="'+id+'" value="'+esc(S.bud[id]||'')+'" placeholder="'+(S.bud['W_'+id]?'0 a sett.':'0')+'"></div><output id="o_'+id+'">–</output></div>';
         if(sec.key==='EA')html+='<div class="sched"><div class="fld"><span class="fl">Scadenza</span><div class="dt"><input type="text" inputmode="numeric" placeholder="gg/mm/aaaa" aria-label="Scadenza (scrivi la data)" data-bt="'+id+'" value="'+esc(fmtD(S.bud['D_'+id]))+'"><button type="button" class="dtb" aria-label="Apri calendario" data-bc="'+id+'">📅</button><input type="date" tabindex="-1" aria-hidden="true" class="dtp" data-bd="'+id+'" value="'+esc(S.bud['D_'+id]||'')+'"></div></div><div class="fld"><span class="fl">Già messo da parte</span><div class="eur"><input type="text" inputmode="decimal" aria-label="Già messo da parte" data-bp="'+id+'" value="'+esc(S.bud['P_'+id]||'')+'" placeholder="0"></div></div></div>';
       });
@@ -2216,7 +2228,7 @@ window.ttReturn=function(){
   setTimeout(function(){var r=el.getBoundingClientRect();var y=Math.max(0,window.scrollY+r.top-Math.max(120,window.innerHeight*0.3));window.scrollTo({top:y,behavior:'smooth'});el.classList.add('tt-flash');setTimeout(function(){el.classList.remove('tt-flash')},2600)},200);
   return true};
 function updatePerc(){
-  var cur=pCur(),vert=window.innerWidth<640;
+  var cur=pCur(),vert=window.innerWidth<640;if(cur>(S.unl||0))refreshLocks();
   if(pLast!==null&&cur>pLast){ttGoPerc();if(window.ttCelebrate)window.ttCelebrate(cur)}
   if(pLast!==null&&cur!==pLast){var nd=$('#step-'+(cur+1));if(nd)nd.open=true}
   pLast=cur;
@@ -2272,7 +2284,7 @@ function buildPerc(){
   $('#f-mesi').addEventListener('change',function(){S.fund.mesi=this.value;save();updatePerc()});
   $('#f-saved').addEventListener('input',function(){S.fund.saved=this.value;save();updatePerc()});
   $$('[data-chk]').forEach(function(c){c.checked=!!S.chk[c.getAttribute('data-chk')];c.addEventListener('change',function(){S.chk[c.getAttribute('data-chk')]=c.checked;save();updatePerc()})});
-  $$('[data-pgo]').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-pgo'));window.scrollTo(0,0)})});
+  $$('[data-pgo]').forEach(function(b){b.addEventListener('click',function(){var pt=b.getAttribute('data-pgo');if(pt==='budget'){S.ub=1;save();refreshLocks()}else if(tabLocked(pt)){lockedMsg(pt);return}showTab(pt);window.scrollTo(0,0)})});
   var op=$('#step-'+(pCur()+1));if(op)op.open=true;
   window.addEventListener('resize',function(){if($('#p-percorso').hidden)return;var v=window.innerWidth<640;if(v!==pVert)updatePerc()});
 }
@@ -2355,14 +2367,17 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();
+    function status(){var PS=window.ttPerc.all,done=[],k;for(k=0;k<n;k++)done.push('✅ '+PS[k].t);
+      var nx=PS[n],cr=window.ttPerc.crit(n+1).filter(function(c){return !c[1]}).map(function(c){return '⬜ '+c[0]+(c[2]?'':'')}),
+        ntab=nx.tab||'percorso';
+      window.ttCustom([{tab:'percorso',t:function(){var d=document.getElementById('step-'+nx.n);if(d)d.open=true;return d},
+        x:'<b>Completati:</b><br>'+done.join('<br>')+'<br><br><b>Ora tocca al passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>'+nx.how+(cr.length?'<br><br><b>Cosa manca:</b><br>'+cr.join('<br>'):'')+'<br><br>Poi ci sono ancora '+(7-nx.n)+' passi.'}])}
     setTimeout(function(){if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
-      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Ti riporto alla voce del Budget in cui eri, così puoi continuare a inserire quelle che mancano.','Riportami lì',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');setTimeout(function(){var g=document.getElementById('b-grid');if(g)window.scrollTo({top:Math.max(0,g.getBoundingClientRect().top+window.scrollY-24),behavior:'smooth'})},120)},'Resto qui');return}
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
-      var nx=PS[n],ntab=nx.tab||'percorso';
-      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Vuoi che ti spieghi cosa ti aspetta nel prossimo passo?','Sì, spiegami',function(){
-        window.ttCustom([{tab:ntab,t:ntab==='percorso'?function(){var d=document.getElementById('step-'+nx.n);if(d)d.open=true;return d}:null,x:'<b>Passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>Cosa ti aspetta: '+nx.how.replace(/^<b>Mini-missione:<\/b>\s*/,'')}])},'No, grazie')},5500)};
-  window.ttConfirm=function(x,lab,yes,no){steps=[{x:x,cf:lab,yes:yes,no:no}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
-  function finish(){navTok++;cancelAnimationFrame(window.__ttRaf);stopSpeak();lift(null);TT.hidden=true;clearInterval(typing);cancelAnimationFrame(raf);document.documentElement.classList.remove('tt-on');if(!S.tourDone&&!(steps[0]&&steps[0].cf)){S.tourDone=1;save()}}
+      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi di risparmio» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
+      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')},5500)};
+  window.ttConfirm=function(x,lab,yes,no,nof){steps=[{x:x,cf:lab,yes:yes,no:no,nof:nof}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
+  function finish(){navTok++;cancelAnimationFrame(window.__ttRaf);stopSpeak();lift(null);TT.hidden=true;clearInterval(typing);cancelAnimationFrame(raf);document.documentElement.classList.remove('tt-on');if(!S.tourDone&&!(steps[0]&&steps[0].cf)){S.tourDone=1;save()}if(window.ttFixLock&&!(steps[0]&&steps[0].cf))window.ttFixLock()}
   function tgt(){var st=steps[i];if(!st.t)return null;return typeof st.t==='function'?st.t():document.querySelector(st.t)}
   var lifted=null;
   function lift(e){if(lifted){lifted.classList.remove('tt-lift','tt-lbg')}lifted=e;var ov=document.getElementById('tt-ov');
@@ -2392,7 +2407,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     document.getElementById('tt-next').textContent=st.cf?st.cf:(i===steps.length-1?'Ho capito':'Avanti');if(st.cf){var pv=document.getElementById('tt-prev');pv.textContent=st.no||'Annulla';pv.style.visibility='visible'}else document.getElementById('tt-prev').textContent='Indietro';
     var html=(typeof st.x==='function'?st.x():st.x).replace('{N}',esc2(C().name||'il tuo assistente')),tmp=document.createElement('div');tmp.innerHTML=html;var full=tmp.textContent.length,n=0;
     var chEl=document.getElementById('tt-ch'),btnRow=document.querySelector('.tt-btns');if(!chEl){chEl=document.createElement('div');chEl.id='tt-ch';chEl.className='tt-ch';btnRow.parentNode.insertBefore(chEl,btnRow)}chEl.innerHTML='';chEl.hidden=true;btnRow.style.display='';
-    if(st.choices){btnRow.style.display='none';chEl.hidden=false;[['Esplorare l\'app da solo',function(){}],['Fare il tour completo',function(){start('rest')}],['Iniziare dal passo 1',function(){var s1=window.ttPerc.all[0];window.ttCustom([{tab:'budget',t:null,x:'<b>Passo 1: '+s1.t+'</b><br>Perché è importante: '+s1.why+'<br><br>Cosa ti aspetta: '+s1.how.replace(/^<b>Mini-missione:<\/b>\s*/,'')}])}]].forEach(function(c,ci){var bt=document.createElement('button');bt.type='button';bt.className='btn'+(ci===2?'':' ghost');bt.textContent=c[0];bt.addEventListener('click',function(){var fn=c[1];finish();fn()});chEl.appendChild(bt)})}
+    if(st.choices){btnRow.style.display='none';chEl.hidden=false;[['Esplorare l\'app da solo',function(){}],['Fare il tour completo',function(){start('rest')}],['Iniziare dal passo 1',function(){S.ub=1;save();if(window.ttRefreshLocks)window.ttRefreshLocks();var s1=window.ttPerc.all[0];window.ttCustom([{tab:'budget',t:null,x:'<b>Passo 1: '+s1.t+'</b><br>Perché è importante: '+s1.why+'<br><br>Cosa ti aspetta: '+s1.how.replace(/^<b>Mini-missione:<\/b>\s*/,'')}])}]].forEach(function(c,ci){var bt=document.createElement('button');bt.type='button';bt.className='btn'+(ci===2?'':' ghost');bt.textContent=c[0];bt.addEventListener('click',function(){var fn=c[1];finish();fn()});chEl.appendChild(bt)})}
     var avd=document.getElementById('tt-av');avd.classList.add('talk');var bub0=document.querySelector('.tt-bub');if(bub0)bub0.style.minHeight='';tx.style.height='';tx.innerHTML=html;speak(tmp.textContent);
     if(st.form){var f=document.createElement('div');f.innerHTML="  <div class=\"co-f\">\n   <div class=\"co-n\"><label class=\"l\" for=\"cot-name\">Come vuoi chiamarmi?</label><input type=\"text\" id=\"cot-name\" maxlength=\"12\" placeholder=\"Leo\" data-co=\"name\"></div>\n   <div class=\"co-c\"><div><label class=\"l\" for=\"cot-hc\">Capelli</label><input type=\"color\" id=\"cot-hc\" data-co=\"hair\" value=\"#2b170e\"></div>\n   <div><label class=\"l\" for=\"cot-j1\">Maglia</label><input type=\"color\" id=\"cot-j1\" data-co=\"c1\" value=\"#f2c21a\"></div>\n   <div><label class=\"l\" for=\"cot-j2\">Dettagli</label><input type=\"color\" id=\"cot-j2\" data-co=\"c2\" value=\"#1f4fa0\"></div></div>\n   <button type=\"button\" class=\"co-rs\" data-co-reset>Colori originali</button>\n  </div>";tx.appendChild(f.firstElementChild);bindCo(tx);quiet(avd);box.classList.add('mid');document.getElementById('tt-n').textContent='';lift(null);paint();return}
     if(bub0){void bub0.offsetHeight;tx.style.height='';tx.style.height=tx.scrollHeight+'px'}
@@ -2415,7 +2430,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   window.addEventListener('pagehide',stopSpeak);
   function skipType(){if(typing){clearInterval(typing);typing=0;show.done=1;var st=steps[i];tx.innerHTML=(typeof st.x==='function'?st.x():st.x).replace('{N}',esc2(C().name||'il tuo assistente'));quiet(document.getElementById('tt-av'));return true}return false}
   document.getElementById('tt-next').addEventListener('click',function(){if(skipType())return;if(steps[i]&&steps[i].choices)return;if(steps[i].cf){var fn=steps[i].yes;finish();if(fn)fn();return}if(i<steps.length-1){i++;show()}else finish()});
-  document.getElementById('tt-prev').addEventListener('click',function(){if(steps[i]&&steps[i].cf){finish();return}if(i>0){i--;show()}});
+  document.getElementById('tt-prev').addEventListener('click',function(){if(steps[i]&&steps[i].cf){var nf=steps[i].nof;finish();if(nf)nf();return}if(i>0){i--;show()}});
   document.getElementById('tt-skip').addEventListener('click',finish);
   document.getElementById('tt-ov').addEventListener('click',function(){skipType()});
   document.addEventListener('keydown',function(e){if(TT.hidden||e.ctrlKey||e.metaKey||e.altKey)return;var t=e.target,tn=t&&t.tagName,ed=tn==='INPUT'||tn==='TEXTAREA'||tn==='SELECT'||(t&&t.isContentEditable),k=e.key;
@@ -2444,6 +2459,22 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   window.ttTourAuto=function(){if(!S.tourDone)setTimeout(function(){start('first')},500)};
   if(S.prof&&S.prof.done)window.ttTourAuto();
 })();
+var LKSVG='<span class="lk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3z"/></svg></span>';
+var LKREQ={budget:0,obiettivi:1,home:1,contratto:2,conformita:2,netto:2};
+function tabLocked(t){if(t==='percorso'||t==='faq'||!(t in LKREQ))return false;if(t==='budget')return !(S.ub||(S.unl||0)>=1);return (S.unl||0)<LKREQ[t]}
+function refreshLocks(){
+  if(pCur()>(S.unl||0)){S.unl=pCur();save()}
+  $$('.tabs [data-tab]').forEach(function(b){var L=tabLocked(b.getAttribute('data-tab')),k=b.querySelector('.lk');
+    b.classList.toggle('locked',L);b.setAttribute('aria-disabled',L?'true':'false');
+    if(L&&!k)b.insertAdjacentHTML('beforeend',LKSVG);else if(!L&&k)k.remove()});
+  $$('#hlp [data-tour]').forEach(function(b){var t=b.getAttribute('data-tour'),L=tabLocked(t),k=b.querySelector('.lk');
+    b.classList.toggle('locked',L);if(L&&!k)b.insertAdjacentHTML('beforeend',LKSVG);else if(!L&&k)k.remove()});
+}
+function lockedMsg(t){var f=function(){showTab('percorso');window.scrollTo(0,0)},r=LKREQ[t],P=window.ttPerc&&window.ttPerc.all,m;
+  if(t==='budget')m='Il Budget si apre dal <b>passo 1</b> in «Il mio percorso»: premi il tasto «Vai al Budget» che trovi lì.';
+  else m='Si sblocca quando completi il <b>passo '+r+(P?' «'+P[r-1].t+'»':'')+'</b> in «Il mio percorso».';
+  if(window.ttConfirm)window.ttConfirm('<b>Sezione bloccata</b> \ud83d\udd12 '+m,'Vai al percorso',f,'Ok');else f()}
+window.ttRefreshLocks=refreshLocks;window.ttFixLock=function(){if(tabLocked(S.tab))showTab('percorso')};
 function showTab(t){
   S.tab=t;
   $$('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
@@ -2457,8 +2488,8 @@ function showTab(t){
   fitSoon();
   var ab=$('[data-tab="'+t+'"]'),tb=$('.tabs');if(ab&&tb&&tb.scrollWidth>tb.clientWidth)tb.scrollLeft=ab.offsetLeft-tb.clientWidth/2+ab.offsetWidth/2;
 }
-$$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-tab'))})});
-$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-go'));window.scrollTo(0,0)})});
+$$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-tab');if(tabLocked(t)){lockedMsg(t);return}showTab(t)})});
+$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-go');if(tabLocked(t)){lockedMsg(t);return}showTab(t);window.scrollTo(0,0)})});
 (function(){
   var ob=$('#ob'),f=$('#ob-f');if(!ob||!f)return;
   function kit(){var a=$('#ob-c1').value,b=$('#ob-c2').value;$('#k-body').setAttribute('fill',a);$('#k-sh').setAttribute('fill',b);$('#k-st').setAttribute('fill',b)}
@@ -2494,7 +2525,7 @@ var ltf=$('#lt-fill');if(ltf)ltf.addEventListener('click',function(){var inv=num
 $$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;S.used.goals=1;save();R.bud()})});
 var oi=$('#obj');oi.value=S.obj||'';oi.addEventListener('input',function(){S.obj=oi.value;save();R.bud()});
 
-function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});$$('[data-wk]').forEach(function(e){e.checked=false});$$('[data-bud]').forEach(function(e){e.placeholder='0'});R.bud();budBadges(false)}
+function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});$$('[data-wk]').forEach(function(e){e.checked=false});$$('[data-mo]').forEach(function(e){e.value=''});$$('[data-bud]').forEach(function(e){e.placeholder='0'});R.bud();budBadges(false)}
 $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttConfirm('Ei, sei sicuro di voler cancellare tutto? <b>Non sarà possibile ripristinare i dati</b> una volta cancellati: dovrai reinserirli da zero.','Sì, cancella tutto',budReset);else if(confirm('Cancellare tutto il budget?'))budReset()});
 
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
@@ -2534,7 +2565,7 @@ buildQ();buildBudget();bindAll();renderAll();R.bud();
 [['#p-contratto','contr'],['#p-conformita','comp'],['#p-netto','sim']].forEach(function(x){var el=$(x[0]);['input','change'].forEach(function(ev){el.addEventListener(ev,function(){if(!S.used[x[1]]){S.used[x[1]]=1;save()}})})});
 buildPerc();
 var h=(location.hash||'').replace('#','');
-showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','faq'].indexOf(h)>-1?h:'percorso');
+if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','faq'].indexOf(h)>-1?h:'percorso');
 })();
 </script>
 <script id="tt3d">
