@@ -326,7 +326,7 @@ summary .gt{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted
 .ea .row{border-top:2px solid color-mix(in srgb,var(--ink) 38%,var(--line));padding-top:12px;margin-top:4px}
 .ea .rowh+.row{margin-top:0}
 .ea .sched{padding-bottom:12px}
-.row label{font-size:.9rem;min-width:0;overflow-wrap:anywhere}
+.row label{font-size:clamp(.78rem,3.7vw,.9rem);min-width:0;overflow-wrap:normal;word-break:normal;hyphens:manual}
 .row .eur input{min-height:38px;padding-top:5px;padding-bottom:5px}
 .row output{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.88rem}
 .banner{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.9rem;font-weight:500}
@@ -346,7 +346,7 @@ summary .gt{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted
 .bar>i.ok{background:var(--ok)}
 .bar>i.risk{background:var(--risk)}
 .cmp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:baseline;margin-bottom:4px;font-variant-numeric:tabular-nums}
-.cmp .nm{overflow-wrap:anywhere}
+.cmp .nm{overflow-wrap:normal;word-break:normal}
 .gap{margin-bottom:12px}
 .intro{padding:16px 18px;background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:10px}
 .intro h3{margin:0 0 8px}
@@ -545,10 +545,52 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 .tt-bub .tt-btns{position:static!important;bottom:auto!important;padding:10px 0 0!important;margin-top:8px!important}
 .tt-bub .tt-tx{padding:0 .4rem 0 .45rem}
 
-.bgrp .gok{display:none;align-items:center;justify-content:center;width:1.25em;height:1.25em;margin-left:.55em;border-radius:50%;background:#1f9d55;color:#fff;font-size:.78em;font-weight:800;line-height:1;vertical-align:middle}
-.bgrp.gdone .gok{display:inline-flex}
+.gok{display:none;align-items:center;justify-content:center;width:1.25em;height:1.25em;margin-left:.55em;border-radius:50%;background:#1f9d55;color:#fff;font-size:.78em;font-weight:800;line-height:1;vertical-align:middle}
+details.gdone>summary .gok{display:inline-flex}
 
 .tt-ch{display:flex;flex-direction:column;gap:8px;margin-top:10px;flex:none}.tt-ch[hidden]{display:none}.tt-ch .btn{width:100%;font-size:.9rem!important;min-height:42px!important;padding:9px 14px!important}
+
+.bmain{border:2px solid var(--ink);border-radius:12px;background:var(--surface)}
+.bmain>summary{padding:10px 12px;min-height:50px}
+.bmain>summary h3.side{margin:0;border:0;padding:0;flex:1;display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:1.5rem}
+.bmain>summary h3.side{flex-wrap:wrap}.bmain>summary h3.side span{font-size:.8rem;font-weight:500;text-transform:none;letter-spacing:0}
+.bmain-in{padding:6px 8px 4px}
+.bsub{background:var(--accent-soft);border-color:var(--accent)}
+.bsub>summary{font-size:1.02rem}
+.bsub-in{padding:0 6px 4px}
+.bsub-in>p.sub{margin:0 0 8px;font-size:.82rem}
+.bsub .bgrp{background:var(--surface)}
+.rows{padding:0 8px 6px}
+.lc{min-width:0;display:flex;flex-direction:column;gap:3px}
+.row label.wk{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.74rem!important;color:var(--muted);cursor:pointer}
+.row label.wk input{width:16px;height:16px;min-height:0;margin:0;padding:0;flex:none}
+.wkm{font-weight:600;color:var(--ink)}
+@media (max-width:560px){
+ .rowh,.row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:10px;row-gap:4px}
+ .rowh span:first-child{display:none}
+ .row>.lc,.row>label,.row>input.cl{grid-column:1/-1}
+ .row{padding:8px 0}
+}
+
+@media (max-width:560px){
+ #b-sum{width:100%;table-layout:fixed}
+ #b-sum th{font-size:.72rem;padding:8px 4px}
+ #b-sum th:first-child,#b-sum td:first-child{width:42%}
+ #b-sum td{padding:9px 4px;font-size:.84rem;overflow-wrap:normal;word-break:normal}
+ #b-sum td:not(:first-child){text-align:right;white-space:nowrap}
+ #b-sum td[colspan]{white-space:normal;text-align:left}
+ #b-sum .pill{white-space:normal}
+}
+
+table.gt3{width:100%;table-layout:fixed;min-width:0}
+table.gt3 th{font-size:.7rem;padding:8px 4px;white-space:normal!important;overflow-wrap:normal}
+table.gt3 td{padding:8px 3px;font-size:.8rem;overflow-wrap:normal;word-break:normal}
+table.gt3 th:first-child,table.gt3 td:first-child{width:30%;text-align:left}
+table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;white-space:nowrap}
+#goals-card .eur input,#lt-card .eur input{min-width:0}
+#lt-card .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+
+.tt-flash{animation:ttf 2.4s ease}@keyframes ttf{0%,60%{box-shadow:0 0 0 4px var(--accent);background:var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
 </style>
 
 <div class="wrap">
@@ -730,8 +772,8 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
   <div class="card" style="margin-bottom:16px"><div class="fields" style="margin:0 0 12px;max-width:300px"><div><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate (%)</label><input type="text" inputmode="decimal" id="obj" placeholder="es. 15"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
   <div class="toolbar"><button class="btn ghost" id="b-open" type="button">Apri tutte le voci</button><button class="btn ghost" id="b-close" type="button">Chiudi tutte</button></div>
   <div class="bgrid" id="b-grid">
-    <div class="col" id="col-exp"><h3 class="side">Spese <span id="tot-exp"></span></h3></div>
-    <div class="col" id="col-inc"><h3 class="side">Entrate <span id="tot-inc"></span></h3></div>
+    <details class="col bmain" id="col-exp"><summary><h3 class="side">Spese <span id="tot-exp"></span></h3></summary><div class="bmain-in"></div></details>
+    <details class="col bmain" id="col-inc"><summary><h3 class="side">Entrate <span id="tot-inc"></span></h3></summary><div class="bmain-in"></div></details>
   </div>
   <div class="sv-panel" id="sv-panel">
     <h3>Già messo da parte</h3>
@@ -745,19 +787,39 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:v
 <section id="p-obiettivi" role="tabpanel" aria-labelledby="t-obiettivi" hidden>
   <div class="intro"><h3>Perché fissare degli obiettivi</h3><ul>
     <li>Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.</li>
-    <li>Qui scegli quanto vuoi avere da parte tra 12 mesi e tra 5 anni, come risparmio e come investimento.</li>
+    <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento.</li><li>In fondo trovi un calcolatore dell'interesse composto per guardare a 10, 20 e 30 anni.</li>
     <li>Ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. Per questo serve prima il Budget.</li>
   </ul></div>
-  <h2>Obiettivi di risparmio</h2>
-  <p class="lead">Obiettivi a 12 mesi e a 5 anni. I dati restano solo nel tuo browser.</p>
+  <h2>Obiettivi di risparmio a breve termine</h2>
+  <p class="lead">Da 6 mesi a 5 anni. Compila tutte le caselle: se non hai un obiettivo, scrivi 0. I dati restano solo nel tuo dispositivo.</p>
   <div class="card" id="goals-card" style="margin-bottom:16px">
-    <div class="tw"><table style="min-width:460px"><thead><tr><th></th><th>Già messi da parte oggi</th><th>Obiettivo tra 12 mesi</th><th>Obiettivo tra 5 anni</th></tr></thead><tbody>
-      <tr><td>Risparmio</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio già messo da parte" data-goal="r0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio, obiettivo 12 mesi" data-goal="r12"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio, obiettivo 5 anni" data-goal="r60"></div></td></tr>
-      <tr><td>Investimento</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento già fatto" data-goal="i0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento, obiettivo 12 mesi" data-goal="i12"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento, obiettivo 5 anni" data-goal="i60"></div></td></tr>
+    <div class="tw"><table class="gt3"><thead><tr><th></th><th>Risparmio</th><th>Investimento</th></tr></thead><tbody>
+      <tr><td>Già messi da parte oggi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Già messi da parte oggi" data-goal="r0" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Già messi da parte oggi" data-goal="i0" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 6 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 6 mesi" data-goal="r6" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 6 mesi" data-goal="i6" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 12 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 12 mesi" data-goal="r12" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 12 mesi" data-goal="i12" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 30 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 30 mesi" data-goal="r30" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 30 mesi" data-goal="i30" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 5 anni</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 5 anni" data-goal="r60" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 5 anni" data-goal="i60" placeholder="0"></div></td></tr>
     </tbody></table></div>
     <div class="fields" style="margin:14px 0;max-width:300px"><div><label class="l" for="g_ret">Quanto pensi che rendano gli investimenti in un anno (%)</label><input type="text" inputmode="decimal" id="g_ret" data-goal="ret" placeholder="0"></div></div>
     <div class="tw" id="goal-out"></div>
-    <p class="note" style="margin-top:10px">Gli importi sono esempi: sostituiscili con i tuoi. L'obiettivo a 5 anni comprende quello a 12 mesi. Risparmio = quello che ti avanza dopo gli investimenti. Investimento = PAC e pensione integrativa messi da parte nel Budget. Gli investimenti non hanno un rendimento garantito e possono perdere valore: con 0% vedi solo i soldi che versi.</p>
+    <p class="note" style="margin-top:10px">Ogni obiettivo comprende quelli precedenti. Risparmio = quello che ti avanza dopo gli investimenti. Investimento = PAC e pensione integrativa messi da parte nel Budget. Gli investimenti non hanno un rendimento garantito e possono perdere valore: con 0% vedi solo i soldi che versi.</p>
+  </div>
+  <h2 id="lt-h">Pianificazione a lungo termine: l'interesse composto</h2>
+  <p class="lead">Qui guardi lontano: 10, 20 o 30 anni. L'interesse composto significa che i guadagni producono a loro volta guadagni, e col tempo la differenza diventa enorme. Prova i numeri: nulla viene salvato fuori dal tuo dispositivo.</p>
+  <div class="card" id="lt-card" style="margin-bottom:16px">
+    <div class="fields" style="margin:0 0 10px">
+      <div><label class="l" for="lt_p0">Quanto hai già investito (€)</label><input type="text" inputmode="decimal" id="lt_p0" data-lt="p0" placeholder="0"></div>
+      <div><label class="l" for="lt_m">Quanto vuoi investire al mese (€)</label><input type="text" inputmode="decimal" id="lt_m" data-lt="m" placeholder="0"></div>
+    </div>
+    <p style="margin:0 0 12px"><button class="btn ghost" type="button" id="lt-fill">Usa i miei dati del Budget</button></p>
+    <div class="tw" id="lt-out"></div>
+    <h3 style="margin:18px 0 6px">Quanto pesano 100 € di differenza?</h3>
+    <div class="fields" style="margin:0 0 10px">
+      <div><label class="l" for="lt_x">Importo (€)</label><input type="text" inputmode="decimal" id="lt_x" data-lt="x" placeholder="100"></div>
+      <div><label class="l" for="lt_r">Rendimento annuo ipotizzato (%)</label><input type="text" inputmode="decimal" id="lt_r" data-lt="r" placeholder="8"></div>
+    </div>
+    <div class="tw" id="lt-imp"></div>
+    <p class="note" style="margin-top:10px">Sono simulazioni, non previsioni. Il rendimento non è garantito: 6–8% è un ordine di grandezza prudente per i mercati azionari nel lungo periodo, 12–14% è molto ottimista e il valore può anche scendere. I calcoli sono al lordo di tasse (di solito 26% sui guadagni) e inflazione, e i rendimenti qui sono annui con capitalizzazione mensile.</p>
   </div>
   <p><button class="btn ghost" type="button" data-go="budget">Torna al Budget</button></p>
 </section>
@@ -832,7 +894,7 @@ function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAl
 var eur0=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR',maximumFractionDigits:0,useGrouping:'always'});
 function eur(v){return eur0.format(Math.round(v))}
 function pct(v){return (v*100).toLocaleString('it-IT',{maximumFractionDigits:1})+'%'}
-function mm(sec,id){return sec.freq==='M'?(id==='im_calcio_m'?(num(S.mens)||12):12):1}
+function mm(sec,id){return sec.freq==='M'?(id==='im_calcio_m'?(num(S.mens)||12):(S.bud['W_'+id]?52:12)):1}
 function num(v){
   if(typeof v==='number')return isFinite(v)?v:0;
   var s=String(v==null?'':v).trim().replace(/\s|€/g,'');
@@ -846,7 +908,7 @@ function num(v){
 function defaults(){
   return {
     tab:'home', exDone:true, obj:'0',
-    goals:{r0:'0',i0:'0',r12:'0',i12:'0',r60:'0',i60:'0',ret:'0'},
+    goals:{r0:'',i0:'',r6:'',i6:'',r12:'',i12:'',r30:'',i30:'',r60:'',i60:'',ret:''},
     eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0'},
     sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0'},
     comp:{},
@@ -1158,10 +1220,10 @@ var B_INC_A=[
 ];
 var esc=function(t){return String(t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')};
 var SECS=[
- {key:'EM',col:'#col-exp',freq:'M',p:'m_',t:'Spese mensili',s:'Ogni importo viene moltiplicato per 12.',g:B_EXP_M,h:['€ al mese','€ all\'anno']},
+ {key:'EM',col:'#col-exp',freq:'M',p:'m_',t:'Spese mensili',s:'Ogni importo viene moltiplicato per 12. Se una spesa la sai a settimana, spunta «lo inserisco a settimana»: viene moltiplicata per 52 settimane.',g:B_EXP_M,h:['€ al mese','€ all\'anno']},
  {key:'EA',col:'#col-exp',freq:'A',p:'a_',t:'Spese annuali',s:'Ogni importo viene diviso per 12 per vedere il peso sul mese.',g:B_EXP_A,h:['€ all\'anno','€ al mese']},
  {key:'SV',col:'#sv-body',freq:'M',p:'sv_',t:'Già messo da parte ogni mese',s:'Non è una spesa: sono soldi che ti avanzano e hai già messo da parte.',g:B_SAVE,h:['€ al mese','€ all\'anno']},
- {key:'IM',col:'#col-inc',freq:'M',p:'im_',t:'Entrate mensili',s:'Importi netti. Ogni importo viene moltiplicato per 12. Fa eccezione il compenso calcio mensile: usa le mensilità che scegli qui sotto.',g:B_INC_M,h:['€ al mese','€ all\'anno']},
+ {key:'IM',col:'#col-inc',freq:'M',p:'im_',t:'Entrate mensili',s:'Importi netti. Ogni importo viene moltiplicato per 12 (o per 52 se lo inserisci a settimana). Fa eccezione il compenso calcio mensile: usa le mensilità che scegli qui sotto.',g:B_INC_M,h:['€ al mese','€ all\'anno']},
  {key:'IA',col:'#col-inc',freq:'A',p:'ia_',t:'Entrate annuali',s:'Importi netti. Ogni importo viene diviso per 12 per il mese.',g:B_INC_A,h:['€ all\'anno','€ al mese']}
 ];
 SECS.forEach(function(sec){sec.g.forEach(function(g,gi){g[1].push(['x'+gi,null])})});
@@ -1200,6 +1262,7 @@ function bindBud(root){
   $$('[data-bd]',root).forEach(function(p){p.addEventListener('change',function(){
     var t=p.parentNode.querySelector('[data-bt]');if(t){t.value=fmtD(p.value);t.classList.remove('bad')}})});
   $$('[data-mens]',root).forEach(function(el){el.addEventListener('change',function(){S.mens=el.value;var o=el.parentNode.parentNode.querySelector('output');if(o)o.textContent='× '+el.value;save();R.bud()})});
+  $$('[data-wk]',root).forEach(function(el){el.addEventListener('change',function(){var k=el.getAttribute('data-wk');if(el.checked)S.bud['W_'+k]=1;else delete S.bud['W_'+k];var i=$('#b_'+k);if(i)i.placeholder=el.checked?'0 a sett.':'0';save();R.bud()})});
   $$('[data-bud]',root).forEach(function(el){
     el.addEventListener('input',function(){var k=el.getAttribute('data-bud');S.bud[k]=el.value;if(el.value!=='')S.bt[k]=1;save();R.bud()});
   });
@@ -1225,20 +1288,21 @@ function buildSv(){
 function buildBudget(){
   SECS.forEach(function(sec){
     if(sec.key==='SV'){buildSv();return}
-    var html='<div class="sec"><h4>'+sec.t+'</h4><p>'+sec.s+'</p>';
+    var html='<details class="bsub" data-sub="'+sec.key+'"><summary><span class="gn">'+sec.t+'<span class="gok" aria-label="Completato" title="Completato">&#10003;</span></span><span class="gt" id="st_'+sec.key+'"></span></summary><div class="bsub-in"><p class="sub">'+sec.s+'</p>';
     sec.g.forEach(function(g,gi){
       html+='<details class="bgrp"><summary><span class="gn">'+g[0]+'<span class="gok" aria-label="Completato" title="Completato">&#10003;</span></span><span class="gt" id="gt_'+sec.key+gi+'"></span></summary><div class="rows'+(sec.key==='EA'?' ea':'')+'"><div class="rowh"><span></span><span>'+sec.h[0]+'</span><span>'+sec.h[1]+'</span></div>';
       if(sec.key==='IM'&&g[0]==='Calcio'){html+='<div class="row"><label for="b_mens">Mensilità pagate dal club (per stagione)</label><div class="eur nc"><select id="b_mens" data-mens aria-label="Mensilità pagate dal club">'+[8,9,10,11,12].map(function(n){return '<option value="'+n+'"'+(String(n)===String(S.mens||'12')?' selected':'')+'>'+n+' mesi</option>'}).join('')+'</select></div><output>× '+(S.mens||'12')+'</output></div>'}
       g[1].forEach(function(it){
         var id=sec.p+it[0];
         var lab=it[1]===null?'<input type="text" class="cl" id="bl_'+id+'" data-bl="'+id+'" aria-label="Voce personalizzata" placeholder="Altro…" value="'+esc(S.bud['L_'+id]||'')+'">':'<label for="b_'+id+'">'+it[1]+'</label>';
-        html+='<div class="row">'+lab+'<div class="eur"><input type="text" inputmode="decimal" id="b_'+id+'" data-bud="'+id+'" value="'+esc(S.bud[id]||'')+'" placeholder="0"></div><output id="o_'+id+'">–</output></div>';
+        var wkOk=(sec.key==='EM'||sec.key==='IM')&&id!=='im_calcio_m',wk=wkOk?'<label class="wk" for="w_'+id+'"><input type="checkbox" id="w_'+id+'" data-wk="'+id+'"'+(S.bud['W_'+id]?' checked':'')+'> lo inserisco a settimana<span class="wkm" id="wk_'+id+'"></span></label>':'';
+        html+='<div class="row"><div class="lc">'+lab+wk+'</div><div class="eur"><input type="text" inputmode="decimal" id="b_'+id+'" data-bud="'+id+'" value="'+esc(S.bud[id]||'')+'" placeholder="'+(S.bud['W_'+id]?'0 a sett.':'0')+'"></div><output id="o_'+id+'">–</output></div>';
         if(sec.key==='EA')html+='<div class="sched"><div class="fld"><span class="fl">Scadenza</span><div class="dt"><input type="text" inputmode="numeric" placeholder="gg/mm/aaaa" aria-label="Scadenza (scrivi la data)" data-bt="'+id+'" value="'+esc(fmtD(S.bud['D_'+id]))+'"><button type="button" class="dtb" aria-label="Apri calendario" data-bc="'+id+'">📅</button><input type="date" tabindex="-1" aria-hidden="true" class="dtp" data-bd="'+id+'" value="'+esc(S.bud['D_'+id]||'')+'"></div></div><div class="fld"><span class="fl">Già messo da parte</span><div class="eur"><input type="text" inputmode="decimal" aria-label="Già messo da parte" data-bp="'+id+'" value="'+esc(S.bud['P_'+id]||'')+'" placeholder="0"></div></div></div>';
       });
       html+='</div></details>';
     });
-    html+='</div>';
-    $(sec.col).insertAdjacentHTML('beforeend',html);
+    html+='</div></details>';
+    $(sec.col+' .bmain-in').insertAdjacentHTML('beforeend',html);
   });
   bindBud($('#col-exp'));bindBud($('#col-inc'));
   budBadges(false);
@@ -1254,6 +1318,7 @@ function budBadges(closeNew,only){
     else if(closeNew&&!d.dataset.shut){d.dataset.shut='1';d.open=false}
     else if(!closeNew&&!only&&!d.dataset.shut&&!d.open)d.dataset.shut='1';
   });
+  $$('#p-budget details.bsub').forEach(function(s){var g=$$('details.bgrp',s);s.classList.toggle('gdone',g.length>0&&g.every(function(x){return x.classList.contains('gdone')}))});
 }
 function renderSched(L,ent,sur){
   var el=$('#b-sched');
@@ -1289,6 +1354,7 @@ R.bud=function(){
         gt+=an;
         if(sec.key==='EA'&&v>0&&S.bud['D_'+id])SCH.push({label:it[1]===null?(S.bud['L_'+id]||'Voce personalizzata'):it[1],amt:v,date:S.bud['D_'+id],saved:num(S.bud['P_'+id])});
         o.textContent=v?eur(sec.freq==='M'?an:v/12):'–';
+        var wm=$('#wk_'+id);if(wm)wm.textContent=(S.bud['W_'+id]&&v)?'circa '+eur(v*52/12)+' al mese':'';
       });
       G[sec.key+gi]=gt;T[sec.key]+=gt;
     });
@@ -1302,6 +1368,7 @@ R.bud=function(){
       var gte=$('#gt_'+sec.key+gi);if(gte)gte.textContent=gt?eur(gt)+' all\'anno'+(base>0?' · '+pct(gt/base)+' delle entrate':''):'';
     });
   });
+  SECS.forEach(function(sec){var se=$('#st_'+sec.key);if(se)se.textContent=T[sec.key]?eur(T[sec.key])+' all\'anno':''});
   $('#tot-exp').textContent=eur(sp)+' all\'anno';
   $('#tot-inc').textContent=eur(ent)+' all\'anno';
   function setK(id,v,isP){var el=$(id);el.textContent=v===null?'–':(isP?pct(v):eur(v));el.className=(v!==null&&v<0)?'neg':''}
@@ -1318,7 +1385,7 @@ R.bud=function(){
   if(tasso===null)$('#obj-out').innerHTML='<span class="sub">Inserisci le entrate per vedere il confronto.</span>';
   else{var need=obj*ent-sur;$('#obj-out').innerHTML='<span>Oggi: <b>'+pct(tasso)+'</b></span><span>Obiettivo: <b>'+pct(obj)+'</b></span>'+(need<=0?pill('ok','Obiettivo raggiunto'):pill('warn','Ti mancano '+eur(need/12)+' al mese ('+eur(need)+' all\'anno)'))}
   renderSched(SCH,ent,sur);
-  renderGoals();
+  renderGoals();renderLt();
   R.home();
   
 };
@@ -1466,7 +1533,7 @@ R.home=function(){
     e+='<div class="cmp"><span class="nm"><b>'+(sur>=0?'Quello che ti avanza':'Quello che ti manca')+'</b></span><b>'+eur(Math.abs(sur))+' · '+pct(Math.abs(sur)/ent)+'</b></div><div class="bar"><i class="'+(sur>=0?'ok':'risk')+'" style="width:'+Math.min(100,Math.abs(sur)/ent*100)+'%"></i></div>';
   }
   var GD=goalData(),gh='<h3>Dove voglio arrivare: risparmio e investimento</h3>';
-  if(!GD.rows.length){gh+='<p class="sub">Imposta gli obiettivi nella sezione Obiettivi di risparmio, a 12 mesi e a 5 anni.</p>'}
+  if(!GD.rows.length){gh+='<p class="sub">Imposta gli obiettivi a breve termine nella sezione Obiettivi di risparmio.</p>'}
   else{
     gh+='<p class="sub" style="margin:0 0 10px">Ogni barra mostra a che punto arrivo con quello che metto da parte oggi.</p>';
     GD.rows.forEach(function(r){
@@ -1486,13 +1553,31 @@ function goalData(){
   function fv(p0,n){return rm===0?p0+invM*n:p0*Math.pow(1+rm,n)+invM*(Math.pow(1+rm,n)-1)/rm}
   function pmt(T,p0,n){var need=T-p0*Math.pow(1+rm,n);if(need<=0)return 0;return rm===0?need/n:need*rm/(Math.pow(1+rm,n)-1)}
   var rows=[];
-  [12,60].forEach(function(n){
+  [6,12,30,60].forEach(function(n){
     var rt=num(G['r'+n]),it=num(G['i'+n]),r0=num(G.r0),i0=num(G.i0);
-    var tm=n===12?'12 mesi':'5 anni';
+    var tm=n===60?'5 anni':n+' mesi';
     if(rt>0){var pr=r0+resM*n;rows.push({lab:'Risparmio, '+tm,n:n,T:rt,p0:r0,proj:pr,cur:resM,need:Math.max(0,(rt-r0)/n)})}
     if(it>0){var pi=fv(i0,n);rows.push({lab:'Investimento, '+tm,n:n,T:it,p0:i0,proj:pi,cur:invM,need:pmt(it,i0,n)})}
   });
   return {rows:rows,avM:B.sur/12,invM:invM,resM:resM,ent:B.ent};
+}
+
+function ltFv(p0,m,r,y){var n=y*12,rm=Math.pow(1+r,1/12)-1;return rm===0?p0+m*n:p0*Math.pow(1+rm,n)+m*(Math.pow(1+rm,n)-1)/rm}
+function renderLt(){
+  var en=function(v){return eur(v).replace(/\s?€/,'')},L=S.lt||{},p0=num(L.p0),m=num(L.m),out=$('#lt-out'),imp=$('#lt-imp');if(!out)return;
+  var RS=[6,8,10,12,14],YS=[10,20,30];
+  var h='<table class="gt3"><thead><tr><th>Rendimento (valori in €)</th>'+YS.map(function(y){return '<th>Tra '+y+' anni</th>'}).join('')+'</tr></thead><tbody>';
+  h+='<tr class="tot"><td>Versato da te</td>'+YS.map(function(y){return '<td>'+en(p0+m*12*y)+'</td>'}).join('')+'</tr>';
+  RS.forEach(function(r){h+='<tr><td>'+r+'%</td>'+YS.map(function(y){return '<td>'+en(ltFv(p0,m,r/100,y))+'</td>'}).join('')+'</tr>'});
+  h+='</tbody></table>';
+  if(!(p0>0||m>0))h='<p class="sub" style="margin:0 0 8px">Scrivi quanto hai già investito e quanto vuoi versare al mese: vedi cosa diventa con rendimenti diversi.</p>'+h;
+  out.innerHTML=h;
+  var x=num(L.x)||100,r=(L.r===undefined||L.r==='')?8:num(L.r),rr=r/100;
+  var h2='<table class="gt3"><thead><tr><th>Valori in €</th>'+YS.map(function(y){return '<th>Tra '+y+' anni</th>'}).join('')+'</tr></thead><tbody>';
+  h2+='<tr><td>'+en(x)+' investiti oggi, una volta sola</td>'+YS.map(function(y){return '<td>'+en(ltFv(x,0,rr,y))+'</td>'}).join('')+'</tr>';
+  h2+='<tr><td>'+en(x)+' in più ogni mese</td>'+YS.map(function(y){return '<td>'+en(ltFv(0,x,rr,y))+'</td>'}).join('')+'</tr>';
+  h2+='<tr><td>I tuoi versamenti mensili senza interesse</td>'+YS.map(function(y){return '<td>'+en(x*12*y)+'</td>'}).join('')+'</tr></tbody></table>';
+  imp.innerHTML=h2;
 }
 function renderGoals(){
   var D2=goalData(),el=$('#goal-out');
@@ -1503,11 +1588,11 @@ function renderGoals(){
     h+='<tr><td>'+r.lab+'</td><td>'+eur(r.T)+'</td><td>'+eur(r.proj)+'</td><td>'+eur(r.cur)+'</td><td>'+eur(r.need)+'</td><td>'+pill(ok?'ok':'warn',ok?'Ci arrivi':'Ti mancano '+eur(Math.max(0,r.need-r.cur))+' al mese')+'</td></tr>';
   });
   h+='</tbody></table><div class="sumline">';
-  [12,60].forEach(function(n){
+  [6,12,30,60].forEach(function(n){
     var rs=D2.rows.filter(function(r){return r.n===n});
     if(!rs.length)return;
     var tot=rs.reduce(function(a,r){return a+r.need},0),okk=tot<=D2.avM;
-    h+='<span>'+(n===12?'Per gli obiettivi a 12 mesi':'Per gli obiettivi a 5 anni')+' servono '+eur(tot)+' al mese, ti avanzano '+eur(D2.avM)+'.</span>'+pill(okk?'ok':'risk',okk?'Ci stai dentro':'Non ti basta l\'avanzo');
+    h+='<span>'+'Per gli obiettivi a '+(n===60?'5 anni':n+' mesi')+' servono '+eur(tot)+' al mese, ti avanzano '+eur(D2.avM)+'.</span>'+pill(okk?'ok':'risk',okk?'Ci stai dentro':'Non ti basta l\'avanzo');
   });
   h+='</div>';
   el.innerHTML=h;
@@ -1764,10 +1849,10 @@ var PSTEPS=[
   how:'<b>Mini-missione:</b> inserisci nel Budget almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
  {n:2,t:'Obiettivi di risparmio',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
-  how:'<b>Mini-missione:</b> nel Budget, in «Obiettivi», inserisci il risparmio che vuoi avere tra 12 mesi.'},
+  how:'<b>Mini-missione:</b> in «Obiettivi di risparmio» compila tutte le caselle: risparmio e investimento a 6 mesi, 12 mesi, 30 mesi e 5 anni (se non hai un obiettivo, scrivi 0).'},
  {n:3,t:'Contratto in regola',tab:'contratto',go:'Vai al Contratto',
   why:'Un contratto sbagliato ti fa perdere soldi, tutele e il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
-  how:'<b>Mini-missione:</b> compila Contratto e Conformità, poi spunta le 3 verifiche qui sotto solo quando le hai fatte davvero. Il Simulatore netto è facoltativo, ma ti dice quanto ti resta davvero.'},
+  how:'<b>Mini-missione:</b> inserisci i tuoi dati nel Contratto, rispondi a tutte le domande della Conformità e prova il Simulatore netto. Le 3 verifiche qui sotto sono consigliate: spuntale solo quando le hai fatte davvero.'},
  {n:4,t:'Fondo di emergenza e protezione assicurativa',tab:'faq',go:'Apri le Domande frequenti',
   why:'Il fondo copre infortuni, mesi senza compenso e imprevisti. Di base sei coperto soltanto dall\'assicurazione del tesseramento, che ha limiti: massimali, franchigie e, di solito, nessun rimborso per il compenso che perdi mentre sei fermo. Per questo conviene assicurarti anche da solo contro gli infortuni.',
   how:'<b>Mini-missione:</b> arriva all\'obiettivo del fondo (i mesi di spese che scegli qui sotto) e chiedi per iscritto al club cosa copre l\'assicurazione del tesseramento. L\'assicurazione personale è facoltativa, ma consigliata.'},
@@ -1778,8 +1863,8 @@ var PSTEPS=[
   why:'Investire il risparmio in eccesso, dopo aver completato il fondo di emergenza. Con una cifra fissa ogni mese (PAC) costruisci nel tempo. Nessun rendimento è garantito e il valore può scendere.',
   how:'<b>Mini-missione:</b> inserisci una cifra mensile per il PAC in «Già messo da parte» e imposta l\'obiettivo di investimento a 12 mesi nel Budget.'},
  {n:7,t:'Obiettivi a lungo termine e pensione integrativa',tab:'obiettivi',go:'Vai agli obiettivi',
-  why:'Guarda lontano: dove vuoi essere tra 5 anni e oltre, e come ti prepari alla pensione, visto che i contributi di un dilettante possono non bastare.',
-  how:'<b>Mini-missione:</b> imposta gli obiettivi a 5 anni (risparmio e investimento) nel Budget e valuta la pensione integrativa (spunta oppure inserisci una cifra mensile).'}
+  why:'Guarda lontano: 10, 20 o 30 anni. L\'interesse composto fa crescere i soldi sempre più in fretta, e la pensione integrativa conta perché i contributi di un dilettante possono non bastare.',
+  how:'<b>Mini-missione:</b> usa il calcolatore dell\'interesse composto (quanto hai già investito e quanto versi al mese) e valuta la pensione integrativa (spunta oppure inserisci una cifra mensile).'}
 ];
 function pMonthly(){return calcBud().sp/12}
 function dMonths(d){
@@ -1803,8 +1888,14 @@ function pCrit(n){
     var hasIn=vk.some(function(k){return /^(im_|ia_)/.test(k)}),hasOut=vk.some(function(k){return /^(m_|a_)/.test(k)});
     return [['Almeno 1 entrata (importo maggiore di 0)',hasIn],['Almeno 1 spesa (importo maggiore di 0)',hasOut],['Almeno 3 voci in totale ('+Math.min(vk.length,3)+' su 3)',vk.length>=3]];
   }
-  if(n===2)return [['Obiettivo di risparmio a 12 mesi impostato',!!U.goals&&num(G.r12)>0]];
-  if(n===3)return [['Contratto compilato',!!U.contr],['Conformità compilata',!!U.comp],['Contratto depositato in Lega (controllato)',!!C.dep],['Ho una copia firmata del contratto',!!C.cop],['Conservo bonifici e ricevute dei pagamenti',!!C.pro],['Simulatore netto provato (facoltativo)',!!U.sim,1]];
+  if(n===2){var gk=['r6','i6','r12','i12','r30','i30','r60','i60'],gn=gk.filter(function(k){return G[k]!==undefined&&String(G[k]).trim()!==''}).length;return [['Tutti gli obiettivi a breve termine compilati ('+gn+' su 8; se non ne hai uno scrivi 0)',gn===8]]}
+  if(n===3){
+    var E=S.eng||{},SM=S.sim||{},CP=S.comp||{};
+    var engOk=['comp','altri','altro','ese','ore'].some(function(k){return num(E[k])>0});
+    var qOk=Q.length>0&&Q.every(function(q){return !!CP[q[0]]});
+    var simOk=['lD','lE','lP','altro','rimb'].some(function(k){return num(SM[k])>0});
+    return [['Contratto: ho inserito i miei dati',engOk],['Conformità: ho risposto a tutte le '+Q.length+' domande',qOk],['Simulatore netto: ho provato il calcolo',simOk],['Contratto depositato in Lega (consigliato)',!!C.dep,1],['Ho una copia firmata del contratto (consigliato)',!!C.cop,1],['Conservo bonifici e ricevute dei pagamenti (consigliato)',!!C.pro,1]];
+  }
   if(n===4){
     var tg=num(S.fund.mesi)*pMonthly(),sv=num(S.fund.saved);
     return [['Budget compilato (serve per sapere le spese)',pMonthly()>0],['Fondo raggiunto: '+eur(sv)+' su '+eur(tg),tg>0&&sv>=tg],['Chiesto per iscritto cosa copre l\'assicurazione del tesseramento',!!C.ass],['Assicurazione infortuni personale (facoltativa)',!!C.asp,1]];
@@ -1815,7 +1906,7 @@ function pCrit(n){
     return [['Non ho debiti, oppure ogni debito ha la sua rata',!!none||plan]];
   }
   if(n===6)return [['Cifra mensile per il PAC inserita',num(B.sv_pac)>0],['Obiettivo di investimento a 12 mesi impostato',!!U.goals&&num(G.i12)>0]];
-  if(n===7)return [['Obiettivi a 5 anni impostati (risparmio e investimento)',!!U.goals&&num(G.r60)>0&&num(G.i60)>0],['Pensione integrativa valutata o già messa da parte',!!C.pens||num(B.sv_prev)>0]];
+  if(n===7)return [['Calcolatore dell\'interesse composto provato (versamento mensile inserito)',num((S.lt||{}).m)>0],['Pensione integrativa valutata o già messa da parte',!!C.pens||num(B.sv_prev)>0]];
   return [];
 }
 function pPassed(n){return pCrit(n).filter(function(c){return !c[2]}).every(function(c){return c[1]})}
@@ -2109,7 +2200,21 @@ function ttGoPerc(){
     setTimeout(function(){var pw=$('#pitch');if(pw)pw.scrollIntoView({behavior:'smooth',block:'center'})},120);
   })();
 }
-function ttWatch(){var c=pCur();if(pLast===null){pLast=c;return}if(c!==pLast)updatePerc()}
+function ttWatch(force){
+  var a=document.activeElement;
+  if(!force&&a&&a.matches&&a.matches('input:not([type=checkbox]):not([type=radio]):not([type=color]):not([type=range]),textarea')&&!a.closest('#tt')&&!a.closest('#ob'))return;
+  var c=pCur();if(pLast===null){pLast=c;return}if(c!==pLast)updatePerc()}
+document.addEventListener('change',function(){setTimeout(function(){try{ttWatch(true)}catch(e){}},30)},true);
+document.addEventListener('focusout',function(){setTimeout(function(){try{ttWatch(false)}catch(e){}},120)},true);
+document.addEventListener('keydown',function(e){if(e.key==='Enter')setTimeout(function(){try{ttWatch(true)}catch(e2){}},30)},true);
+window.__ttBack=null;
+document.addEventListener('focusin',function(e){var t=e.target;if(t&&t.matches&&t.matches('[data-bud],[data-goal],[data-lt],input.cl,[data-bt]')&&t.id&&!t.closest('#tt')&&!t.closest('#ob'))window.__ttBack={id:t.id,tab:S.tab}},true);
+window.ttReturn=function(){
+  var b=window.__ttBack;if(!b)return false;var el=document.getElementById(b.id);if(!el)return false;
+  showTab(b.tab);
+  var p=el.parentNode;while(p&&p!==document.body){if(p.tagName==='DETAILS')p.open=true;p=p.parentNode}
+  setTimeout(function(){var r=el.getBoundingClientRect();var y=Math.max(0,window.scrollY+r.top-Math.max(120,window.innerHeight*0.3));window.scrollTo({top:y,behavior:'smooth'});el.classList.add('tt-flash');setTimeout(function(){el.classList.remove('tt-flash')},2600)},200);
+  return true};
 function updatePerc(){
   var cur=pCur(),vert=window.innerWidth<640;
   if(pLast!==null&&cur>pLast){ttGoPerc();if(window.ttCelebrate)window.ttCelebrate(cur)}
@@ -2178,7 +2283,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
 (function(){
   function stack(){Array.prototype.forEach.call(document.querySelectorAll('table'),function(t){
-    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4)return;
+    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4||t.classList.contains('gt3'))return;
     var L=[];Array.prototype.forEach.call(th.cells,function(c){for(var k=0;k<(c.colSpan||1);k++)L.push(c.textContent.trim())});
     t.classList.add('stk');
     Array.prototype.forEach.call(t.tBodies,function(tb){Array.prototype.forEach.call(tb.rows,function(r){var col=0;
@@ -2231,7 +2336,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
          {tab:'home',t:'#h-month',x:function(){return 'Qui vedi <b>dove va il risparmio di questo mese</b>: investimenti, fondo emergenza, spese con scadenza vicina e soldi ancora senza destinazione.'}},
          {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}},
          {tab:'home',t:'#percorso',x:function(){return 'In fondo, <b>Come sta andando il mio percorso?</b>: dove vuoi arrivare, quanti soldi hai già messo da parte e quali passi restano da fare.'}}],
-   obiettivi:[{tab:'obiettivi',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi di risparmio»</b> è il passo 2: quanto vuoi avere da parte tra 12 mesi e tra 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. Servono anche per i passi 6 e 7.'}}],
+   obiettivi:[{tab:'obiettivi',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi di risparmio»</b> è il passo 2: i tuoi obiettivi a breve termine, a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. In fondo c\'è il calcolatore dell\'interesse composto per il lungo termine.'}}],
    budget:[{tab:'budget',t:'.strip',x:function(){return 'La sezione <b>«Budget»</b> è il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi.'}},
            {tab:'budget',t:'#b-grid',x:function(){return (M()?'Prima le <b>spese</b>, più sotto le <b>entrate</b>':'A sinistra le <b>spese</b>, a destra le <b>entrate</b>')+', divise in gruppi come Casa, Calcio, Lavoro. Scrivi cifre <b>nette</b>: le voci mensili vengono moltiplicate per 12, quelle annuali divise per 12. Nelle entrate del calcio scegli quante mensilità paga il club.'}},
            {tab:'budget',t:'#sv-panel',x:function(){return '<b>Già messo da parte</b>: quanto metti da parte ogni mese per PAC, fondo emergenza o pensione integrativa. Non è una spesa: sono soldi tuoi. Servono per i passi 4, 6 e 7.'}}],
@@ -2251,7 +2356,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();
     setTimeout(function(){if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
-      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Ti riporto al Budget, così puoi continuare a inserire le voci che mancano.','Vai al Budget',function(){showTab('budget');setTimeout(function(){var g=document.getElementById('b-grid');if(g)window.scrollTo({top:Math.max(0,g.getBoundingClientRect().top+window.scrollY-24),behavior:'smooth'})},120)},'Resto qui');return}
+      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Ti riporto alla voce del Budget in cui eri, così puoi continuare a inserire quelle che mancano.','Riportami lì',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');setTimeout(function(){var g=document.getElementById('b-grid');if(g)window.scrollTo({top:Math.max(0,g.getBoundingClientRect().top+window.scrollY-24),behavior:'smooth'})},120)},'Resto qui');return}
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
       var nx=PS[n],ntab=nx.tab||'percorso';
       window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! Vuoi che ti spieghi cosa ti aspetta nel prossimo passo?','Sì, spiegami',function(){
@@ -2383,10 +2488,13 @@ $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){showTa
   $('#pf-edit').addEventListener('click',function(){ob.classList.add('ob-over');open()});ob.addEventListener('click',function(e){if(e.target===ob&&ob.classList.contains('ob-over'))close()});
   sum();if(!S.prof.done)open();
 })();
+if(!S.lt)S.lt={p0:'',m:'',x:'100',r:'8'};
+$$('[data-lt]').forEach(function(el){var k=el.getAttribute('data-lt');el.value=S.lt[k]||'';el.addEventListener('input',function(){S.lt[k]=el.value;save();renderLt()})});
+var ltf=$('#lt-fill');if(ltf)ltf.addEventListener('click',function(){var inv=num(S.bud.sv_pac)+num(S.bud.sv_prev);S.lt.m=inv?String(Math.round(inv*100)/100):S.lt.m;if(num(S.goals&&S.goals.i0))S.lt.p0=S.goals.i0;$$('[data-lt]').forEach(function(el){el.value=S.lt[el.getAttribute('data-lt')]||''});save();renderLt()});
 $$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;S.used.goals=1;save();R.bud()})});
 var oi=$('#obj');oi.value=S.obj||'';oi.addEventListener('input',function(){S.obj=oi.value;save();R.bud()});
 
-function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});R.bud();budBadges(false)}
+function budReset(){S.bud={};S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});$$('[data-wk]').forEach(function(e){e.checked=false});$$('[data-bud]').forEach(function(e){e.placeholder='0'});R.bud();budBadges(false)}
 $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttConfirm('Ei, sei sicuro di voler cancellare tutto? <b>Non sarà possibile ripristinare i dati</b> una volta cancellati: dovrai reinserirli da zero.','Sì, cancella tutto',budReset);else if(confirm('Cancellare tutto il budget?'))budReset()});
 
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
