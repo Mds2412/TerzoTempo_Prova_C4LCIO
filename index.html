@@ -607,7 +607,8 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 <button type="button" class="hlb" id="hlb" aria-haspopup="dialog" aria-controls="hlp" aria-label="Hai bisogno di aiuto?" title="Hai bisogno di aiuto?"><span class="hlb-av" id="hlb-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><span>Hai bisogno di aiuto?</span></button>
 <div class="hlp" id="hlp" role="dialog" aria-labelledby="hlp-t" hidden>
  <div class="hlp-h"><span class="hlp-av" id="hlp-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><div><b id="hlp-t">Ciao, sono <span class="cname"></span></b><div class="sub">Su cosa ti serve aiuto?</div></div><button type="button" class="fbp-x" id="hlp-x" aria-label="Chiudi">&times;</button></div>
- <button type="button" class="hlp-i hlp-main" data-tour="here">Spiegami questa schermata</button>
+ <button type="button" class="hlp-i hlp-main" data-tour="next">Sono bloccato: come vado avanti?</button>
+  <button type="button" class="hlp-i hlp-main" data-tour="here">Spiegami questa schermata</button>
  <button type="button" class="hlp-i" data-tour="full">Tour dell'app</button>
  <button type="button" class="hlp-i" data-tour="passi">Come funzionano i 7 passi?</button>
  <div class="hlp-l">Le sezioni</div>
@@ -2376,6 +2377,11 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
       if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi di risparmio» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
       window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')},5500)};
+  window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
+    if(n>=7){window.ttCustom([{t:null,x:'<b>Hai completato tutti i 7 passi!</b> Ora tieni aggiornati budget e obiettivi.'}]);return}
+    var nx=P[n],cr=window.ttPerc.crit(n+1).map(function(c){return (c[1]?'✅ ':'⬜ ')+c[0]}),ntab=nx.tab||'percorso';
+    if(ntab==='budget'){S.ub=1;save();if(window.ttRefreshLocks)window.ttRefreshLocks()}
+    window.ttCustom([{tab:ntab,t:null,x:'<b>Ora devi fare il passo '+nx.n+': '+nx.t+'</b><br>Per completarlo:<br>'+cr.join('<br>')+'<br><br>'+nx.how+'<br><br>Quando hai finito ti dico io cosa fare dopo.'}])};
   window.ttConfirm=function(x,lab,yes,no,nof){steps=[{x:x,cf:lab,yes:yes,no:no,nof:nof}];i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   function finish(){navTok++;cancelAnimationFrame(window.__ttRaf);stopSpeak();lift(null);TT.hidden=true;clearInterval(typing);cancelAnimationFrame(raf);document.documentElement.classList.remove('tt-on');if(!S.tourDone&&!(steps[0]&&steps[0].cf)){S.tourDone=1;save()}if(window.ttFixLock&&!(steps[0]&&steps[0].cf))window.ttFixLock()}
   function tgt(){var st=steps[i];if(!st.t)return null;return typeof st.t==='function'?st.t():document.querySelector(st.t)}
@@ -2447,7 +2453,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   hb.addEventListener('click',function(){HP.hidden?openH():closeH()});
   document.getElementById('hlp-x').addEventListener('click',closeH);
   HP.addEventListener('keydown',function(e){if(e.key==='Escape'){closeH();hb.focus()}});
-  Array.prototype.forEach.call(HP.querySelectorAll('[data-tour]'),function(b){b.addEventListener('click',function(){start(b.getAttribute('data-tour'))})});
+  Array.prototype.forEach.call(HP.querySelectorAll('[data-tour]'),function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-tour');if(k==='next'){HP.hidden=true;window.ttNext();return}start(k)})});
   
   var DEF={skin:'#cf8f6a',hair:'#2b170e',c1:'#f2c21a',c2:'#1f4fa0'};
   function bindCo(root){Array.prototype.forEach.call(root.querySelectorAll('[data-co]'),function(el){var k=el.getAttribute('data-co');
