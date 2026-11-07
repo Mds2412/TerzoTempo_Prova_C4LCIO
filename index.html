@@ -611,6 +611,8 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 
 #tt-prev.btn,#tt-prev.btn.ghost{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 #tt-prev.btn:hover,#tt-prev.btn.ghost:hover{background:var(--accent);filter:brightness(1.1);border-color:var(--accent)}
+
+.hlp-i.hlp-main:hover{background:color-mix(in srgb,var(--accent) 12%,var(--bg));color:var(--ink);border-color:var(--accent);filter:none}
 </style>
 
 <div class="wrap">
@@ -618,10 +620,10 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 <button type="button" class="hlb" id="hlb" aria-haspopup="dialog" aria-controls="hlp" aria-label="Hai bisogno di aiuto?" title="Hai bisogno di aiuto?"><span class="hlb-av" id="hlb-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><span>Hai bisogno di aiuto?</span></button>
 <div class="hlp" id="hlp" role="dialog" aria-labelledby="hlp-t" hidden>
  <div class="hlp-h"><span class="hlp-av" id="hlp-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><div><b id="hlp-t">Ciao, sono <span class="cname"></span></b><div class="sub">Su cosa ti serve aiuto?</div></div><button type="button" class="fbp-x" id="hlp-x" aria-label="Chiudi">&times;</button></div>
- <button type="button" class="hlp-i hlp-main" data-tour="next">Aiutami ad andare avanti</button>
-  <button type="button" class="hlp-i" data-tour="here">Spiegami questa schermata</button>
- <button type="button" class="hlp-i" data-tour="full">Tour dell'app</button>
+  <button type="button" class="hlp-i hlp-main" data-tour="next">Aiutami ad andare avanti</button>
  <button type="button" class="hlp-i" data-tour="passi">Come funzionano i 7 passi?</button>
+ <button type="button" class="hlp-i" data-tour="here">Spiegami questa schermata</button>
+ <button type="button" class="hlp-i" data-tour="full">Tour dell'app</button>
  <div class="hlp-l">Le sezioni</div>
  <div class="hlp-g">
   <button type="button" class="hlp-i" data-tour="percorso">Il mio percorso</button>
