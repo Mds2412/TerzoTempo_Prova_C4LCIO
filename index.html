@@ -600,6 +600,17 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 .lk{display:inline-block;width:.8em;height:.8em;margin-left:.35em;vertical-align:-.08em}
 .lk svg{width:100%;height:100%;display:block;fill:currentColor}
 .hlp-i.locked{opacity:.7}
+
+.hlp-i,.tt .btn,.tt-vo,.tt-skip{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,border-color .15s ease,color .15s ease}
+.hlp-i:hover,.tt .btn:hover,.tt-vo:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.2)}
+.hlp-i:not(.hlp-main):hover,.tt .btn.ghost:hover,.tt-vo:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--bg))}
+.hlp-main:hover,.tt .btn:not(.ghost):hover{filter:brightness(1.1)}
+.hlp-i:active,.tt .btn:active,.tt-vo:active{transform:translateY(0) scale(.97);box-shadow:none}
+.tt-skip:hover{color:var(--ink);transform:scale(1.08)}
+@media (prefers-reduced-motion:reduce){.hlp-i,.tt .btn,.tt-vo,.tt-skip{transition:none}.hlp-i:hover,.tt .btn:hover,.tt-vo:hover{transform:none}}
+
+#tt-prev.btn,#tt-prev.btn.ghost{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+#tt-prev.btn:hover,#tt-prev.btn.ghost:hover{background:var(--accent);filter:brightness(1.1);border-color:var(--accent)}
 </style>
 
 <div class="wrap">
@@ -607,8 +618,8 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 <button type="button" class="hlb" id="hlb" aria-haspopup="dialog" aria-controls="hlp" aria-label="Hai bisogno di aiuto?" title="Hai bisogno di aiuto?"><span class="hlb-av" id="hlb-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><span>Hai bisogno di aiuto?</span></button>
 <div class="hlp" id="hlp" role="dialog" aria-labelledby="hlp-t" hidden>
  <div class="hlp-h"><span class="hlp-av" id="hlp-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><div><b id="hlp-t">Ciao, sono <span class="cname"></span></b><div class="sub">Su cosa ti serve aiuto?</div></div><button type="button" class="fbp-x" id="hlp-x" aria-label="Chiudi">&times;</button></div>
- <button type="button" class="hlp-i hlp-main" data-tour="next">Sono bloccato: come vado avanti?</button>
-  <button type="button" class="hlp-i hlp-main" data-tour="here">Spiegami questa schermata</button>
+ <button type="button" class="hlp-i hlp-main" data-tour="next">Aiutami ad andare avanti</button>
+  <button type="button" class="hlp-i" data-tour="here">Spiegami questa schermata</button>
  <button type="button" class="hlp-i" data-tour="full">Tour dell'app</button>
  <button type="button" class="hlp-i" data-tour="passi">Come funzionano i 7 passi?</button>
  <div class="hlp-l">Le sezioni</div>
