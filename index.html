@@ -629,7 +629,8 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
   <button type="button" class="hlp-i" data-tour="percorso">Il mio percorso</button>
   <button type="button" class="hlp-i" data-tour="home">Dove sono oggi?</button>
   <button type="button" class="hlp-i" data-tour="budget"><i class="hn">1</i>Budget</button>
-  <button type="button" class="hlp-i" data-tour="obiettivi"><i class="hn">2</i>Obiettivi di risparmio</button>
+  <button type="button" class="hlp-i" data-tour="obiettivi"><i class="hn">2</i>Obiettivi a breve termine</button>
+  <button type="button" class="hlp-i" data-tour="lungo"><i class="hn">6</i>Lungo termine e pensione</button>
   <button type="button" class="hlp-i" data-tour="contratto"><i class="hn">3</i>Contratto</button>
   <button type="button" class="hlp-i" data-tour="conformita"><i class="hn">3</i>Conformità</button>
   <button type="button" class="hlp-i" data-tour="netto"><i class="hn">3</i>Simulatore netto</button>
@@ -660,7 +661,7 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
   <p class="tag">Facciamo chiarezza su contratti, tasse, strumenti di risparmio e finanza personale per il calciatore dilettante.</p>
   <nav class="tabs" role="tablist" aria-label="Sezioni">
     <div class="tg" role="presentation"><span class="tgl">Parti da qui</span><div class="tgb" role="presentation"><button role="tab" id="t-percorso" data-tab="percorso" aria-selected="true">Il mio percorso<span class="ps" aria-label="passi 4, 5"><i>4</i><i>5</i></span></button><button role="tab" id="t-home" data-tab="home" aria-selected="false">Dove sono oggi?</button></div></div>
-    <div class="tg" role="presentation"><span class="tgl">I tuoi soldi</span><div class="tgb" role="presentation"><button role="tab" id="t-budget" data-tab="budget" aria-selected="false">Budget<span class="ps" aria-label="passo 1"><i>1</i></span></button><button role="tab" id="t-obiettivi" data-tab="obiettivi" aria-selected="false">Obiettivi di risparmio<span class="ps" aria-label="passi 2, 6, 7"><i>2</i><i>6</i><i>7</i></span></button></div></div>
+    <div class="tg" role="presentation"><span class="tgl">I tuoi soldi</span><div class="tgb" role="presentation"><button role="tab" id="t-budget" data-tab="budget" aria-selected="false">Budget<span class="ps" aria-label="passo 1"><i>1</i></span></button><button role="tab" id="t-obiettivi" data-tab="obiettivi" aria-selected="false">Obiettivi a breve termine<span class="ps" aria-label="passo 2"><i>2</i></span></button><button role="tab" id="t-lungo" data-tab="lungo" aria-selected="false">Lungo termine e pensione<span class="ps" aria-label="passi 6, 7"><i>6</i><i>7</i></span></button></div></div>
     <div class="tg" role="presentation"><span class="tgl">Il tuo contratto</span><div class="tgb" role="presentation"><button role="tab" id="t-contratto" data-tab="contratto" aria-selected="false">Contratto<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-conformita" data-tab="conformita" aria-selected="false">Conformità<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-netto" data-tab="netto" aria-selected="false">Simulatore netto<span class="ps" aria-label="passi 3"><i>3</i></span></button></div></div>
     <div class="tg" role="presentation"><span class="tgl">Dubbi</span><div class="tgb" role="presentation"><button role="tab" id="t-faq" data-tab="faq" aria-selected="false">Domande frequenti</button></div></div>
   </nav>
@@ -810,10 +811,10 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 <section id="p-obiettivi" role="tabpanel" aria-labelledby="t-obiettivi" hidden>
   <div class="intro"><h3>Perché fissare degli obiettivi</h3><ul>
     <li>Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.</li>
-    <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento.</li><li>In fondo trovi un calcolatore dell'interesse composto per guardare a 10, 20 e 30 anni.</li>
+    <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento.</li>
     <li>Ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. Per questo serve prima il Budget.</li>
   </ul></div>
-  <h2>Obiettivi di risparmio a breve termine</h2>
+  <h2>Obiettivi a breve termine</h2>
   <p class="lead">Da 6 mesi a 5 anni. Compila tutte le caselle: se non hai un obiettivo, scrivi 0. I dati restano solo nel tuo dispositivo.</p>
   <div class="card" id="goals-card" style="margin-bottom:16px">
     <div class="tw"><table class="gt3"><thead><tr><th></th><th>Risparmio</th><th>Investimento</th></tr></thead><tbody>
@@ -827,6 +828,14 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
     <div class="tw" id="goal-out"></div>
     <p class="note" style="margin-top:10px">Ogni obiettivo comprende quelli precedenti. Risparmio = quello che ti avanza dopo gli investimenti. Investimento = PAC e pensione integrativa messi da parte nel Budget. Gli investimenti non hanno un rendimento garantito e possono perdere valore: con 0% vedi solo i soldi che versi.</p>
   </div>
+  <p><button class="btn ghost" type="button" data-go="budget">Torna al Budget</button></p>
+</section>
+<section id="p-lungo" role="tabpanel" aria-labelledby="t-lungo" hidden>
+  <div class="intro"><h3>Perché guardare lontano</h3><ul>
+    <li>Qui non ci sono caselle obbligatorie: è un luogo per fare simulazioni a 10, 20 e 30 anni.</li>
+    <li>Serve dopo aver sistemato budget, contratto, fondo di emergenza e debiti.</li>
+    <li>Nessun rendimento è garantito: sono numeri per capire l'ordine di grandezza.</li>
+  </ul></div>
   <h2 id="lt-h">Pianificazione a lungo termine: l'interesse composto</h2>
   <p class="lead">Qui guardi lontano: 10, 20 o 30 anni. L'interesse composto significa che i guadagni producono a loro volta guadagni, e col tempo la differenza diventa enorme. Prova i numeri: nulla viene salvato fuori dal tuo dispositivo.</p>
   <div class="card" id="lt-card" style="margin-bottom:16px">
@@ -844,7 +853,9 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
     <div class="tw" id="lt-imp"></div>
     <p class="note" style="margin-top:10px">Sono simulazioni, non previsioni. Il rendimento non è garantito: 6–8% è un ordine di grandezza prudente per i mercati azionari nel lungo periodo, 12–14% è molto ottimista e il valore può anche scendere. I calcoli sono al lordo di tasse (di solito 26% sui guadagni) e inflazione, e i rendimenti qui sono annui con capitalizzazione mensile.</p>
   </div>
-  <p><button class="btn ghost" type="button" data-go="budget">Torna al Budget</button></p>
+  <h2>Pensione integrativa</h2>
+  <div class="card" style="margin-bottom:16px"><p style="margin:0">I contributi versati da un calciatore dilettante possono non bastare per una pensione adeguata. Una pensione integrativa (per esempio un fondo pensione) è un risparmio a lungo termine, con vantaggi fiscali nei limiti di legge. Chiedi sempre costi e condizioni a un consulente abilitato. L'importo che metti da parte ogni mese lo scrivi nel Budget, in «Già messo da parte», e lo spunti nel passo 7 del percorso.</p></div>
+  <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
 </section>
 <section id="p-faq" role="tabpanel" aria-labelledby="t-faq" hidden>
   <h2>Domande frequenti</h2>
@@ -1064,8 +1075,24 @@ R.eng=function(){
    +'<div class="card"><h3>Legalità '+pill(level,{ok:'In regola se rispetti i punti',warn:'Da verificare',risk:'Rischio alto'}[level])+'</h3><ul class="r">'+reasons.map(function(r){return '<li>'+r+'</li>'}).join('')+'</ul></div>'
    +netCard;
   var b=$('#use-eng');
-  if(b)b.onclick=function(){S.bud.ia_calcio_a=String(Math.round(m.net));S.bud.ia_rimb_a=String(Math.round(es));save();alert0('Inserito nel Budget: compenso netto '+eur(m.net)+' e rimborsi esenti '+eur(es)+'.',b)};
+  if(b)b.onclick=function(){useBud(m.net,es,b)};
 };
+function useBud(net,ri,btn){
+  var B=S.bud,mens=num(S.mens)||12,calM=num(B.im_calcio_m),rimM=num(B.im_rimb),calA=num(B.ia_calcio_a),rimA=num(B.ia_rimb_a),
+      ann=calM*mens,rimAnn=rimM*(function(){var mo=num(B.M_im_rimb);mo=(mo>=1&&mo<=12)?mo:12;return B.W_im_rimb?52*mo/12:mo})(),
+      nn=Math.round(net),rr=Math.round(ri);
+  function put(add){var a0=add?calA:0,r0=add?rimA:0;B.ia_calcio_a=String(Math.round(a0+nn));B.ia_rimb_a=String(Math.round(r0+rr));save();
+    alert0('Inserito nel Budget come voce annuale: compenso netto '+eur(nn)+' e rimborsi esenti '+eur(rr)+'.',btn)}
+  if(calM>0||rimM>0){
+    var d=[];if(calM>0)d.push('<b>Calcio</b>: '+eur(calM)+' al mese per '+mens+' mesi = <b>'+eur(ann)+' all\'anno</b>');if(rimM>0)d.push('<b>Rimborsi</b> mensili: circa <b>'+eur(rimAnn)+' all\'anno</b>');
+    var nw='<b>'+eur(nn)+'</b> di compenso'+(rr>0?' e <b>'+eur(rr)+'</b> di rimborsi':'');
+    var no=function(){alert0('Non ho inserito nulla nel Budget.',btn)};
+    if(window.ttConfirm){
+      window.ttConfirm('Guarda, nel tuo Budget c\'è <b>già una voce di entrata del calcio</b>. Inserisco anche quella che mi stai dicendo ora, oppure no?','Dimmi quanto è',function(){
+        window.ttConfirm('Nel Budget hai:<br>'+d.join('<br>')+'<br><br>Quella che stai inserendo ora è: '+nw+' all\'anno.<br><br>Se sono la stessa cifra, è lo stesso stipendio. Vuoi che inserisca anche questa?','Sì, inseriscila',function(){put(true)},'No, non inserirla',no)
+      },'No',no);return}
+  }
+  put(false)}
 function alert0(t,el){var s=document.createElement('div');s.className='sub';s.textContent=t;s.setAttribute('role','status');el.insertAdjacentElement('afterend',s);setTimeout(function(){s.remove()},3500);R.bud&&R.bud()}
 
 /* ---------- Compliance ---------- */
@@ -1172,7 +1199,7 @@ R.sim=function(){
     el.addEventListener('input',function(){setP(el.getAttribute('data-k'),el.value);save();renderAll()});
   });
   $$('#sim-out [data-use]').forEach(function(b){
-    b.onclick=function(){var r=res[+b.getAttribute('data-use')];S.bud.ia_calcio_a=String(Math.round(r.net));S.bud.ia_rimb_a=String(Math.round(r.ri));save();alert0('Inserito nel Budget: compenso netto '+eur(r.net)+' e rimborsi esenti '+eur(r.ri)+'.',b)};
+    b.onclick=function(){var r=res[+b.getAttribute('data-use')];useBud(r.net,r.ri,b)};
   });
   if(k){var n=$('#sim-out [data-k="'+k+'"]');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}}
   /* spiegazione */
@@ -1559,7 +1586,7 @@ R.home=function(){
     e+='<div class="cmp"><span class="nm"><b>'+(sur>=0?'Quello che ti avanza':'Quello che ti manca')+'</b></span><b>'+eur(Math.abs(sur))+' · '+pct(Math.abs(sur)/ent)+'</b></div><div class="bar"><i class="'+(sur>=0?'ok':'risk')+'" style="width:'+Math.min(100,Math.abs(sur)/ent*100)+'%"></i></div>';
   }
   var GD=goalData(),gh='<h3>Dove voglio arrivare: risparmio e investimento</h3>';
-  if(!GD.rows.length){gh+='<p class="sub">Imposta gli obiettivi a breve termine nella sezione Obiettivi di risparmio.</p>'}
+  if(!GD.rows.length){gh+='<p class="sub">Imposta gli obiettivi a breve termine nella sezione Obiettivi a breve termine.</p>'}
   else{
     gh+='<p class="sub" style="margin:0 0 10px">Ogni barra mostra a che punto arrivo con quello che metto da parte oggi.</p>';
     GD.rows.forEach(function(r){
@@ -1873,9 +1900,9 @@ var PSTEPS=[
  {n:1,t:'Budget',tab:'budget',go:'Vai al Budget',
   why:'Scrivi cosa entra e cosa esce. Senza questo, tutto il resto è alla cieca.',
   how:'<b>Mini-missione:</b> inserisci nel Budget almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
- {n:2,t:'Obiettivi di risparmio',tab:'obiettivi',go:'Vai agli obiettivi',
+ {n:2,t:'Obiettivi a breve termine',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
-  how:'<b>Mini-missione:</b> in «Obiettivi di risparmio» compila tutte le caselle: risparmio e investimento a 6 mesi, 12 mesi, 30 mesi e 5 anni (se non hai un obiettivo, scrivi 0).'},
+  how:'<b>Mini-missione:</b> in «Obiettivi a breve termine» compila tutte le caselle: risparmio e investimento a 6 mesi, 12 mesi, 30 mesi e 5 anni (se non hai un obiettivo, scrivi 0).'},
  {n:3,t:'Contratto in regola',tab:'contratto',go:'Vai al Contratto',
   why:'Un contratto sbagliato ti fa perdere soldi, tutele e il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
   how:'<b>Mini-missione:</b> inserisci i tuoi dati nel Contratto, rispondi a tutte le domande della Conformità e prova il Simulatore netto. Le 3 verifiche qui sotto sono consigliate: spuntale solo quando le hai fatte davvero.'},
@@ -1885,12 +1912,12 @@ var PSTEPS=[
  {n:5,t:'Analisi debiti',
   why:'Prima si tolgono i debiti con gli interessi più alti: di solito costano più di quanto renderebbe un investimento. È una regola generale, non una norma.',
   how:'<b>Mini-missione:</b> spunta «Non ho debiti», oppure inserisci i tuoi debiti con la rata mensile.'},
- {n:6,t:'Investire',tab:'obiettivi',go:'Vai agli obiettivi',
+ {n:6,t:'Investire',tab:'lungo',go:'Vai a «Lungo termine e pensione»',
   why:'Investire il risparmio in eccesso, dopo aver completato il fondo di emergenza. Con una cifra fissa ogni mese (PAC) costruisci nel tempo. Nessun rendimento è garantito e il valore può scendere.',
-  how:'<b>Mini-missione:</b> inserisci una cifra mensile per il PAC in «Già messo da parte» e imposta l\'obiettivo di investimento a 12 mesi nel Budget.'},
- {n:7,t:'Obiettivi a lungo termine e pensione integrativa',tab:'obiettivi',go:'Vai agli obiettivi',
+  how:'<b>Mini-missione:</b> inserisci una cifra mensile per il PAC in «Già messo da parte» nel Budget e prova «Quanto pesano 100 € di differenza?» in «Lungo termine e pensione» (importo e rendimento).'},
+ {n:7,t:'Obiettivi a lungo termine e pensione integrativa',tab:'lungo',go:'Vai a «Lungo termine e pensione»',
   why:'Guarda lontano: 10, 20 o 30 anni. L\'interesse composto fa crescere i soldi sempre più in fretta, e la pensione integrativa conta perché i contributi di un dilettante possono non bastare.',
-  how:'<b>Mini-missione:</b> usa il calcolatore dell\'interesse composto (quanto hai già investito e quanto versi al mese) e valuta la pensione integrativa (spunta oppure inserisci una cifra mensile).'}
+  how:'<b>Mini-missione:</b> usa il pianificatore dell\'interesse composto in «Lungo termine e pensione» (quanto hai già investito e quanto versi al mese) e valuta la pensione integrativa (spunta oppure inserisci una cifra mensile).'}
 ];
 function pMonthly(){return calcBud().sp/12}
 function dMonths(d){
@@ -1931,7 +1958,7 @@ function pCrit(n){
     var plan=L.length>0&&L.every(function(d){return num(d.rata)>0||num(d.res)<=0});
     return [['Non ho debiti, oppure ogni debito ha la sua rata',!!none||plan]];
   }
-  if(n===6)return [['Cifra mensile per il PAC inserita',num(B.sv_pac)>0],['Obiettivo di investimento a 12 mesi impostato',!!U.goals&&num(G.i12)>0]];
+  if(n===6)return [['Cifra mensile per il PAC inserita',num(B.sv_pac)>0],['Prova «Quanto pesano 100 €»: importo e rendimento inseriti',num((S.lt||{}).x)>0&&num((S.lt||{}).r)>0]];
   if(n===7)return [['Calcolatore dell\'interesse composto provato (versamento mensile inserito)',num((S.lt||{}).m)>0],['Pensione integrativa valutata o già messa da parte',!!C.pens||num(B.sv_prev)>0]];
   return [];
 }
@@ -2303,7 +2330,7 @@ function buildPerc(){
   window.addEventListener('resize',function(){if($('#p-percorso').hidden)return;var v=window.innerWidth<640;if(v!==pVert)updatePerc()});
 }
 R.perc=updatePerc;
-window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){return pCrit(n)},open:function(n){var d=$('#step-'+n);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}},steps:PSTEPS.map(function(s){return {n:s.n,t:({1:'Budget',2:'Obiettivi di risparmio',3:'Contratto in regola',4:'Fondo e assicurazione',5:'Analisi debiti',6:'Investire',7:'Lungo termine e pensione'})[s.n]}})};
+window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){return pCrit(n)},open:function(n){var d=$('#step-'+n);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}},steps:PSTEPS.map(function(s){return {n:s.n,t:({1:'Budget',2:'Obiettivi a breve termine',3:'Contratto in regola',4:'Fondo e assicurazione',5:'Analisi debiti',6:'Investire',7:'Lungo termine e pensione'})[s.n]}})};
 (function(){var b=document.getElementById('thm');if(!b)return;
   function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.querySelector('.thm-t').textContent=d?'Chiaro':'Scuro';b.setAttribute('aria-label',d?'Passa al tema chiaro':'Passa al tema scuro');var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d?'#0c1714':'#f2f5f3')}
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
@@ -2344,14 +2371,14 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   coLoad();
   window.ttCoachPaint=paint;
   /* passi */
-  var P7='<ol><li><b>Budget</b>: cosa entra e cosa esce</li><li><b>Obiettivi di risparmio</b></li><li><b>Contratto in regola</b></li><li><b>Fondo di emergenza</b> e protezione assicurativa</li><li><b>Analisi debiti</b></li><li><b>Investire</b> il risparmio in più</li><li><b>Obiettivi a lungo termine</b> e pensione integrativa</li></ol>';
+  var P7='<ol><li><b>Budget</b>: cosa entra e cosa esce</li><li><b>Obiettivi a breve termine</b></li><li><b>Contratto in regola</b></li><li><b>Fondo di emergenza</b> e protezione assicurativa</li><li><b>Analisi debiti</b></li><li><b>Investire</b> il risparmio in più</li><li><b>Obiettivi a lungo termine</b> e pensione integrativa</li></ol>';
   function M(){return window.innerWidth<640}
   function T(){return M()?'Tocca':'Clicca'}
   var SEC={
    hello:[{t:null,form:1,x:function(){return 'Ciao, sono il tuo assistente personale. <b>Chiamami come vuoi e personalizzami come preferisci.</b>'}}],
    ask:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Piacere! ')+'Ora ti guiderò in un breve tour dell\'app, va bene?'}}],
    intro:[{t:null,x:function(){return (C().name?'Sono <b>{N}</b>. ':'')+'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
-          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget e obiettivi), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
+          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget, obiettivi e lungo termine), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
    percorso:[{tab:'percorso',t:'#pitch',x:function(){return 'La sezione <b>«Il mio percorso»</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
              {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è la spiegazione del <b>perché è importante</b>, le <b>mini-missioni</b> e la lista delle cose da fare per completarle. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
@@ -2362,7 +2389,8 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
          {tab:'home',t:'#h-month',x:function(){return 'Qui vedi <b>dove va il risparmio di questo mese</b>: investimenti, fondo emergenza, spese con scadenza vicina e soldi ancora senza destinazione.'}},
          {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}},
          {tab:'home',t:'#percorso',x:function(){return 'In fondo, <b>Come sta andando il mio percorso?</b>: dove vuoi arrivare, quanti soldi hai già messo da parte e quali passi restano da fare.'}}],
-   obiettivi:[{tab:'obiettivi',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi di risparmio»</b> è il passo 2: i tuoi obiettivi a breve termine, a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. In fondo c\'è il calcolatore dell\'interesse composto per il lungo termine.'}}],
+   obiettivi:[{tab:'obiettivi',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi a breve termine»</b> è il passo 2: i tuoi obiettivi a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese.'}}],
+   lungo:[{tab:'lungo',t:'#lt-card',x:function(){return 'La sezione <b>«Lungo termine e pensione»</b> è per i passi 6 e 7, e si sblocca più avanti. Qui provi l\'<b>interesse composto</b> a 10, 20 e 30 anni e vedi quanto pesano anche solo 100 € in più. In fondo trovi la pensione integrativa.'}}],
    budget:[{tab:'budget',t:'.strip',x:function(){return 'La sezione <b>«Budget»</b> è il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi.'}},
            {tab:'budget',t:'#b-grid',x:function(){return (M()?'Prima le <b>spese</b>, più sotto le <b>entrate</b>':'A sinistra le <b>spese</b>, a destra le <b>entrate</b>')+', divise in gruppi come Casa, Calcio, Lavoro. Scrivi cifre <b>nette</b>: le voci mensili vengono moltiplicate per 12, quelle annuali divise per 12. Nelle entrate del calcio scegli quante mensilità paga il club.'}},
            {tab:'budget',t:'#sv-panel',x:function(){return '<b>Già messo da parte</b>: quanto metti da parte ogni mese per PAC, fondo emergenza o pensione integrativa. Non è una spesa: sono soldi tuoi. Servono per i passi 4, 6 e 7.'}}],
@@ -2377,7 +2405,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    end:[{t:'#hlb',x:function(){return 'Ultima cosa: quando hai un dubbio '+(M()?'tocca':'clicca')+' <b>Hai bisogno di aiuto?</b> e torno io a spiegarti la schermata dove sei.'+(M()?'':' In alto a destra cambi tema chiaro o scuro.')+' Buon percorso!'}}]
   };
   var steps=[],i=0,typing=0,box=document.getElementById('tt-box'),tx=document.getElementById('tt-tx'),raf=0;
-  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end,SEC.choose);if(k==='rest')return SEC.home.concat(SEC.budget,SEC.obiettivi,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
+  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end,SEC.choose);if(k==='rest')return SEC.home.concat(SEC.budget,SEC.obiettivi,SEC.lungo,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.lungo,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();
@@ -2388,8 +2416,8 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
         x:'<b>Completati:</b><br>'+done.join('<br>')+'<br><br><b>Ora tocca al passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>'+nx.how+(cr.length?'<br><br><b>Cosa manca:</b><br>'+cr.join('<br>'):'')+'<br><br>Poi ci sono ancora '+(7-nx.n)+' passi.'}])}
     setTimeout(function(){if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
-      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi di risparmio» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
-      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')},5500)};
+      if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi a breve termine» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
+      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Lungo termine e pensione</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')},5500)};
   window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
     if(n>=7){window.ttCustom([{t:null,x:'<b>Hai completato tutti i 7 passi!</b> Ora tieni aggiornati budget e obiettivi.'}]);return}
     var nx=P[n],cr=window.ttPerc.crit(n+1).map(function(c){return (c[1]?'✅ ':'⬜ ')+c[0]}),ntab=nx.tab||'percorso';
@@ -2479,7 +2507,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   if(S.prof&&S.prof.done)window.ttTourAuto();
 })();
 var LKSVG='<span class="lk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3z"/></svg></span>';
-var LKREQ={budget:0,obiettivi:1,home:1,contratto:2,conformita:2,netto:2};
+var LKREQ={budget:0,obiettivi:1,home:1,contratto:2,conformita:2,netto:2,lungo:5};
 function tabLocked(t){if(t==='percorso'||t==='faq'||!(t in LKREQ))return false;if(t==='budget')return !(S.ub||(S.unl||0)>=1);return (S.unl||0)<LKREQ[t]}
 function refreshLocks(){
   if(pCur()>(S.unl||0)){S.unl=pCur();save()}
@@ -2497,10 +2525,10 @@ window.ttRefreshLocks=refreshLocks;window.ttFixLock=function(){if(tabLocked(S.ta
 function showTab(t){
   S.tab=t;
   $$('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
-  ['percorso','home','contratto','conformita','netto','budget','obiettivi','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
+  ['percorso','home','contratto','conformita','netto','budget','obiettivi','lungo','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
   save();
   if(window.ttSection)window.ttSection(t);
-  if(t==='budget'||t==='obiettivi')R.bud();
+  if(t==='budget'||t==='obiettivi'||t==='lungo')R.bud();
   if(t==='home')R.home();
   if(t==='faq')R.faq();
   if(t==='percorso'){updatePerc();var dd=$('#step-'+(pCur()+1));if(dd)dd.open=true}
@@ -2567,7 +2595,7 @@ buildQ();buildBudget();bindAll();renderAll();R.bud();
   function say(t){if(msg)msg.textContent=t}
   var fb=document.getElementById('hlp-fb');
   if(fb&&!FB_URL)fb.hidden=true;
-  if(fb&&FB_URL)fb.addEventListener('click',function(){var nm=((S.prof&&S.prof.nome)||'').trim(),sec={percorso:'Il mio percorso',home:'Dove sono oggi?',budget:'Budget',obiettivi:'Obiettivi di risparmio',contratto:'Contratto',conformita:'Conformità',netto:'Simulatore netto',faq:'Domande frequenti'}[S.tab]||'',dev=/Mobi|Android|iPhone/i.test(navigator.userAgent)?'telefono':'computer';
+  if(fb&&FB_URL)fb.addEventListener('click',function(){var nm=((S.prof&&S.prof.nome)||'').trim(),sec={percorso:'Il mio percorso',home:'Dove sono oggi?',budget:'Budget',obiettivi:'Obiettivi a breve termine',lungo:'Lungo termine e pensione',contratto:'Contratto',conformita:'Conformità',netto:'Simulatore netto',faq:'Domande frequenti'}[S.tab]||'',dev=/Mobi|Android|iPhone/i.test(navigator.userAgent)?'telefono':'computer';
     var t='Feedback Terzo Tempo'+(nm?' da '+nm:'')+'\nSezione: '+sec+'\nDispositivo: '+dev+', schermo '+window.innerWidth+'px\n\nCosa non ho capito o non funziona:\n\nCosa migliorerei:\n';
     try{if(navigator.clipboard)navigator.clipboard.writeText(t)}catch(e){}
     window.open(FB_URL,'_blank','noopener')});
@@ -2584,7 +2612,7 @@ buildQ();buildBudget();bindAll();renderAll();R.bud();
 [['#p-contratto','contr'],['#p-conformita','comp'],['#p-netto','sim']].forEach(function(x){var el=$(x[0]);['input','change'].forEach(function(ev){el.addEventListener(ev,function(){if(!S.used[x[1]]){S.used[x[1]]=1;save()}})})});
 buildPerc();
 var h=(location.hash||'').replace('#','');
-if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','faq'].indexOf(h)>-1?h:'percorso');
+if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','lungo','faq'].indexOf(h)>-1?h:'percorso');
 })();
 </script>
 <script id="tt3d">
