@@ -626,7 +626,16 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 .ex{border:1px solid var(--line);border-radius:12px;margin:0 0 8px;background:var(--surface)}
 .ex>summary{padding:10px 12px;cursor:pointer;font-weight:600}
 .ex>div{padding:0 12px 12px}
-</style>
+
+.tabs [data-tab]{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:8px;text-align:left}
+.tabs [data-tab] .ps{flex:none;margin-left:auto;align-self:center}
+
+.tabs [data-tab] .lk{flex:none;margin-left:auto;align-self:center;width:.85em;height:.85em}
+.tabs [data-tab] .ps+.lk{margin-left:0}
+
+.tgl2{margin-top:8px}
+@media (min-width:641px){.tgl2{margin-top:6px}}
+.lsubs{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}.lsubs .btn{width:100%;text-align:left}.lsubs .btn.on{border-color:#006b45;background:#e4f3ec}.lsub{margin-top:6px}.tabs [data-tab] .ps{display:inline-flex;gap:2px;white-space:nowrap}.tabs [data-tab] .ps i{margin:0 !important}.tabs [data-tab]{min-width:0}</style>
 
 <div class="wrap">
 <button type="button" class="thm" id="thm" aria-label="Passa al tema scuro" title="Tema chiaro / scuro"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="currentColor"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg><span class="thm-t">Scuro</span></button>
@@ -645,7 +654,9 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
   <button type="button" class="hlp-i" data-tour="obiettivi"><i class="hn">2</i>Obiettivi a breve termine</button>
   <button type="button" class="hlp-i" data-tour="fondo"><i class="hn">4</i>Fondo di emergenza</button>
   <button type="button" class="hlp-i" data-tour="debiti"><i class="hn">5</i>Debiti</button>
-  <button type="button" class="hlp-i" data-tour="lungo"><i class="hn">6</i>Lungo termine e pensione</button>
+  <button type="button" class="hlp-i" data-tour="invest"><i class="hn">6</i>Le basi dell'investire</button>
+  <button type="button" class="hlp-i" data-tour="calc"><i class="hn">6</i>La tua proiezione</button>
+  <button type="button" class="hlp-i" data-tour="pens"><i class="hn">7</i>Piano a lungo termine</button>
   <button type="button" class="hlp-i" data-tour="contratto"><i class="hn">3</i>Contratto</button>
   <button type="button" class="hlp-i" data-tour="conformita"><i class="hn">3</i>Conformità</button>
   <button type="button" class="hlp-i" data-tour="netto"><i class="hn">3</i>Simulatore netto</button>
@@ -675,10 +686,10 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
   <div class="brand"><i aria-hidden="true"></i><b>Terzo Tempo</b></div>
   <p class="tag">Facciamo chiarezza su contratti, tasse, strumenti di risparmio e finanza personale per il calciatore dilettante.</p>
   <nav class="tabs" role="tablist" aria-label="Sezioni">
-    <div class="tg" role="presentation"><span class="tgl">Parti da qui</span><div class="tgb" role="presentation"><button role="tab" id="t-percorso" data-tab="percorso" aria-selected="true">Il mio percorso</button><button role="tab" id="t-home" data-tab="home" aria-selected="false">Dove sono oggi?</button></div></div>
-    <div class="tg" role="presentation"><span class="tgl">I tuoi soldi</span><div class="tgb" role="presentation"><button role="tab" id="t-budget" data-tab="budget" aria-selected="false">Budget<span class="ps" aria-label="passo 1"><i>1</i></span></button><button role="tab" id="t-obiettivi" data-tab="obiettivi" aria-selected="false">Obiettivi a breve termine<span class="ps" aria-label="passo 2"><i>2</i></span></button><button role="tab" id="t-fondo" data-tab="fondo" aria-selected="false">Fondo di emergenza<span class="ps" aria-label="passo 4"><i>4</i></span></button><button role="tab" id="t-debiti" data-tab="debiti" aria-selected="false">Debiti<span class="ps" aria-label="passo 5"><i>5</i></span></button><button role="tab" id="t-lungo" data-tab="lungo" aria-selected="false">Lungo termine e pensione<span class="ps" aria-label="passi 6, 7"><i>6</i><i>7</i></span></button></div></div>
+    <div class="tg" role="presentation"><span class="tgl">Parti da qui</span><div class="tgb" role="presentation"><button role="tab" id="t-percorso" data-tab="percorso" aria-selected="true">Il mio percorso</button><button role="tab" id="t-home" data-tab="home" aria-selected="false">Dove sono oggi?</button></div><span class="tgl tgl2">Dubbi?</span><div class="tgb" role="presentation"><button role="tab" id="t-faq" data-tab="faq" aria-selected="false">Domande frequenti</button></div></div>
     <div class="tg" role="presentation"><span class="tgl">Il tuo contratto</span><div class="tgb" role="presentation"><button role="tab" id="t-contratto" data-tab="contratto" aria-selected="false">Contratto<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-conformita" data-tab="conformita" aria-selected="false">Conformità<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-netto" data-tab="netto" aria-selected="false">Simulatore netto<span class="ps" aria-label="passi 3"><i>3</i></span></button></div></div>
-    <div class="tg" role="presentation"><span class="tgl">Dubbi</span><div class="tgb" role="presentation"><button role="tab" id="t-faq" data-tab="faq" aria-selected="false">Domande frequenti</button></div></div>
+    <div class="tg" role="presentation"><span class="tgl">I tuoi soldi</span><div class="tgb" role="presentation"><button role="tab" id="t-budget" data-tab="budget" aria-selected="false">Budget<span class="ps" aria-label="passi 1"><i>1</i></span></button><button role="tab" id="t-obiettivi" data-tab="obiettivi" aria-selected="false">Obiettivi a breve termine<span class="ps" aria-label="passi 2"><i>2</i></span></button><button role="tab" id="t-fondo" data-tab="fondo" aria-selected="false">Fondo di emergenza<span class="ps" aria-label="passi 4"><i>4</i></span></button><button role="tab" id="t-debiti" data-tab="debiti" aria-selected="false">Debiti<span class="ps" aria-label="passi 5"><i>5</i></span></button></div></div>
+    <div class="tg" role="presentation"><span class="tgl">Il tuo futuro</span><div class="tgb" role="presentation"><button role="tab" id="t-invest" data-tab="invest" aria-selected="false">Le basi dell'investire<span class="ps" aria-label="passi 6"><i>6</i></span></button><button role="tab" id="t-calc" data-tab="calc" aria-selected="false">La tua proiezione</button><button role="tab" id="t-pens" data-tab="pens" aria-selected="false">Piano a lungo termine<span class="ps" aria-label="passi 6, 7"><i>6</i><i>7</i></span></button></div></div>
   </nav>
   <p class="tg-note">I numeri sui pulsanti indicano i passi del percorso che completi in quella sezione.</p>
 </header>
@@ -882,46 +893,62 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 </section>
 <section id="p-debiti" role="tabpanel" aria-labelledby="t-debiti" hidden>
   <div class="intro"><h3>Perché guardare i debiti</h3><ul>
-    <li>Un debito costa: ogni mese paghi interessi, e sono soldi che non vanno a te.</li>
-    <li>Un debito con tasso alto di solito costa più di quanto renderebbe un investimento.</li>
-    <li>Sapere quanto devi, a quanto e fino a quando ti fa decidere con calma.</li>
+    <li>Un debito costa: ogni mese paghi interessi.</li>
+    <li>Più alto è il tasso, più costa.</li>
+    <li>Sapere quanto devi ti fa scegliere con calma.</li>
   </ul></div>
-  <h2>Le regole per i debiti</h2>
+  <h2>6 regole facili</h2>
   <div class="card" style="margin-bottom:16px"><ol class="rules">
-    <li><b>Prima il mini-fondo.</b> Almeno 1 mese di spese da parte (passo 4), così un imprevisto non crea un nuovo debito.</li>
-    <li><b>Scrivi tutti i debiti.</b> Quanto devi ancora, la rata mensile e il tasso. Nel tasso guarda il TAN e, per i finanziamenti, anche il TAEG.</li>
-    <li><b>Paga sempre almeno la rata.</b> Un ritardo costa interessi e può peggiorare la tua posizione.</li>
-    <li><b>L'extra va al debito col tasso più alto.</b> Costa di più. Se preferisci vincere presto una piccola battaglia, puoi partire dal debito più piccolo: è una scelta tua.</li>
-    <li><b>Quando ne chiudi uno, la sua rata passa al successivo.</b> Così la cifra che usi non cambia e il debito dopo si accorcia.</li>
-    <li><b>Niente nuovi debiti mentre li chiudi.</b> Attenzione a «compra ora, paga dopo» e ai prestiti veloci: controlla sempre il costo totale.</li>
-  </ol><p class="sub" style="margin:10px 0 0">Sono regole generali, non norme. Per un debito importante parla con un consulente o con la tua banca.</p></div>
+    <li><b>Prima un mini-fondo.</b> Almeno 1 mese di spese da parte (passo 4).</li>
+    <li><b>Scrivi tutti i debiti:</b> quanto devi, la rata e il tasso.</li>
+    <li><b>Paga sempre la rata,</b> mai in ritardo.</li>
+    <li><b>Ogni euro in più</b> va al debito col tasso più alto.</li>
+    <li><b>Quando ne chiudi uno,</b> la sua rata va al successivo. Finiti i debiti, va nell'investimento.</li>
+    <li><b>Niente nuovi debiti.</b> Attenzione a «compra ora, paga dopo».</li>
+  </ol><p class="sub" style="margin:10px 0 0">Regole generali, non norme. Per un debito importante chiedi a un consulente.</p></div>
   <h2>I miei debiti</h2>
   <div class="dbt"><label class="chk" for="d-none"><input type="checkbox" id="d-none"><span>Non ho debiti</span></label><div id="d-list"></div><button type="button" class="btn ghost" id="d-add">+ Aggiungi debito</button><div id="d-sum" class="sub"></div></div>
   <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
 </section>
-<section id="p-lungo" role="tabpanel" aria-labelledby="t-lungo" hidden>
-  <div class="intro"><h3>Perché guardare lontano</h3><ul>
-    <li>Qui impari le basi dell'investire e giochi con i numeri a 10, 20 e 30 anni.</li>
-    <li>Serve dopo aver sistemato budget, contratto, fondo di emergenza e debiti.</li>
-    <li>Nessun rendimento è garantito: sono numeri per capire l'ordine di grandezza.</li>
+<section id="p-invest" role="tabpanel" aria-labelledby="t-invest" hidden>
+  <div class="intro"><h3>Investire, in parole semplici</h3><ul>
+    <li>Investire vuol dire mettere i soldi in qualcosa che può farli crescere nel tempo.</li>
+    <li>Si fa solo dopo il fondo di emergenza e i debiti: così non devi riprenderli al momento sbagliato.</li>
+    <li>Nessun guadagno è garantito.</li>
   </ul></div>
-  <h2>I tuoi numeri di oggi</h2>
-  <div class="card" id="lt-bud" style="margin-bottom:16px"></div>
-  <h2>Mini corso: le basi dell'investire</h2>
+  <h2>I soldi vanno in 3 passi</h2>
   <div class="card" style="margin-bottom:16px"><ol class="rules">
-    <li><b>Prima le fondamenta.</b> Budget in ordine, fondo di emergenza e niente debiti cari. Solo dopo si investe.</li>
-    <li><b>Il tempo conta più dell'importo.</b> Iniziare presto, anche con poco, pesa più di iniziare tardi con tanto.</li>
-    <li><b>Poco, ma ogni mese.</b> Un versamento regolare (PAC) evita di dover indovinare il momento giusto.</li>
-    <li><b>Diversifica.</b> Non mettere tutto su una sola azienda o un solo strumento: gli ETF diffusi su molti titoli servono a questo.</li>
-    <li><b>Guarda i costi.</b> Commissioni alte mangiano il rendimento per decenni.</li>
-    <li><b>Il valore sale e scende.</b> Investi solo soldi che non ti servono nei prossimi anni, e non venderli nel panico.</li>
-    <li><b>Nessuno garantisce il rendimento.</b> Diffida di chi promette guadagni sicuri.</li>
+    <li><b>Fondo di emergenza.</b> Prima metti da parte soldi per gli imprevisti (passo 4).</li>
+    <li><b>Debiti.</b> Poi chiudi i debiti, prima quello che costa di più (passo 5).</li>
+    <li><b>Investire.</b> Infine investi ogni mese.</li></ol>
+  <p class="sub" style="margin:10px 0 0">Quando finisci un passo, la cifra che ci mettevi va al passo dopo. Così il versamento per investire cresce da solo.</p></div>
+  <h2>6 regole facili</h2>
+  <div class="card" style="margin-bottom:16px"><ol class="rules">
+    <li><b>Parti presto.</b> Il tempo conta più dell'importo.</li>
+    <li><b>Versa ogni mese,</b> anche poco.</li>
+    <li><b>Non mettere tutto in una cosa sola.</b> Più aziende insieme sono meno rischiose di una sola.</li>
+    <li><b>Guarda i costi.</b> Più costa, meno ti resta.</li>
+    <li><b>Il valore sale e scende.</b> Non vendere per paura.</li>
+    <li><b>Chi promette guadagni sicuri sbaglia, o mente.</b></li>
   </ol>
   <div class="chks" style="margin-top:10px"><label class="chk" for="c-inv"><input type="checkbox" id="c-inv" data-chk="inv"><span>Ho letto le basi dell'investire</span></label></div></div>
-  <h3>Video, PDF ed esercizi</h3>
+  <h2>Video, PDF ed esercizi</h2>
   <div class="card" style="margin-bottom:16px"><div id="inv-media" class="sub" style="margin:0 0 10px"></div><div id="inv-ex"></div></div>
-<h2 id="lt-h">Pianificazione a lungo termine: l'interesse composto</h2>
-  <p class="lead">Qui guardi lontano: 10, 20 o 30 anni. L'interesse composto significa che i guadagni producono a loro volta guadagni, e col tempo la differenza diventa enorme. Prova i numeri: nulla viene salvato fuori dal tuo dispositivo.</p>
+  <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
+</section>
+<section id="p-calc" role="tabpanel" aria-labelledby="t-calc" hidden>
+  <h2 style="margin-top:28px">La tua proiezione in base al budget</h2>
+  <p class="sub" style="margin:0 0 8px">Con i valori che hai inserito finora.</p>
+  <div class="card" id="lt-bud" style="margin-bottom:16px"></div>
+      <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
+</section>
+<section id="p-pens" role="tabpanel" aria-labelledby="t-pens" hidden>
+  <h2>Pianificazione a lungo termine</h2>
+  <p class="sub" style="margin:0 0 10px">Scegli un argomento.</p>
+  <div class="lsubs" role="group" aria-label="Argomenti"><button type="button" class="btn ghost" data-sub="comp" aria-expanded="false">Interesse composto</button><button type="button" class="btn ghost" data-sub="pens" aria-expanded="false">Pensione integrativa</button><button type="button" class="btn ghost" data-sub="cons" aria-expanded="false">Consulenza</button></div>
+  <div class="lsub" id="sub-comp" hidden>
+  <h2 id="lt-h">Prova con i tuoi numeri</h2>
+   <p class="lead">Scrivi quanto versi ogni mese: vedi quanto diventa tra 10, 20 e 30 anni. Il tempo fa crescere i soldi sempre più in fretta (interesse composto). Nulla viene salvato fuori dal tuo dispositivo.</p>
   <div class="card" id="lt-card" style="margin-bottom:16px">
     <div class="fields" style="margin:0 0 10px">
       <div><label class="l" for="lt_p0">Quanto hai già investito (€)</label><input type="text" inputmode="decimal" id="lt_p0" data-lt="p0" placeholder="0"></div>
@@ -937,16 +964,28 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
     <div class="tw" id="lt-imp"></div>
     <p class="note" style="margin-top:10px">Sono simulazioni, non previsioni. Il rendimento non è garantito: 6–8% è un ordine di grandezza prudente per i mercati azionari nel lungo periodo, 12–14% è molto ottimista e il valore può anche scendere. I calcoli sono al lordo di tasse (di solito 26% sui guadagni) e inflazione, e i rendimenti qui sono annui con capitalizzazione mensile.</p>
   </div>
-    <h2>Pensione integrativa</h2>
-  <div class="card" style="margin-bottom:16px"><p style="margin:0 0 8px">I contributi obbligatori versati da un calciatore dilettante possono non bastare per una pensione adeguata. Una pensione integrativa è un risparmio a lungo termine, con vantaggi fiscali nei limiti di legge. Spunta come la stai costruendo: ogni voce ha il tasto «Cos'è?» e Leo te la spiega.</p>
-  <div class="chks"><div class="pnrow"><label class="chk" for="c-pn_fp"><input type="checkbox" id="c-pn_fp" data-chk="pn_fp"><span>Mi sto creando una pensione con un fondo pensione a sé stante</span></label><button type="button" class="btn ghost inline" data-info="pn_fp">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_gs"><input type="checkbox" id="c-pn_gs" data-chk="pn_gs"><span>Uso una gestione separata (INPS o di una polizza assicurativa)</span></label><button type="button" class="btn ghost inline" data-info="pn_gs">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_etf"><input type="checkbox" id="c-pn_etf" data-chk="pn_etf"><span>Me la sto creando investendo in ETF</span></label><button type="button" class="btn ghost inline" data-info="pn_etf">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_con"><input type="checkbox" id="c-pn_con" data-chk="pn_con"><span>Me la sto creando con un consulente</span></label><button type="button" class="btn ghost inline" data-info="pn_con">Cos'è?</button></div><label class="chk" for="c-pn_val"><input type="checkbox" id="c-pn_val" data-chk="pn_val"><span>Ho valutato la pensione integrativa e ho deciso di rimandare</span></label></div>
-  <p class="sub" style="margin:10px 0 0">Puoi spuntare più voci. L'importo che metti da parte ogni mese lo scrivi nel Budget, in «Già messo da parte».</p></div>
+  </div>
+  <div class="lsub" id="sub-pens" hidden>
+  <div class="intro"><h3>Perché pensare alla pensione</h3><ul>
+    <li>La pensione di base di un calciatore dilettante può non bastare.</li>
+    <li>La pensione integrativa è un risparmio in più per quando smetti di lavorare.</li>
+    <li>Prima inizi, meno devi mettere da parte ogni mese.</li>
+  </ul></div>
+  <h2>Come la stai costruendo?</h2>
+  <div class="card" style="margin-bottom:16px"><p style="margin:0 0 8px">Spunta tutte le voci che ti riguardano. Con «Cos'è?» Leo te la spiega.</p>
+  <div class="chks"><div class="pnrow"><label class="chk" for="c-pn_fp"><input type="checkbox" id="c-pn_fp" data-chk="pn_fp"><span>Con un fondo pensione a sé stante</span></label><button type="button" class="btn ghost inline" data-info="pn_fp">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_gs"><input type="checkbox" id="c-pn_gs" data-chk="pn_gs"><span>Con una gestione separata (INPS o polizza)</span></label><button type="button" class="btn ghost inline" data-info="pn_gs">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_etf"><input type="checkbox" id="c-pn_etf" data-chk="pn_etf"><span>Investendo in ETF</span></label><button type="button" class="btn ghost inline" data-info="pn_etf">Cos'è?</button></div><div class="pnrow"><label class="chk" for="c-pn_con"><input type="checkbox" id="c-pn_con" data-chk="pn_con"><span>Con un consulente</span></label><button type="button" class="btn ghost inline" data-info="pn_con">Cos'è?</button></div><label class="chk" for="c-pn_val"><input type="checkbox" id="c-pn_val" data-chk="pn_val"><span>Ho valutato e ho deciso di rimandare</span></label></div>
+  <p class="sub" style="margin:10px 0 0">La cifra che metti da parte ogni mese la scrivi nel Budget, in «Già messo da parte».</p></div>
+  </div>
+  <div class="lsub" id="sub-cons" hidden>
   <h2>Consulenza</h2>
-  <div class="card" style="margin-bottom:16px"><p style="margin:0 0 8px">Per somme importanti o scelte di lungo periodo, parlare con un consulente finanziario abilitato può aiutarti. Prima di sceglierlo:</p>
-  <ul class="rules" style="list-style:disc"><li>Controlla che sia iscritto all'albo dei consulenti finanziari (OCF).</li><li>Chiedi come viene pagato: a parcella o con commissioni sui prodotti.</li><li>Chiedi i costi totali, scritti, prima di firmare.</li><li>Diffida di chi promette rendimenti sicuri o ti mette fretta.</li></ul>
+  <div class="card" style="margin-bottom:16px"><p style="margin:0 0 8px">Per scelte importanti, un consulente finanziario abilitato può aiutarti. Prima di sceglierlo controlla 3 cose:</p>
+  <ul class="rules" style="list-style:disc"><li>È iscritto all'albo dei consulenti finanziari (OCF).</li><li>Come viene pagato: a parcella o con commissioni sui prodotti.</li><li>Quanto costa in totale, per iscritto, prima di firmare.</li></ul>
+  <p class="sub" style="margin:8px 0 0">Diffida di chi promette guadagni sicuri o ti mette fretta.</p>
   <div id="cons-box" class="sub" style="margin:10px 0 0"></div></div>
+  </div>
   <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
 </section>
+
 <section id="p-faq" role="tabpanel" aria-labelledby="t-faq" hidden>
   <h2>Domande frequenti</h2>
   <p class="lead">Scegli un argomento oppure cerca una parola. Ogni risposta indica la fonte.</p>
@@ -1713,16 +1752,16 @@ function renderLtExtra(){
     var avm=B.sur/12,sv=B.T.SV/12,pac=num(S.bud.sv_pac),prev=num(S.bud.sv_prev),em=num(S.bud.sv_emerg),alt=sv-pac-prev-em,free=avm-sv,
         debtM=((S.debt&&S.debt.list)||[]).reduce(function(s,d){return s+num(d.rata)},0),tg=num(S.fund.mesi)*pMonthly(),fdone=tg>0&&fundSaved()>=tg,
         invM=pac+prev,h='';
-    h='<p style="margin:0 0 8px"><b>L\'ordine dei soldi</b> (ispirato ai passi di Dave Ramsey): con l\'avanzo di ogni mese non investi subito. Vai in questo ordine, e ogni volta che un passo finisce, la sua quota passa al successivo, come una palla di neve.</p><ol class="rules" style="margin:0 0 12px"><li><b>Fondo di emergenza</b> con l\'avanzo che non è destinato ad altro. '+(fdone?'✅ Completato.':(em>0?'In corso: versi '+eur(em)+' al mese.':'Da iniziare.'))+'</li><li><b>Debiti</b>, uno alla volta (prima quello con il tasso più alto). '+(debtM>0?'Rate di oggi: '+eur(debtM)+' al mese.':(S.debt&&S.debt.none?'✅ Nessun debito.':'Da compilare.'))+'</li><li><b>Investire</b>. Aumenti il versamento quando si liberano le quote del fondo e dei debiti.</li></ol>';
+    h='<p class="sub" style="margin:0 0 8px">Ricorda l\'ordine: prima il fondo di emergenza'+(fdone?' (✅ fatto)':'')+', poi i debiti'+(S.debt&&S.debt.none?' (✅ nessuno)':'')+', poi investire. Vedi «Le basi dell\'investire».</p>';
     if(B.ent<=0)h+='<p class="sub" style="margin:0">Compila il Budget (passo 1) per vedere i tuoi numeri.</p>';
     else{
       h+='<p style="margin:0 0 8px">Ogni mese ti avanzano <b>'+eur(avm)+'</b>. Già destinati: fondo emergenza '+eur(em)+', PAC '+eur(pac)+', pensione '+eur(prev)+(alt>0.5?', altro '+eur(alt):'')+'. '+(free>=0?'Ancora liberi: <b>'+eur(free)+'</b>.':'Hai destinato <b>'+eur(-free)+'</b> in più di quanto avanza: controlla il Budget.')+'</p>';
       var rows=[],cum=invM;
-      if(cum>0)rows.push(['Come adesso: investi '+eur(cum)+' al mese',cum]);
-      if(em>0){cum+=em;rows.push(['+ quota del fondo, a fondo completato (in tutto '+eur(cum)+' al mese)',cum])}
-      if(debtM>0){cum+=debtM;rows.push(['+ rate dei debiti, a debiti chiusi (in tutto '+eur(cum)+' al mese)',cum])}
-      if(free>0.5){cum+=free;rows.push(['+ avanzo ancora libero (in tutto '+eur(cum)+' al mese)',cum])}
-      if(rows.length)h+='<p class="sub" style="margin:0 0 6px">Se continui così, con un rendimento ipotizzato del '+r+'% (non garantito):</p><table class="gt3"><thead><tr><th>Valori in €</th>'+YS.map(function(y){return '<th>Tra '+y+' anni</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(q){return '<tr><td>'+q[0]+'</td>'+YS.map(function(y){return '<td>'+en(ltFv(0,q[1],rr,y))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table><p class="sub" style="margin:8px 0 0">Il rendimento lo cambi nel calcolatore più sotto («Rendimento annuo ipotizzato»).</p>';
+      if(cum>0)rows.push(['Oggi: '+eur(cum)+' al mese',cum]);
+      if(em>0){cum+=em;rows.push(['Fondo completato: '+eur(cum)+' al mese',cum])}
+      if(debtM>0){cum+=debtM;rows.push(['Debiti chiusi: '+eur(cum)+' al mese',cum])}
+      if(free>0.5){cum+=free;rows.push(['Con anche l\'avanzo libero: '+eur(cum)+' al mese',cum])}
+      if(rows.length)h+='<p class="sub" style="margin:0 0 6px">Cosa diventa, con un rendimento ipotizzato del '+r+'% (non garantito):</p><table class="gt3"><thead><tr><th>Valori in €</th>'+YS.map(function(y){return '<th>Tra '+y+' anni</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(q){return '<tr><td>'+q[0]+'</td>'+YS.map(function(y){return '<td>'+en(ltFv(0,q[1],rr,y))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table><p class="sub" style="margin:8px 0 0">Il rendimento lo cambi nel calcolatore più sotto («Rendimento annuo ipotizzato»).</p>';
       else h+='<p class="sub" style="margin:0">Quando inserisci un versamento per il PAC o la pensione nel Budget, qui vedi cosa diventa.</p>';
     }
     bx.innerHTML=h}
@@ -2033,12 +2072,12 @@ var PSTEPS=[
  {n:5,t:'Analisi debiti',tab:'debiti',go:'Vai a «Debiti»',
   why:'Prima si tolgono i debiti con gli interessi più alti: di solito costano più di quanto renderebbe un investimento. È una regola generale, non una norma.',
   how:'<b>Mini-missione:</b> in «Debiti» spunta «Non ho debiti», oppure inserisci i tuoi debiti con la rata mensile.'},
- {n:6,t:'Investire',tab:'lungo',go:'Vai a «Lungo termine e pensione»',
-  why:'Investire il risparmio in eccesso, dopo aver completato il fondo di emergenza. Con una cifra fissa ogni mese (PAC) costruisci nel tempo. Nessun rendimento è garantito e il valore può scendere.',
-  how:'<b>Mini-missione:</b> in «Lungo termine e pensione» leggi le basi dell\'investire e spunta la casella. Poi inserisci una cifra mensile per il PAC in «Già messo da parte» nel Budget e prova «Quanto pesano 100 € di differenza?» (importo e rendimento).'},
- {n:7,t:'Obiettivi a lungo termine e pensione integrativa',tab:'lungo',go:'Vai a «Lungo termine e pensione»',
-  why:'Guarda lontano: 10, 20 o 30 anni. L\'interesse composto fa crescere i soldi sempre più in fretta, e la pensione integrativa conta perché i contributi di un dilettante possono non bastare.',
-  how:'<b>Mini-missione:</b> in «Lungo termine e pensione» prova il pianificatore (versamento mensile) e spunta almeno una voce su come stai costruendo la pensione integrativa. Con «Cos\'è?» Leo ti spiega ogni opzione.'}
+ {n:6,t:'Investire',tab:'invest',
+  why:'Investire vuol dire far crescere i soldi nel tempo. Si fa dopo il fondo di emergenza e i debiti, versando una cifra fissa ogni mese. Nessun guadagno è garantito.',
+  how:'<b>Mini-missione:</b> leggi «Le basi dell\'investire» e spunta la casella. Poi scrivi nel Budget quanto metti nel PAC e, in «Pianificazione a lungo termine» > «Interesse composto», prova «Quanto pesano 100 €».'},
+ {n:7,t:'Obiettivi a lungo termine e pensione integrativa',tab:'pens',
+  why:'La pensione di base può non bastare. Pensarci presto costa meno ogni mese e il tempo fa crescere i soldi.',
+  how:'<b>Mini-missione:</b> in «Pianificazione a lungo termine» > «Interesse composto» scrivi quanto vuoi versare al mese. Poi, in «Pensione integrativa», spunta come la stai costruendo.'}
 ];
 function fundSaved(){var a=S.fund.acc||[];if(a.length)return a.reduce(function(s,r){return s+(r.f?num(r.v):0)},0);return num(S.fund.saved)}
 function fundCash(){return (S.fund.acc||[]).reduce(function(s,r){return s+(r.f&&r.t==='contanti'?num(r.v):0)},0)}
@@ -2082,7 +2121,7 @@ function pCrit(n){
     return [['Non ho debiti, oppure ogni debito ha la sua rata',!!none||plan]];
   }
   if(n===6)return [['Ho letto le basi dell\'investire',!!C.inv],['Cifra mensile per il PAC inserita',num(B.sv_pac)>0],['Prova «Quanto pesano 100 €»: importo e rendimento inseriti',num((S.lt||{}).x)>0&&num((S.lt||{}).r)>0]];
-  if(n===7)return [['Pianificatore dell\'interesse composto provato (versamento mensile inserito)',num((S.lt||{}).m)>0],['Ho scelto come costruire la pensione integrativa (spunta almeno una voce)',['pn_fp','pn_gs','pn_etf','pn_con','pn_val','pens'].some(function(k){return !!C[k]})||num(B.sv_prev)>0]];
+  if(n===7)return [['Interesse composto provato (versamento mensile inserito)',num((S.lt||{}).m)>0],['Ho scelto come costruire la pensione integrativa (spunta almeno una voce)',['pn_fp','pn_gs','pn_etf','pn_con','pn_val','pens'].some(function(k){return !!C[k]})||num(B.sv_prev)>0]];
   return [];
 }
 function pPassed(n){return pCrit(n).filter(function(c){return !c[2]}).every(function(c){return c[1]})}
@@ -2347,7 +2386,9 @@ function stepHtml(st){
   var h='<details class="step" id="step-'+st.n+'" data-n="'+st.n+'"><summary><span class="sbadge" id="sb-'+st.n+'">'+st.n+'</span><span class="gn">'+st.t+'</span><span class="spill" id="sp-'+st.n+'"></span></summary><div class="sbody">';
   h+='<p>'+st.why+'</p><p class="sub">'+st.how+'</p><ul class="crit" id="cr-'+st.n+'"></ul>';
   if(st.n===3)h+='<div class="chks">'+[['dep','Ho controllato che il mio contratto sia depositato in Lega'],['cop','Ho una copia firmata del mio contratto'],['pro','Conservo bonifici e ricevute di ogni pagamento']].map(function(c){return '<label class="chk" for="c-'+c[0]+'"><input type="checkbox" id="c-'+c[0]+'" data-chk="'+c[0]+'"><span>'+c[1]+'</span></label>'}).join('')+'</div>';
-  if(st.n===3)h+='<div class="sgo"><button type="button" class="btn" data-pgo="contratto">Contratto</button><button type="button" class="btn" data-pgo="conformita">Conformità</button><button type="button" class="btn ghost" data-pgo="netto">Simulatore netto</button></div>';
+  if(st.n===6)h+='<div class="sgo"><button type="button" class="btn" data-pgo="invest">Le basi</button><button type="button" class="btn" data-pgo="pens:comp">Interesse composto</button></div>';
+  else if(st.n===7)h+='<div class="sgo"><button type="button" class="btn" data-pgo="pens:comp">Interesse composto</button><button type="button" class="btn" data-pgo="pens:pens">Pensione integrativa</button></div>';
+  else if(st.n===3)h+='<div class="sgo"><button type="button" class="btn" data-pgo="contratto">Contratto</button><button type="button" class="btn" data-pgo="conformita">Conformità</button><button type="button" class="btn ghost" data-pgo="netto">Simulatore netto</button></div>';
   else if(st.go)h+='<div class="sgo"><button type="button" class="btn" data-pgo="'+st.tab+'">'+st.go+'</button></div>';
   return h+'</div></details>';
 }
@@ -2459,7 +2500,7 @@ function buildPerc(){
   $('#a-add').onclick=function(){S.fund.acc.push({n:'',t:'conto',v:'',f:false});save();renderAcc();updatePerc();var r=$$('[data-af="n"]',$('#a-list'));if(r.length)r[r.length-1].focus()};
   $('#f-mesi').addEventListener('change',function(){S.fund.mesi=this.value;save();updatePerc()});
   $$('[data-chk]').forEach(function(c){c.checked=!!S.chk[c.getAttribute('data-chk')];c.addEventListener('change',function(){S.chk[c.getAttribute('data-chk')]=c.checked;save();updatePerc()})});
-  $$('[data-pgo]').forEach(function(b){b.addEventListener('click',function(){var pt=b.getAttribute('data-pgo');if(pt==='budget'){S.ub=1;save();refreshLocks()}else if(tabLocked(pt)){lockedMsg(pt);return}showTab(pt);window.scrollTo(0,0)})});
+  $$('[data-pgo]').forEach(function(b){b.addEventListener('click',function(){var pt=b.getAttribute('data-pgo'),sb='';if(pt.indexOf(':')>0){sb=pt.split(':')[1];pt=pt.split(':')[0]}if(pt==='budget'){S.ub=1;save();refreshLocks()}else if(tabLocked(pt)){lockedMsg(pt);return}showTab(pt);if(sb&&window.ttSub)window.ttSub(sb);window.scrollTo(0,0)})});
   closeDone(pCur());var op=$('#step-'+(pCur()+1));if(op)op.open=true;
   window.addEventListener('resize',function(){if($('#p-percorso').hidden)return;var v=window.innerWidth<640;if(v!==pVert)updatePerc()});
 }
@@ -2512,7 +2553,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    hello:[{t:null,form:1,x:function(){return 'Ciao, sono il tuo assistente personale. <b>Chiamami come vuoi e personalizzami come preferisci.</b>'}}],
    ask:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Piacere! ')+'Ora ti guiderò in un breve tour dell\'app, va bene?'}}],
    intro:[{t:null,x:function(){return (C().name?'Sono <b>{N}</b>. ':'')+'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
-          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>I tuoi soldi</b> (budget, obiettivi e lungo termine), <b>Il tuo contratto</b> (contratto e tasse) e <b>Dubbi</b> (domande frequenti). I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
+          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>Il tuo contratto</b> (contratto e tasse), <b>I tuoi soldi</b> (budget, fondo e debiti) e <b>Il tuo futuro</b> (investire e pensione). Sotto «Parti da qui» c\'è anche <b>Dubbi?</b>, con le domande frequenti. I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
    percorso:[{tab:'percorso',t:'#pitch',x:function(){return 'La sezione <b>«Il mio percorso»</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
              {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è la spiegazione del <b>perché è importante</b>, le <b>mini-missioni</b> e la lista delle cose da fare per completarle. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
@@ -2528,7 +2569,11 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
          {tab:'fondo',t:'#a-list',x:function(){return 'Poi inserisci i tuoi <b>conti e i contanti</b>, con il valore di oggi, e spunti quelli che fanno parte del fondo. Sotto vedi quanto ti manca per arrivare ai mesi di spese che scegli.'}}],
    debiti:[{tab:'debiti',t:'.rules',x:function(){return 'La sezione <b>«Debiti»</b> è il passo 5. Qui trovi le regole per i debiti: prima il mini-fondo, poi quelli con il tasso più alto.'}},
          {tab:'debiti',t:'#d-list',x:function(){return 'Segna <b>quanto devi, la rata e il tasso</b> di ogni debito, oppure spunta «Non ho debiti». Ti dico in che ordine conviene chiuderli.'}}],
-   lungo:[{tab:'lungo',t:'#lt-card',x:function(){return 'La sezione <b>«Lungo termine e pensione»</b> è per i passi 6 e 7, e si sblocca più avanti. Qui provi l\'<b>interesse composto</b> a 10, 20 e 30 anni e vedi quanto pesano anche solo 100 € in più. In fondo trovi la pensione integrativa.'}}],
+   invest:[{tab:'invest',t:'.rules',x:function(){return 'La sezione <b>«Le basi dell\'investire»</b> è il passo 6. Spiega in parole semplici cos\'è investire, in che ordine usare i soldi (fondo, debiti, investimento) e 6 regole facili.'}},
+         {tab:'invest',t:'#inv-ex',x:function(){return 'Qui trovi <b>video, PDF ed esercizi</b>. Gli esercizi usano numeri veri per farti capire quanto conta iniziare presto.'}}],
+   calc:[{tab:'calc',t:'#lt-bud',x:function(){return 'Qui vedi la <b>tua proiezione</b>: parte dal Budget e ti dice quanto avanza ogni mese e cosa diventa se lo investi tra 10, 20 e 30 anni.'}}],
+   pens:[{tab:'pens',t:'.lsubs',x:function(){return 'In <b>«Pianificazione a lungo termine»</b> scegli tra tre argomenti: <b>Interesse composto</b> (prova coi tuoi numeri), <b>Pensione integrativa</b> (spunti come la costruisci) e <b>Consulenza</b> (come scegliere un consulente).'}}],
+
    budget:[{tab:'budget',t:'.strip',x:function(){return 'La sezione <b>«Budget»</b> è il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi.'}},
            {tab:'budget',t:'#b-grid',x:function(){return (M()?'Prima le <b>spese</b>, più sotto le <b>entrate</b>':'A sinistra le <b>spese</b>, a destra le <b>entrate</b>')+', divise in gruppi come Casa, Calcio, Lavoro. Scrivi cifre <b>nette</b>: le voci mensili vengono moltiplicate per 12, quelle annuali divise per 12. Nelle entrate del calcio scegli quante mensilità paga il club.'}},
            {tab:'budget',t:'#sv-panel',x:function(){return '<b>Già messo da parte</b>: quanto metti da parte ogni mese per PAC, fondo emergenza o pensione integrativa. Non è una spesa: sono soldi tuoi. Servono per i passi 4, 6 e 7.'}}],
@@ -2543,7 +2588,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    end:[{t:'#hlb',x:function(){return 'Ultima cosa: quando hai un dubbio '+(M()?'tocca':'clicca')+' <b>Hai bisogno di aiuto?</b> e torno io a spiegarti la schermata dove sei.'+(M()?'':' In alto a destra cambi tema chiaro o scuro.')+' Buon percorso!'}}]
   };
   var steps=[],i=0,typing=0,box=document.getElementById('tt-box'),tx=document.getElementById('tt-tx'),raf=0;
-  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end,SEC.choose);if(k==='rest')return SEC.home.concat(SEC.budget,SEC.obiettivi,SEC.fondo,SEC.debiti,SEC.lungo,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.fondo,SEC.debiti,SEC.lungo,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
+  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end,SEC.choose);if(k==='rest')return SEC.home.concat(SEC.budget,SEC.obiettivi,SEC.fondo,SEC.debiti,SEC.invest,SEC.calc,SEC.pens,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='full')return SEC.intro.concat(SEC.percorso,[SEC.passi[0]],SEC.home,SEC.budget,SEC.obiettivi,SEC.fondo,SEC.debiti,SEC.invest,SEC.calc,SEC.pens,SEC.contratto,SEC.conformita,SEC.netto,SEC.faq,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();
@@ -2556,7 +2601,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     function go(){if(fired)return;fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
       if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi a breve termine» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
-      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Lungo termine e pensione</b>.':n===3?' \ud83d\udd13 Ho sbloccato <b>Fondo di emergenza</b>.':n===4?' \ud83d\udd13 Ho sbloccato <b>Debiti</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')}
+      window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Le basi dell\'investire, La tua proiezione e Pianificazione a lungo termine</b>.':n===3?' \ud83d\udd13 Ho sbloccato <b>Fondo di emergenza</b>.':n===4?' \ud83d\udd13 Ho sbloccato <b>Debiti</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')}
     function onA(){setTimeout(go,2200)}
     window.addEventListener('tt-arrived',onA,{once:true});fb=setTimeout(go,RMq?2500:22000)};
   window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
@@ -2653,7 +2698,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   if(S.prof&&S.prof.done)window.ttTourAuto();
 })();
 var LKSVG='<span class="lk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm-3 8V6a3 3 0 0 1 6 0v3z"/></svg></span>';
-var LKREQ={budget:0,obiettivi:1,home:1,contratto:2,conformita:2,netto:2,fondo:3,debiti:4,lungo:5};
+var LKREQ={budget:0,obiettivi:1,home:1,contratto:2,conformita:2,netto:2,fondo:3,debiti:4,invest:5,calc:5,pens:5};
 function tabLocked(t){if(t==='percorso'||t==='faq'||!(t in LKREQ))return false;if(t==='budget')return !(S.ub||(S.unl||0)>=1);return (S.unl||0)<LKREQ[t]}
 function refreshLocks(){
   if(pCur()>(S.unl||0)){S.unl=pCur();save()}
@@ -2668,13 +2713,18 @@ function lockedMsg(t){var f=function(){showTab('percorso');window.scrollTo(0,0)}
   else m='Si sblocca quando completi il <b>passo '+r+(P?' «'+P[r-1].t+'»':'')+'</b> in «Il mio percorso».';
   if(window.ttConfirm)window.ttConfirm('<b>Sezione bloccata</b> \ud83d\udd12 '+m,'Vai al percorso',f,'Ok');else f()}
 window.ttRefreshLocks=refreshLocks;window.ttFixLock=function(){if(tabLocked(S.tab))showTab('percorso')};
+
+(function(){function sub(k){document.querySelectorAll('#p-pens .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-pens [data-sub]').forEach(function(b){var on=b.getAttribute('data-sub')===k;b.setAttribute('aria-expanded',on?'true':'false');b.classList.toggle('on',on)});var t=document.querySelector('#sub-'+k);if(t&&t.scrollIntoView&&!window.__subNoScroll){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
+window.ttSub=function(k){window.__subNoScroll=1;sub(k);window.__subNoScroll=0};
+document.querySelectorAll('#p-pens [data-sub]').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-sub'),d=document.querySelector('#sub-'+k);if(d&&!d.hidden){d.hidden=true;b.setAttribute('aria-expanded','false');b.classList.remove('on')}else sub(k)})})})();
+
 function showTab(t){
   S.tab=t;
   $$('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
-  ['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','lungo','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
+  ['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
   save();
   if(window.ttSection)window.ttSection(t);
-  if(t==='budget'||t==='obiettivi'||t==='lungo')R.bud();
+  if(t==='budget'||t==='obiettivi'||t==='invest'||t==='calc'||t==='pens')R.bud();
   if(t==='home')R.home();
   if(t==='faq')R.faq();
   if(t==='fondo'||t==='debiti'){try{updatePerc()}catch(e){}}
@@ -2747,7 +2797,7 @@ buildQ();buildBudget();bindAll();renderAll();R.bud();
   function say(t){if(msg)msg.textContent=t}
   var fb=document.getElementById('hlp-fb');
   if(fb&&!FB_URL)fb.hidden=true;
-  if(fb&&FB_URL)fb.addEventListener('click',function(){var nm=((S.prof&&S.prof.nome)||'').trim(),sec={percorso:'Il mio percorso',home:'Dove sono oggi?',budget:'Budget',obiettivi:'Obiettivi a breve termine',fondo:'Fondo di emergenza',debiti:'Debiti',lungo:'Lungo termine e pensione',contratto:'Contratto',conformita:'Conformità',netto:'Simulatore netto',faq:'Domande frequenti'}[S.tab]||'',dev=/Mobi|Android|iPhone/i.test(navigator.userAgent)?'telefono':'computer';
+  if(fb&&FB_URL)fb.addEventListener('click',function(){var nm=((S.prof&&S.prof.nome)||'').trim(),sec={percorso:'Il mio percorso',home:'Dove sono oggi?',budget:'Budget',obiettivi:'Obiettivi a breve termine',fondo:'Fondo di emergenza',debiti:'Debiti',invest:'Le basi dell\'investire',calc:'La tua proiezione',pens:'Pianificazione a lungo termine',contratto:'Contratto',conformita:'Conformità',netto:'Simulatore netto',faq:'Domande frequenti'}[S.tab]||'',dev=/Mobi|Android|iPhone/i.test(navigator.userAgent)?'telefono':'computer';
     var t='Feedback Terzo Tempo'+(nm?' da '+nm:'')+'\nSezione: '+sec+'\nDispositivo: '+dev+', schermo '+window.innerWidth+'px\n\nCosa non ho capito o non funziona:\n\nCosa migliorerei:\n';
     try{if(navigator.clipboard)navigator.clipboard.writeText(t)}catch(e){}
     window.open(FB_URL,'_blank','noopener')});
@@ -2764,7 +2814,7 @@ buildQ();buildBudget();bindAll();renderAll();R.bud();
 [['#p-contratto','contr'],['#p-conformita','comp'],['#p-netto','sim']].forEach(function(x){var el=$(x[0]);['input','change'].forEach(function(ev){el.addEventListener(ev,function(){if(!S.used[x[1]]){S.used[x[1]]=1;save()}})})});
 buildPerc();
 var h=(location.hash||'').replace('#','');
-if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','lungo','faq'].indexOf(h)>-1?h:'percorso');
+if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'].indexOf(h)>-1?h:'percorso');
 })();
 </script>
 <script id="tt3d">
