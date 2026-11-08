@@ -635,7 +635,9 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 
 .tgl2{margin-top:8px}
 @media (min-width:641px){.tgl2{margin-top:6px}}
-.lsubs{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}.lsubs .btn{width:100%;text-align:left}.lsubs .btn.on{border-color:#006b45;background:#e4f3ec}.lsub{margin-top:6px}.tabs [data-tab] .ps{display:inline-flex;gap:2px;white-space:nowrap}.tabs [data-tab] .ps i{margin:0 !important}.tabs [data-tab]{min-width:0}</style>
+.lsubs{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}.lsubs .btn{width:100%;text-align:left}.lsubs .btn.on{border-color:#006b45;background:#e4f3ec}.lsub{margin-top:6px}.tabs [data-tab] .ps{display:inline-flex;gap:2px;white-space:nowrap}.tabs [data-tab] .ps i{margin:0 !important}.tabs [data-tab]{min-width:0}.proj{display:flex;flex-direction:column;gap:10px}.pj{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}.pjl{font-weight:700;margin-bottom:6px}.pjg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pjg div{display:flex;flex-direction:column;gap:2px}.pjg span{font-size:.72rem;color:var(--muted,#5b6b63)}.pjg b{font-size:.95rem;white-space:nowrap}
+.soon{border:2px dashed var(--line);border-radius:16px;padding:48px 16px;text-align:center;margin:0 0 16px;background:var(--bg)}.soon-e{font-size:4rem;line-height:1}.soon-t{font-size:1.6rem;font-weight:800;margin-top:10px}.soon-s{margin-top:4px;opacity:.7}
+.lsel{width:100%;font:inherit;font-weight:700;padding:12px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:inherit}</style>
 
 <div class="wrap">
 <button type="button" class="thm" id="thm" aria-label="Passa al tema scuro" title="Tema chiaro / scuro"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="currentColor"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg><span class="thm-t">Scuro</span></button>
@@ -916,24 +918,23 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
     <li>Si fa solo dopo il fondo di emergenza e i debiti: così non devi riprenderli al momento sbagliato.</li>
     <li>Nessun guadagno è garantito.</li>
   </ul></div>
-  <h2>I soldi vanno in 3 passi</h2>
+  <h2 style="margin-top:34px">La gestione dei soldi in 3 step</h2>
   <div class="card" style="margin-bottom:16px"><ol class="rules">
     <li><b>Fondo di emergenza.</b> Prima metti da parte soldi per gli imprevisti (passo 4).</li>
     <li><b>Debiti.</b> Poi chiudi i debiti, prima quello che costa di più (passo 5).</li>
     <li><b>Investire.</b> Infine investi ogni mese.</li></ol>
   <p class="sub" style="margin:10px 0 0">Quando finisci un passo, la cifra che ci mettevi va al passo dopo. Così il versamento per investire cresce da solo.</p></div>
-  <h2>6 regole facili</h2>
+  <h2 style="margin-top:34px">Le 6 regole facili</h2>
   <div class="card" style="margin-bottom:16px"><ol class="rules">
-    <li><b>Parti presto.</b> Il tempo conta più dell'importo.</li>
-    <li><b>Versa ogni mese,</b> anche poco.</li>
+    <li><b>Parti presto.</b> Il tempo conta più dell'importo (usa la tabella dell'interesse composto per capire quanto il tempo fa crescere gli investimenti).</li>
+    <li><b>Versa ogni mese, anche poco.</b> La costanza batte il talento.</li>
     <li><b>Non mettere tutto in una cosa sola.</b> Più aziende insieme sono meno rischiose di una sola.</li>
     <li><b>Guarda i costi.</b> Più costa, meno ti resta.</li>
     <li><b>Il valore sale e scende.</b> Non vendere per paura.</li>
     <li><b>Chi promette guadagni sicuri sbaglia, o mente.</b></li>
   </ol>
   <div class="chks" style="margin-top:10px"><label class="chk" for="c-inv"><input type="checkbox" id="c-inv" data-chk="inv"><span>Ho letto le basi dell'investire</span></label></div></div>
-  <h2>Video, PDF ed esercizi</h2>
-  <div class="card" style="margin-bottom:16px"><div id="inv-media" class="sub" style="margin:0 0 10px"></div><div id="inv-ex"></div></div>
+  <div class="soon" id="inv-soon"><div class="soon-e" aria-hidden="true">🛬</div><div class="soon-t">Arriverà presto</div><div class="soon-s">Video, PDF ed esercizi</div></div>
   <p><button class="btn ghost" type="button" data-go="percorso">Torna al percorso</button></p>
 </section>
 <section id="p-calc" role="tabpanel" aria-labelledby="t-calc" hidden>
@@ -945,7 +946,7 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 <section id="p-pens" role="tabpanel" aria-labelledby="t-pens" hidden>
   <h2>Pianificazione a lungo termine</h2>
   <p class="sub" style="margin:0 0 10px">Scegli un argomento.</p>
-  <div class="lsubs" role="group" aria-label="Argomenti"><button type="button" class="btn ghost" data-sub="comp" aria-expanded="false">Interesse composto</button><button type="button" class="btn ghost" data-sub="pens" aria-expanded="false">Pensione integrativa</button><button type="button" class="btn ghost" data-sub="cons" aria-expanded="false">Consulenza</button></div>
+  <div class="lsubs"><label class="l" for="lsel">Argomento</label><select id="lsel" class="lsel"><option value="">Scegli un argomento…</option><option value="cons">Consulenza</option><option value="comp">Interesse composto</option><option value="pens">Pensione integrativa</option></select></div>
   <div class="lsub" id="sub-comp" hidden>
   <h2 id="lt-h">Prova con i tuoi numeri</h2>
    <p class="lead">Scrivi quanto versi ogni mese: vedi quanto diventa tra 10, 20 e 30 anni. Il tempo fa crescere i soldi sempre più in fretta (interesse composto). Nulla viene salvato fuori dal tuo dispositivo.</p>
@@ -1761,7 +1762,7 @@ function renderLtExtra(){
       if(em>0){cum+=em;rows.push(['Fondo completato: '+eur(cum)+' al mese',cum])}
       if(debtM>0){cum+=debtM;rows.push(['Debiti chiusi: '+eur(cum)+' al mese',cum])}
       if(free>0.5){cum+=free;rows.push(['Con anche l\'avanzo libero: '+eur(cum)+' al mese',cum])}
-      if(rows.length)h+='<p class="sub" style="margin:0 0 6px">Cosa diventa, con un rendimento ipotizzato del '+r+'% (non garantito):</p><table class="gt3"><thead><tr><th>Valori in €</th>'+YS.map(function(y){return '<th>Tra '+y+' anni</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(q){return '<tr><td>'+q[0]+'</td>'+YS.map(function(y){return '<td>'+en(ltFv(0,q[1],rr,y))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table><p class="sub" style="margin:8px 0 0">Il rendimento lo cambi nel calcolatore più sotto («Rendimento annuo ipotizzato»).</p>';
+      if(rows.length)h+='<p class="sub" style="margin:0 0 6px">Cosa diventa, con un rendimento ipotizzato del '+r+'% (non garantito):</p><div class="proj">'+rows.map(function(q){return '<div class="pj"><div class="pjl">'+q[0]+'</div><div class="pjg">'+YS.map(function(y){return '<div><span>Tra '+y+' anni</span><b>'+en(ltFv(0,q[1],rr,y))+' €</b></div>'}).join('')+'</div></div>'}).join('')+'</div><p class="sub" style="margin:8px 0 0">Il rendimento lo cambi in «Piano a lungo termine» > «Interesse composto».</p>';
       else h+='<p class="sub" style="margin:0">Quando inserisci un versamento per il PAC o la pensione nel Budget, qui vedi cosa diventa.</p>';
     }
     bx.innerHTML=h}
@@ -2570,7 +2571,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    debiti:[{tab:'debiti',t:'.rules',x:function(){return 'La sezione <b>«Debiti»</b> è il passo 5. Qui trovi le regole per i debiti: prima il mini-fondo, poi quelli con il tasso più alto.'}},
          {tab:'debiti',t:'#d-list',x:function(){return 'Segna <b>quanto devi, la rata e il tasso</b> di ogni debito, oppure spunta «Non ho debiti». Ti dico in che ordine conviene chiuderli.'}}],
    invest:[{tab:'invest',t:'.rules',x:function(){return 'La sezione <b>«Le basi dell\'investire»</b> è il passo 6. Spiega in parole semplici cos\'è investire, in che ordine usare i soldi (fondo, debiti, investimento) e 6 regole facili.'}},
-         {tab:'invest',t:'#inv-ex',x:function(){return 'Qui trovi <b>video, PDF ed esercizi</b>. Gli esercizi usano numeri veri per farti capire quanto conta iniziare presto.'}}],
+         {tab:'invest',t:'#inv-soon',x:function(){return 'Qui arriveranno <b>video, PDF ed esercizi</b>. Arriveranno presto.'}}],
    calc:[{tab:'calc',t:'#lt-bud',x:function(){return 'Qui vedi la <b>tua proiezione</b>: parte dal Budget e ti dice quanto avanza ogni mese e cosa diventa se lo investi tra 10, 20 e 30 anni.'}}],
    pens:[{tab:'pens',t:'.lsubs',x:function(){return 'In <b>«Pianificazione a lungo termine»</b> scegli tra tre argomenti: <b>Interesse composto</b> (prova coi tuoi numeri), <b>Pensione integrativa</b> (spunti come la costruisci) e <b>Consulenza</b> (come scegliere un consulente).'}}],
 
@@ -2599,11 +2600,11 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
         x:'<b>Ora tocca al passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>'+nx.how+(cr.length?'<br><br><b>Cosa manca:</b><br>'+cr.join('<br>'):'')}])}
     var fired=0,fb,RMq=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
     function go(){if(fired)return;fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);if(!TT.hidden||!window.ttPerc)return;var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
-      if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti!</b> Hai completato tutti i 7 passi. <b>Gol!</b> Continua a tenere aggiornati budget e obiettivi.'}]);return}
+      if(n>=7){window.ttCustom([{t:null,x:'<b>Wow, complimenti. Ce l\'hai fatta!</b> \ud83c\udf86 È stato un bel viaggio. Sono fiero di aver avuto il privilegio di vederti arrivare dove sei ora.'},{t:null,x:'Adesso continua ad <b>aggiornare il Budget</b> e vai avanti nel percorso: i soldi si gestiscono ogni mese, non una volta sola.'}]);return}
       if(n===1){window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'! \ud83d\udd13 Ho <b>sbloccato «Obiettivi a breve termine» e «Dove sono oggi?»</b>. Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'Torno al Budget',function(){if(window.ttReturn&&window.ttReturn())return;showTab('budget');window.scrollTo(0,0)});return}
       window.ttConfirm('<b>Complimenti</b> per aver completato il passo '+nm+'!'+(n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Le basi dell\'investire, La tua proiezione e Pianificazione a lungo termine</b>.':n===3?' \ud83d\udd13 Ho sbloccato <b>Fondo di emergenza</b>.':n===4?' \ud83d\udd13 Ho sbloccato <b>Debiti</b>.':'')+' Vuoi vedere cosa hai fatto e cosa ti aspetta adesso?','Sì, mostrami',status,'No, grazie')}
     function onA(){setTimeout(go,2200)}
-    window.addEventListener('tt-arrived',onA,{once:true});fb=setTimeout(go,RMq?2500:22000)};
+    window.addEventListener('tt-arrived',onA,{once:true});fb=setTimeout(go,RMq?2500:(n>=7?65000:22000))};
   window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
     if(n>=7){window.ttCustom([{t:null,x:'<b>Hai completato tutti i 7 passi!</b> Ora tieni aggiornati budget e obiettivi.'}]);return}
     var nx=P[n],cr=window.ttPerc.crit(n+1).map(function(c){return (c[1]?'✅ ':'⬜ ')+c[0]}),ntab=nx.tab||'percorso';
@@ -2714,9 +2715,9 @@ function lockedMsg(t){var f=function(){showTab('percorso');window.scrollTo(0,0)}
   if(window.ttConfirm)window.ttConfirm('<b>Sezione bloccata</b> \ud83d\udd12 '+m,'Vai al percorso',f,'Ok');else f()}
 window.ttRefreshLocks=refreshLocks;window.ttFixLock=function(){if(tabLocked(S.tab))showTab('percorso')};
 
-(function(){function sub(k){document.querySelectorAll('#p-pens .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-pens [data-sub]').forEach(function(b){var on=b.getAttribute('data-sub')===k;b.setAttribute('aria-expanded',on?'true':'false');b.classList.toggle('on',on)});var t=document.querySelector('#sub-'+k);if(t&&t.scrollIntoView&&!window.__subNoScroll){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
-window.ttSub=function(k){window.__subNoScroll=1;sub(k);window.__subNoScroll=0};
-document.querySelectorAll('#p-pens [data-sub]').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-sub'),d=document.querySelector('#sub-'+k);if(d&&!d.hidden){d.hidden=true;b.setAttribute('aria-expanded','false');b.classList.remove('on')}else sub(k)})})})();
+(function(){var se=document.getElementById('lsel');function sub(k,ns){document.querySelectorAll('#p-pens .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});if(se)se.value=k||'';var t=k&&document.querySelector('#sub-'+k);if(t&&!ns&&t.scrollIntoView){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
+window.ttSub=function(k){sub(k,1)};
+if(se)se.addEventListener('change',function(){sub(se.value)})})();
 
 function showTab(t){
   S.tab=t;
@@ -3233,7 +3234,7 @@ class RoundedBoxGeometry extends BoxGeometry {
   }
   var cheer=0;
   function crowdTick(dt,t){
-    if(cheer<=0)return;cheer=Math.max(0,cheer-dt);var amp=Math.min(1,cheer)*.22;
+    if(cheer<=0)return;cheer=Math.max(0,cheer-dt);var amp=Math.min(1,cheer)*.22*(st.fire?1.8:1);
     for(var n=0;n<crowdB.count;n++){var i=seatOrder[n],p=seatsB[i],j=Math.max(0,Math.sin(t*9+crowdPh[i]))*amp;tmpM.makeTranslation(p[0],p[1]+.33+j,p[2]);crowdB.setMatrixAt(n,tmpM);tmpM.makeTranslation(p[0],p[1]+.7+j,p[2]);crowdH.setMatrixAt(n,tmpM)}
     crowdB.instanceMatrix.needsUpdate=true;crowdH.instanceMatrix.needsUpdate=true;
   }
@@ -3735,11 +3736,15 @@ class RoundedBoxGeometry extends BoxGeometry {
         var f1=bump(t,.6,.22),f2=bump(t,.84,.26);p.ss+=10*f1-14*f2;p.py-=8*f1-10*f2;p.st+=6*f1-8*f2;p.lsa+=20*f2;
         if(!r.ready)return;var sole=function(tt){return ballAt(r,tt).add(OFF.sole)};
         (p.ik=p.ik||[]).push({l:'r',w:envW(t,.33,2.25,.08),ap:0,p:kfr(t,[[.36,BR],[.5,REST.clone().add(OFF.out_r)],[.66,m1.clone().add(OFF.out_r)],[.7,m1.clone().add(V(0,.07,R+.07))],[.73,m1.clone().add(OFF.in_r)],[.9,V(.02,.15,.32)],[1.25,m2.clone().add(OFF.sole),.1],[1.4,sole],[1.95,sole],[2.2,BR]])})}}
-    else if(name==='shot'){
+    else if(name==='slide'){dur=8;look='ahead';faceCam=[2.6,8];
+      extra=function(t,p){var kn=sm(t/.4),ar=sm((t-.05)/.35),pm=Math.sin(t*7)*6*ar;
+        p.lhf-=16*kn;p.rhf-=16*kn;p.lk+=86*kn;p.rk+=86*kn;p.lap-=10*kn;p.rap-=10*kn;p.sf-=24*kn;
+        p.lsf+=158*ar+pm;p.rsf+=158*ar-pm;p.lsa+=14*ar;p.rsa+=14*ar;p.le-=17*ar;p.re-=17*ar}}
+    else if(name==='shot'||name==='shotF'){
       var nb=root.worldToLocal(V(FL/2+GOD-.25,1.05,.35)),ng2=root.worldToLocal(V(FL/2+GOD-.25,R,.35));
-      st_(.5,null,'windup','r',.32);st_(.78,'rest','strike','r',.2);st_(1.3,nb);st_(1.55,ng2,null,null,null,'roll');dur=4.6;faceCam=[1.7,4.3];
+      st_(.5,null,'windup','r',.32);st_(.78,'rest','strike','r',.2);st_(1.3,nb);st_(1.55,ng2,null,null,null,'roll');dur=name==='shotF'?1.9:4.6;faceCam=name==='shotF'?null:[1.7,4.3];
       extra=function(t,p){var wa=bump(t,.7,.35);p.lsa+=45*wa;p.lsf+=25*wa;p.sf+=6*wa;
-        var wc=sm((t-1.6)/.3)*sm((4.3-t)/.3),j=Math.abs(Math.sin(Math.PI*(t-1.6)/.62));
+        var wc=name==='shotF'?0:sm((t-1.6)/.3)*sm((4.3-t)/.3),j=Math.abs(Math.sin(Math.PI*(t-1.6)/.62));
         p.lsf+=150*wc;p.rsf+=150*wc;p.lsa+=18*wc;p.rsa+=18*wc;p.le-=15*wc;p.re-=15*wc;p.air+=.3*wc*j;p.lk+=22*wc*(1-j);p.rk+=22*wc*(1-j);p.sf-=6*wc}}
     var acts=S.filter(function(s){return s.a}),ev=S.filter(function(s){return s.m});
     var r={name:name,dur:dur,acts:acts,ev:ev,extra:extra,look:look,faceCam:faceCam,cap:TRICK[name]||''};
@@ -3773,7 +3778,14 @@ class RoundedBoxGeometry extends BoxGeometry {
   var st={cur:-1,bi:0,vert:null,run:null,first:true,shotDone:false,ph:0,blend:1,prevPose:null,prevBall:null,yaw:0,ballScale:1};
   var ballLocal=REST.clone(),lastBallW=V(0,0,0),curPose=P0(0);
   function startRoutine(name){rout=routine(name);rt=0;st.prevPose=curPose;st.prevBall=ballLocal.clone();st.blend=0;if(rout.cap&&trickEl&&devMode){trickEl.textContent=rout.cap;trickEl.className='p3-trick on';capT=2.4}}
-  function nextRoutine(){if(rout&&rout.name==='shot')st.ballScale=0;seqI=(seqI+1)%SEQ.length;startRoutine(SEQ[seqI])}
+  function startCeleb(){var S0=V(FL/2-3.4,0,FW/2-4.6),pts=[root.position.clone(),V(root.position.x+.6,0,3.6),S0],dv=V(FL/2,0,FW/2).sub(S0),cv=new THREE.CatmullRomCurve3(pts,false,'centripetal'),ln=cv.getLength();
+    st.run={curve:cv,len:ln,t:0,dur:Math.max(1.6,ln/6.4+.4),to:9,d:0,fl:0,fh:0,sy:Math.atan2(dv.x,dv.z),dv:dv.normalize()};
+    st.wide=true;st.prevPose=curPose;st.prevBall=ballLocal.clone();st.blend=0}
+  function nextRoutine(){if(rout&&rout.name==='shot')st.ballScale=0;
+    if(rout&&rout.name==='shotF'){st.fin=1;startCeleb();return}
+    if(rout&&rout.name==='slide')st.fin2=1;
+    if(st.fin2){startRoutine('pause');return}
+    seqI=(seqI+1)%SEQ.length;startRoutine(SEQ[seqI])}
   function routePts(a,b){
     var pts=[];
     if(b>a){for(var k=a+1;k<=b;k++){if(k<=7){var dir=CP[k].clone().sub(CP[k-1]).normalize(),pp=V(-dir.z,0,dir.x),sd=k%2?1:-1;pts.push(CP[k].clone().addScaledVector(dir,-1.7).addScaledVector(pp,.95*sd),CP[k].clone().addScaledVector(pp,1.15*sd))}pts.push(STAND[k].clone())}}
@@ -3781,7 +3793,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     return pts;
   }
   function startRun(to){
-    var from=st.run?st.run.to:st.bi,pts=[root.position.clone()].concat(routePts(from,to));
+    var from=st.run?st.run.to:st.bi;if(from===9)from=8;if(to<8){st.fin=0;st.fin2=0;st.fire=0;st.wide=false;st.sl=null;st.shotDone=false}var pts=[root.position.clone()].concat(routePts(from,to));
     if(pts.length<2||RM){root.position.copy(STAND[to]);st.bi=to;st.run=null;st.yaw=YAW[to];startRoutine('pause');return}
     var curve=new THREE.CatmullRomCurve3(pts,false,'centripetal'),len=curve.getLength();
     st.run={curve:curve,len:len,t:0,dur:Math.min(9,Math.max(1.4,len/4.6+.6)),to:to,d:0,fl:(++runN%2===0&&len>6)?.38:0,fh:1.7+Math.random()*.9};
@@ -3794,6 +3806,9 @@ class RoundedBoxGeometry extends BoxGeometry {
   function camGoal(){
     var p=root.position;
     if(cin&&cin.t>=0){var lp=cin.c.lock.position;return {p:V(lp.x+cin.off.x,lp.y+.3,lp.z+cin.off.z),t:V(lp.x,lp.y-.22,lp.z),f:st.vert?40:28}}
+    if(st.wide&&camMode!=='all'){
+      if(st.run||st.sl||(st.fire&&fwT<12&&!st.noHero))return {p:V(13.2,1.15,9.4),t:V(18.8,2.3,10.5),f:st.vert?54:44};
+      return st.vert?{p:V(9,6.5,22),t:V(20.5,7,8),f:64}:{p:V(8,6.5,24.5),t:V(21,7.5,6),f:52}}
     if(camMode==='all')return st.vert?{p:V(-36,27,0),t:V(2,0,0),f:56}:{p:V(0,25,33),t:V(0,0,1.2),f:36};
     var atStart=!st.run&&st.bi===0;
     if(st.vert){if(atStart)return {p:V(p.x+1.6,3.1,p.z+6.2),t:V(p.x+1.9,.8,p.z-1.9),f:56};return {p:V(Math.max(-21.5,p.x-6.2),3.6,p.z*.7),t:V(Math.max(-21.5,p.x-6.2)+10.2,.8,p.z*.85),f:54}}
@@ -3836,6 +3851,27 @@ class RoundedBoxGeometry extends BoxGeometry {
   flash.visible=false;shock.visible=false;scene.add(flash,shock);
   (function(){var g1=new THREE.BoxGeometry(.07,.05,.025),g2=new THREE.TetrahedronGeometry(.045),sm=new THREE.MeshBasicMaterial({color:0xffd24a}),g3=new THREE.SphereGeometry(.022,6,5);
     for(var i=0;i<54;i++){var m=new THREE.Mesh(i<18?g1:i<32?g2:g3,i<18?lockBodyM:i<32?lockSteelM:sm);m.visible=false;m.castShadow=false;scene.add(m);fxP.push({m:m,v:new THREE.Vector3(),w:new THREE.Vector3(),life:0})}})();
+  /* ---------- festa finale ---------- */
+  (function(){[[-1,-1],[-1,1],[1,-1],[1,1]].forEach(function(c){var g=new THREE.Group(),pole=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,1.5,8),new THREE.MeshStandardMaterial({color:0xf2f2f2})),fl=new THREE.Mesh(new THREE.PlaneGeometry(.42,.3),new THREE.MeshBasicMaterial({color:0xf2c230,side:THREE.DoubleSide}));pole.position.y=.75;fl.position.set(-.21*c[0],1.34,0);g.add(pole,fl);g.position.set(c[0]*FL/2,0,c[1]*FW/2);scene.add(g)})})();
+  var FWN=1600,fwPos=new Float32Array(FWN*3),fwCol=new Float32Array(FWN*3),fwBase=new Float32Array(FWN*3),fwVel=new Float32Array(FWN*3),fwL=new Float32Array(FWN),fwI=0,fwRk=[],fwT=0,fwNext=0,fwC=[0xff4d4d,0xffd24a,0x6ee7ff,0x7dff8a,0xff8cf2,0xffffff,0xffa23a];
+  for(var fi=0;fi<FWN;fi++)fwPos[fi*3+1]=-60;
+  var fwG=new THREE.BufferGeometry();fwG.setAttribute('position',new THREE.BufferAttribute(fwPos,3));fwG.setAttribute('color',new THREE.BufferAttribute(fwCol,3));
+  var fwTx=(function(){var a=cvs(64,64),g=a[1].createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.35,'rgba(255,255,255,.7)');g.addColorStop(1,'rgba(255,255,255,0)');a[1].fillStyle=g;a[1].fillRect(0,0,64,64);return tex(a[0])})();
+  var fwP=new THREE.Points(fwG,new THREE.PointsMaterial({map:fwTx,size:.7,vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true}));fwP.frustumCulled=false;scene.add(fwP);
+  function fwEmit(x,y,z,vx,vy,vz,life,c){var i=fwI;fwI=(fwI+1)%FWN;fwPos[i*3]=x;fwPos[i*3+1]=y;fwPos[i*3+2]=z;fwVel[i*3]=vx;fwVel[i*3+1]=vy;fwVel[i*3+2]=vz;fwL[i]=life;fwBase[i*3]=c.r;fwBase[i*3+1]=c.g;fwBase[i*3+2]=c.b}
+  function fwBurst(x,y,z){var c1=new THREE.Color(fwC[(Math.random()*fwC.length)|0]),c2=new THREE.Color(fwC[(Math.random()*fwC.length)|0]);
+    for(var i=0;i<110;i++){var a=Math.random()*6.283,b=Math.acos(2*Math.random()-1),sp=4.5+Math.random()*3.5;fwEmit(x,y,z,Math.sin(b)*Math.cos(a)*sp,Math.cos(b)*sp,Math.sin(b)*Math.sin(a)*sp,1.5+Math.random()*.6,i%3?c1:c2)}}
+  function fwStep(dt){
+    if(st.fire){fwT+=dt;if(!st.done&&fwT>18){st.done=1;try{window.dispatchEvent(new Event('tt-arrived'))}catch(e){}}fwNext-=dt;if(fwT<44&&fwNext<=0){fwNext=.3+Math.random()*.4;fwRk.push({x:21+Math.random()*9,z:-9+Math.random()*18,y:5,ty:13+Math.random()*8,t:0,v:15+Math.random()*4})}}
+    else{fwT=0;fwRk.length=0}
+    for(var k=fwRk.length-1;k>=0;k--){var r=fwRk[k];r.y+=r.v*dt;r.v*=.985;fwEmit(r.x,r.y,r.z,(Math.random()-.5)*.6,-1-Math.random(),(Math.random()-.5)*.6,.45,new THREE.Color(0xffc060));if(r.y>=r.ty){fwBurst(r.x,r.y,r.z);fwRk.splice(k,1)}}
+    var any=false;
+    for(var i=0;i<FWN;i++){if(fwL[i]<=0)continue;any=true;fwL[i]-=dt;var j=i*3;
+      if(fwL[i]<=0){fwPos[j+1]=-60;fwCol[j]=fwCol[j+1]=fwCol[j+2]=0;continue}
+      fwVel[j+1]-=3.4*dt;var dr=1-1.1*dt;fwVel[j]*=dr;fwVel[j+1]*=dr;fwVel[j+2]*=dr;fwPos[j]+=fwVel[j]*dt;fwPos[j+1]+=fwVel[j+1]*dt;fwPos[j+2]+=fwVel[j+2]*dt;
+      var f=Math.min(1,fwL[i]*1.6);fwCol[j]=fwBase[j]*f;fwCol[j+1]=fwBase[j+1]*f;fwCol[j+2]=fwBase[j+2]*f}
+    if(any||fwRk.length){fwG.attributes.position.needsUpdate=true;fwG.attributes.color.needsUpdate=true}
+  }
   function boom(c){
     var p=c.lock.position.clone();
     fxP.forEach(function(f,i){var a=Math.random()*Math.PI*2,u=Math.random()*2-.35,sp=(i<32?2.2:4.2)*(.5+Math.random());f.m.position.copy(p).add(V((Math.random()-.5)*.2,(Math.random()-.5)*.2,(Math.random()-.5)*.2));
@@ -3876,7 +3912,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     if(shown!==cur||st.cur!==cur){buildDots(cur);if(!st.first&&cur>st.cur)cheer=3}
     shown=cur;
     if(st.first){st.first=false;st.bi=bi;root.position.copy(STAND[bi]);st.yaw=YAW[bi];root.rotation.y=st.yaw;st.shotDone=bi===8;startRoutine('pause');var g=camGoal();camPos.copy(camMode==='all'?g.p:V(0,25,33));camTgt.copy(camMode==='all'?g.t:V(0,0,1.2))}
-    else if(bi!==(st.run?st.run.to:st.bi))startRun(bi);
+    else if(bi!==(st.run?(st.run.to===9?8:st.run.to):st.bi))startRun(bi);
     st.cur=cur;
   }
 
@@ -3889,8 +3925,9 @@ class RoundedBoxGeometry extends BoxGeometry {
     if(document.hidden||!inView||(sec&&sec.hidden)||!wrap.isConnected)return;
     T+=dt;
     var pose,bl;
+    if(st.sl){var sl=st.sl;sl.t+=dt;var su=sl.t/sl.dur;if(su>=1)st.sl=null;else root.position.addScaledVector(sl.dir,sl.v0*Math.pow(1-su,2)*dt)}
     if(st.run){
-      var r=st.run;r.t+=dt;var u=Math.min(1,r.t/r.dur),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2,d=e*r.len;
+      var r=st.run;r.t+=dt;var u=Math.min(1,r.t/r.dur),e=r.to>=8?(u<.25?2.285714*u*u:.142857+1.142857*(u-.25)):(u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2),d=e*r.len;
       var dd=d-r.d;r.d=d;st.ph+=dd*2*Math.PI/1.9;
       var p=r.curve.getPointAt(Math.min(1,d/r.len)),tg=r.curve.getTangentAt(Math.min(.999,d/r.len));
       root.position.copy(p);var ty=Math.atan2(tg.x,tg.z);st.yaw=ty;
@@ -3898,12 +3935,12 @@ class RoundedBoxGeometry extends BoxGeometry {
       var s1=((st.ph-Math.PI/2)/(2*Math.PI))%1;if(s1<0)s1+=1;var es=1-Math.pow(1-s1,2);
       bl=V(-.07,R,.42+.55*es);
       if(r.fl){var q=(u-r.fl)/.2;if(q>0&&q<1){bl.y=R+(r.fh||2.1)*4*q*(1-q);bl.z=.55+.25*Math.sin(q*Math.PI)}}
-      if(u>=1){st.bi=r.to;st.run=null;if(r.to===8&&!st.shotDone){st.shotDone=true;st.yaw=YAW[8];root.rotation.y=st.yaw;root.updateMatrixWorld(true);startRoutine('shot')}else startRoutine('pause');try{window.dispatchEvent(new Event('tt-arrived'))}catch(e){}}
+      if(u>=1){st.bi=r.to;st.run=null;if(r.to===8&&!st.shotDone){st.shotDone=true;st.yaw=YAW[8];root.rotation.y=st.yaw;root.updateMatrixWorld(true);startRoutine('shotF')}else{if(r.to===9){st.bi=8;st.sl={t:0,dur:1.6,v0:7,dir:r.dv,yaw:r.sy};st.sd=r.dv;st.fire=1;st.done=0;fwNext=0;startRoutine('slide')}else{startRoutine('pause');try{window.dispatchEvent(new Event('tt-arrived'))}catch(e){}}}}
     }else{
       if(!rout)startRoutine('pause');
       rt+=RM?0:dt;if(rt>rout.dur)nextRoutine();
       pose=rout.pose(rt);bl=ballAt(rout,rt);
-      var ty2=YAW[st.bi];
+      var ty2=st.sl?st.sl.yaw:YAW[st.bi];
       if(rout.faceCam&&rt>rout.faceCam[0]&&rt<rout.faceCam[1]){var cv=camera.position.clone().sub(root.position);ty2=Math.atan2(cv.x,cv.z)}
       var dy=((ty2-st.yaw+Math.PI*3)%(Math.PI*2))-Math.PI;st.yaw+=dy*Math.min(1,dt*5);
     }
@@ -3912,7 +3949,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     var dy2=((st.yaw-root.rotation.y+Math.PI*3)%(Math.PI*2))-Math.PI;root.rotation.y+=dy2*Math.min(1,dt*(st.run?14:8));
     applyPose(pose);ballLocal.copy(bl);
     /* pallone nel mondo */
-    var bw=root.localToWorld(bl.clone());
+    var bw=st.fin?V(FL/2+GOD-.3,R,.35):root.localToWorld(bl.clone());
     if(st.ballScale<1)st.ballScale=Math.min(1,st.ballScale+dt*2.2);
     ball.scale.setScalar(Math.max(.001,sm(st.ballScale)));
     var mv=bw.clone().sub(lastBallW);mv.y=0;var dist=mv.length();
@@ -3940,7 +3977,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     fxP.forEach(function(f){if(f.life<=0)return;f.life-=dt;var m=f.m;f.v.y-=9*dt;m.position.addScaledVector(f.v,dt);if(m.position.y<.04){m.position.y=.04;f.v.y*=-.32;f.v.x*=.6;f.v.z*=.6;f.w.multiplyScalar(.6)}
       m.rotation.x+=f.w.x*dt;m.rotation.y+=f.w.y*dt;m.rotation.z+=f.w.z*dt;m.scale.setScalar(f.life<.4?Math.max(.001,f.life/.4):1);if(f.life<=0)m.visible=false});
     if(flashT>0){flashT+=dt;var fk=flashT/.45;if(fk>=1){flashT=0;flash.visible=false;shock.visible=false}else{flash.scale.setScalar(.3+fk*2.6);flashM.opacity=.95*(1-fk)*(1-fk);shock.scale.setScalar(.3+fk*3.4);shockM.opacity=.8*(1-fk);shock.lookAt(camera.position)}}
-    crowdTick(dt,T);
+    if(st.fire)cheer=3;fwStep(dt);crowdTick(dt,T);
     /* luce che segue */
     var fc=camMode==='all'?V(0,0,0):root.position;key.target.position.copy(fc);key.position.copy(fc).add(V(-14,30,18));
     /* camera */
@@ -3949,7 +3986,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     camera.position.copy(camPos);camera.lookAt(camTgt);if(Math.abs(camera.fov-camFov)>.01){camera.fov=camFov;camera.updateProjectionMatrix()}
     /* etichette */
     var W=renderer.domElement.clientWidth,H=renderer.domElement.clientHeight;
-    cones.forEach(function(c,i){var p=c.g.position.clone().add(V(0,c.lock.visible?1.95:1.05,0)).project(camera),b=LB[i],hid=cin&&cin.t>=0&&c===cin.c&&!cin.boomed,far=camMode!=='all'&&c.st!=='cur'&&c.g.position.distanceTo(root.position)>(st.vert?13:22);
+    cones.forEach(function(c,i){var p=c.g.position.clone().add(V(0,c.lock.visible?1.95:1.05,0)).project(camera),b=LB[i],hid=st.wide||(cin&&cin.t>=0&&c===cin.c&&!cin.boomed),far=camMode!=='all'&&c.st!=='cur'&&c.g.position.distanceTo(root.position)>(st.vert?13:22);
       if(hid||far||p.z>1||p.x<-1.15||p.x>1.15||p.y<-1.1||p.y>1.15){b.style.visibility='hidden';return}
       b.style.visibility='visible';b.style.transform='translate('+((p.x+1)/2*W).toFixed(1)+'px,'+((1-p.y)/2*H).toFixed(1)+'px) translate(-50%,-100%)'});
     renderer.render(scene,camera);
@@ -3960,7 +3997,7 @@ class RoundedBoxGeometry extends BoxGeometry {
     if(/^#[0-9a-fA-F]{6}$/.test(o.pitch||'')&&o.pitch!==PITCHC){PITCHC=o.pitch;drawPitch();pitchTex.needsUpdate=true}
     var fem=o.sex==='f';if(fem!==FEM){FEM=fem;faceT.userData.redraw();LH.visible=FEM;FB.forEach(function(b){b.g.attributes.position.array.set(FEM?b.f:b.m);b.g.attributes.position.needsUpdate=true;b.g.computeVertexNormals()})}
   }
-  window.TT3D={update:update,setName:setName,setColors:setColors,setLook:setLook};
+  window.TT3D={demo:function(){st.first=false;st.cur=7;root.position.copy(STAND[8]);st.bi=8;st.shotDone=true;st.yaw=YAW[8];root.rotation.y=st.yaw;root.updateMatrixWorld(true);startRoutine('shotF')},st:st,update:update,setName:setName,setColors:setColors,setLook:setLook};
   window.ttPerc.refresh();
   size();
   requestAnimationFrame(frame);
