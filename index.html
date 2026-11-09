@@ -61,7 +61,7 @@ html.ttm .dvb{display:none}
 .hlp-i{display:block;width:100%;text-align:left;font:600 .92rem var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 6px;cursor:pointer}
 .hlp-main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:800}
 .hlp-l{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:10px 0 6px}
-.hlp-g{display:grid;grid-template-columns:1fr 1fr;gap:0 6px}.hlp-g .hlp-i{font-size:.84rem;padding:9px 10px}
+.hlp-g{display:grid;grid-template-columns:1fr;gap:0}.hlp-g .hlp-i{font-size:.84rem;padding:9px 10px}
 .hlp-set{margin-top:8px;border:1px solid var(--line);border-radius:10px}.hlp-set summary{font-size:.86rem}
 .hlp-sf{padding:4px 12px 12px;display:grid;gap:4px}.hlp-sf input[type=text]{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
 .hlp-sf input[type=color]{width:60px;height:32px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
@@ -683,6 +683,17 @@ details.bgrp.seq-hide,details.bsub.seq-hide{display:none!important}
 .dash .dw .btn{display:inline-flex;align-items:center;gap:7px;width:auto;min-width:0;margin:0;padding:8px 16px;font-size:14px;border-radius:999px;border:2px solid #fff;background:linear-gradient(135deg,#2fb487,#1a9a70);box-shadow:0 0 0 1px var(--accent),0 3px 8px rgba(26,154,112,.3)}
 .dash .dw .btn:hover,.dash .dw .btn:focus-visible{transform:translateY(-1px) scale(1.03);box-shadow:0 0 0 1px var(--accent),0 5px 14px rgba(10,108,78,.4);filter:brightness(1.08)}
 .pp-t1{margin:10px 0 2px;font-weight:700;font-size:16px;text-align:center}.pprog .pitch-cap{margin:2px 0}#pp-txt{margin:2px 0 0;font-weight:800;font-size:16px}
+
+.lbrow{display:block;line-height:1.35}.lbrow label.l{display:inline;margin:0 6px 0 0}
+.lbrow .qm{width:17px;height:17px;border-width:1.5px;font-size:.65rem;margin:0;vertical-align:1px}
+h2 .qm{width:19px;height:19px;border-width:1.5px;font-size:.7rem;margin-left:8px;vertical-align:4px}
+.obj-f>div{display:grid;gap:8px;justify-items:start}.obj-f input{width:150px;max-width:100%}
+@media (min-width:561px){.obj-f .lbrow label.l{white-space:nowrap}}
+.obj-f>div{display:block!important}.obj-f .lbrow{display:flex!important;flex-wrap:nowrap;align-items:center;gap:6px;margin-bottom:8px}.obj-f .lbrow label.l{margin:0!important;display:inline!important;flex:0 1 auto}
+.obj-f .lbrow .qm,.lbrow .qm,h2 .qm{width:15px!important;height:15px!important;min-width:15px;border-width:1.5px!important;font-size:.58rem!important;line-height:1;flex:none;margin:0 0 0 6px}
+.obj-f .lbrow .qm{margin:0}
+h2 .qm{vertical-align:3px}
+@media (max-width:560px){.obj-f .lbrow{display:block!important;line-height:1.35}.obj-f .lbrow label.l{white-space:normal;margin:0 6px 0 0!important}.obj-f .lbrow .qm{display:inline-grid;vertical-align:-2px}}
 </style>
 
 <div class="wrap">
@@ -692,27 +703,13 @@ details.bgrp.seq-hide,details.bsub.seq-hide{display:none!important}
  <div class="hlp-h"><span class="hlp-av" id="hlp-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><div><b id="hlp-t">Ciao, sono <span class="cname"></span></b><div class="sub">Su cosa ti serve aiuto?</div></div><button type="button" class="fbp-x" id="hlp-x" aria-label="Chiudi">&times;</button></div>
   <button type="button" class="hlp-i hlp-main" data-tour="next">Aiutami ad andare avanti</button>
  <button type="button" class="hlp-i" data-tour="passi">Come funzionano i 7 passi?</button>
- <button type="button" class="hlp-i" data-tour="here">Spiegami questa schermata</button>
+ <button type="button" class="hlp-i" data-tour="here">Spiegami la schermata dove sono ora</button>
  <button type="button" class="hlp-i" data-tour="full">Tour dell'app</button>
- <div class="hlp-l">Le sezioni</div>
+ <div class="hlp-l">Portami a</div>
  <div class="hlp-g">
-  <div class="hlp-sg">Parti da qui</div>
-  <button type="button" class="hlp-i" data-tour="percorso">Il mio percorso</button>
-  <button type="button" class="hlp-i" data-tour="home">Dove sono oggi?</button>
-  <button type="button" class="hlp-i" data-tour="faq">Domande frequenti</button>
-  <div class="hlp-sg">Il tuo contratto</div>
-  <button type="button" class="hlp-i" data-tour="contratto"><i class="hn">3</i>Contratto</button>
-  <button type="button" class="hlp-i" data-tour="conformita"><i class="hn">3</i>Conformità</button>
-  <button type="button" class="hlp-i" data-tour="netto"><i class="hn">3</i>Simulatore netto</button>
-  <div class="hlp-sg">I tuoi soldi</div>
-  <button type="button" class="hlp-i" data-tour="budget"><i class="hn">1</i>Budget</button>
-  <button type="button" class="hlp-i" data-tour="obiettivi"><i class="hn">2</i>Obiettivi a breve termine</button>
-  <button type="button" class="hlp-i" data-tour="fondo"><i class="hn">4</i>Fondo di emergenza</button>
-  <button type="button" class="hlp-i" data-tour="debiti"><i class="hn">5</i>Debiti</button>
-  <div class="hlp-sg">Il tuo futuro</div>
-  <button type="button" class="hlp-i" data-tour="invest"><i class="hn">6</i>Le basi dell'investire</button>
-  <button type="button" class="hlp-i" data-tour="calc"><i class="hn">6</i>La tua proiezione</button>
-  <button type="button" class="hlp-i" data-tour="pens"><i class="hn">7</i>Piano a lungo termine</button>
+  <button type="button" class="hlp-i" data-go="percorso">Il mio percorso</button>
+  <button type="button" class="hlp-i" data-go="home">Dove sono oggi?</button>
+  <button type="button" class="hlp-i" data-go="faq">Domande frequenti</button>
  </div>
  <details class="hlp-set"><summary>Personalizza il tuo assistente</summary>
   <div class="co-f">
@@ -722,6 +719,17 @@ details.bgrp.seq-hide,details.bsub.seq-hide{display:none!important}
    <div><label class="l" for="co-j1">Maglia</label><input type="color" id="co-j1" data-co="c1" value="#f2c21a"></div>
    <div><label class="l" for="co-j2">Dettagli</label><input type="color" id="co-j2" data-co="c2" value="#1f4fa0"></div></div>
    <button type="button" class="co-rs" data-co-reset>Colori originali</button>
+  </div>
+ </details>
+ <details class="hlp-set"><summary>I tuoi dati</summary>
+  <div class="hlp-sf">
+   <p class="sub" style="margin:0 0 6px">I tuoi dati sono solo su questo telefono. Salva una copia ogni tanto: se cambi telefono o cancelli i dati del browser, con la copia la ritrovi.</p>
+   <button type="button" class="hlp-i" id="hlp-exp">Salva una copia</button>
+   <p class="sub" style="margin:0 0 6px;font-size:.78rem">Il file contiene i tuoi dati sui soldi: tienilo per te. Se sei minorenne, chiedi a un genitore di aiutarti.</p>
+   <button type="button" class="hlp-i" id="hlp-imp">Rimetti i miei dati</button>
+   <input type="file" id="hlp-file" accept=".json,application/json" hidden>
+   <button type="button" class="hlp-i" id="hlp-del">Cancella tutti i miei dati</button>
+   <p class="sub" id="hlp-msg" role="status" style="margin:4px 0 0;font-size:.82rem"></p>
   </div>
  </details>
 </div>
@@ -894,7 +902,7 @@ details.bgrp.seq-hide,details.bsub.seq-hide{display:none!important}
   <div class="intro"><h3>Perché fissare degli obiettivi</h3><ul>
     <li>Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.</li>
     <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento.</li>
-    <li>Ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese. Per questo serve prima il Budget.</li>
+    <li>Ti mostro, con i numeri di oggi, quanto manca e quanto serve al mese. Per questo serve prima il Budget.</li>
   </ul></div>
   <div class="sv-panel" id="sv-panel" style="margin:30px 0 36px">
     <h3>Dove va l'avanzo di ogni mese</h3>
@@ -904,9 +912,9 @@ details.bgrp.seq-hide,details.bsub.seq-hide{display:none!important}
   </div>
   <div class="lsubs lsubs2" role="group" aria-label="Argomenti"><button type="button" class="lsb" data-sub="o-tasso" aria-pressed="false">Quanto risparmio</button><button type="button" class="lsb" data-sub="o-goals" aria-pressed="false">Obiettivi a breve</button></div>
   <div class="lsub" id="sub-o-tasso" hidden>
-  <h2>Quanto risparmio ogni mese (in %) <button type="button" class="qm" data-qm="qm1" aria-label="Spiegazione" aria-expanded="false">?</button></h2>
+  <h2>Quanto risparmio attualmente ogni mese? <button type="button" class="qm" data-qm="qm1" aria-label="Spiegazione" aria-expanded="false">?</button></h2>
   <p class="qm-t" id="qm1" hidden>Il tasso di risparmio è la parte delle tue entrate che ti avanza dopo le spese. Esempio: entrano 1.000 € e ne avanzano 150, quindi risparmi il 15%.</p>
-  <div class="card" style="margin-bottom:26px"><p class="qm-t" id="qm2" hidden>È il tuo obiettivo: quanta parte delle entrate vuoi riuscire a mettere da parte. Come regola pratica (non una norma) molti puntano al 10–20%.</p><div class="fields" style="margin:0 0 12px;max-width:300px"><div><div class="lbrow"><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate (%)</label><button type="button" class="qm" data-qm="qm2" aria-label="Spiegazione" aria-expanded="false">?</button></div><input type="text" inputmode="decimal" id="obj" placeholder="es. 15"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
+  <div class="card" style="margin-bottom:26px"><p class="qm-t" id="qm2" hidden>È il tuo obiettivo: quanta parte delle entrate vuoi riuscire a mettere da parte. Come regola pratica (non è obbligatoria) molti puntano al 10-30%. Se vivi con i tuoi puoi puntare al 30-50% o più.</p><div class="fields obj-f" style="margin:0 0 12px"><div><div class="lbrow"><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate&nbsp;(%)</label><button type="button" class="qm" data-qm="qm2" aria-label="Spiegazione" aria-expanded="false">?</button></div><input type="text" inputmode="decimal" id="obj" placeholder="es. 15"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
   </div>
   <div class="lsub" id="sub-o-goals" hidden>
   <h2>Obiettivi a breve termine</h2>
@@ -1174,9 +1182,10 @@ if(!S.v3){if(num(S.sim.add)===0)S.sim.add='3';S.v3=1}
 if(!S.goals)S.goals=D.goals;if(!S.prof)S.prof={};if(S.prof.cognome==null)S.prof.cognome='';if(!S.prof.num)S.prof.num='10';
 if(!S.used)S.used={};if(!S.bt)S.bt={};if(!S.chk)S.chk={};if(!S.debt||!Array.isArray(S.debt.list))S.debt={none:false,list:[]};if(!S.fund)S.fund={mesi:'3',saved:''};if(!Array.isArray(S.fund.acc))S.fund.acc=[];if(!S.fund.acc.length&&Number(String(S.fund.saved||'').replace(',','.'))>0)S.fund.acc.push({n:'Fondo emergenza',t:'conto',v:S.fund.saved,f:true});if(!S.mens)S.mens='10';
 var st=null;
-function flushSave(){clearTimeout(st);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function saveErr(){if(window.__saveErrT)return;window.__saveErrT=1;setTimeout(function(){window.__saveErrT=0},30000);try{window.ttToast('Non riesco a salvare i tuoi dati su questo telefono (memoria piena o browser che blocca il salvataggio). Usa «Salva una copia» nel pannello di aiuto per non perdere nulla.')}catch(e){}}
+function flushSave(){if(window.__wiped)return;clearTimeout(st);try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){saveErr()}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')flushSave()});window.addEventListener('pagehide',flushSave);
-function save(){clearTimeout(st);st=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250);setTimeout(function(){try{ttWatch()}catch(e){}},0)}
+function save(){clearTimeout(st);st=setTimeout(function(){if(window.__wiped)return;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){saveErr()}},250);setTimeout(function(){try{ttWatch()}catch(e){}},0)}
 function getP(path){var p=path.split('.');return S[p[0]][p[1]]}
 function setP(path,v){var p=path.split('.');S[p[0]][p[1]]=v}
 
@@ -1601,7 +1610,7 @@ function lampoDone(){var L=S.budL||{};return lampoKeys().filter(function(k){var 
 function lampoComplete(){return lqDone()&&lampoDone()>=lampoKeys().length}
 window.ttLampo=function(){return {mode:S.bmode,q:lqDone(),done:lampoComplete()}};
 function renderBMode(){var c=document.getElementById('b-mode');if(!c)return;var m=S.bmode,h='',N=lampoKeys().length;
-  if(!m){h='<h3 class="bm-t">Come vuoi fare il Budget?</h3><div class="bm-opts"><button type="button" class="bm-o" data-bmode="lampo"><b>⚡ Budget lampo</b><span>4 domande e da 16 a 29 voci, quelle che contano di più. Circa 5 minuti. Ti dà un\'idea <b>indicativa</b> delle tue spese e ti fa andare avanti nel percorso.</span></button><button type="button" class="bm-o" data-bmode="full"><b>📋 Budget completo</b><span>Tutte le voci. Più lungo, ma i risultati sono <b>precisi</b>.</span></button></div><p class="bm-n">Parliamo dei tuoi soldi: per risultati precisi serve un po\' di impegno in più. Puoi partire dal lampo per farti un\'idea, ma ti consiglio fortemente di completare poi il Budget completo: è quello che ti permette di costruire un futuro solido.</p>'}
+  if(!m){h='<h3 class="bm-t">Come vuoi fare il Budget?</h3><div class="bm-opts"><button type="button" class="bm-o" data-bmode="lampo"><b>⚡ Budget lampo</b><span>4 domande e da 16 a 29 voci, quelle che contano di più. Circa 3-5 minuti. Ti dà un\'idea <b>indicativa</b> delle tue spese e ti fa andare avanti nel percorso.</span></button><button type="button" class="bm-o" data-bmode="full"><b>📋 Budget completo</b><span>Tutte le voci. Circa 15-20 minuti, ma i risultati sono <b>precisi</b>.</span></button></div><p class="bm-n">Parliamo dei tuoi soldi: per risultati precisi serve un po\' di impegno in più. Puoi partire dal lampo per farti un\'idea, ma ti consiglio fortemente di completare poi il Budget completo: è quello che ti permette di costruire un futuro solido.</p>'}
   else if(m==='lampo'&&!lqDone()){var q=S.lq||{};h='<div class="bm-bar"><b>⚡ 4 domande veloci</b><p class="bm-n" style="margin:4px 0 10px!important">Così ti mostro solo le voci che ti servono.</p>'+LQ.map(function(x){return '<div class="lq"><span>'+x[1]+'</span><div class="lq-o">'+x[2].map(function(o){return '<button type="button" class="lq-b" data-lq="'+x[0]+'" data-v="'+o[0]+'" aria-pressed="'+(q[x[0]]===o[0])+'">'+o[1]+'</button>'}).join('')+'</div></div>'}).join('')+'<p class="bm-n bm-s"><button type="button" class="bm-l" data-bmode="">← Cambia tipo di budget</button></p></div>'}
   else if(m==='lampo'){var d=lampoDone(),ok=d>=N;h='<div class="bm-bar"><div><b>⚡ Budget lampo</b> · '+d+' di '+N+' voci</div><div class="bm-pg"><i style="width:'+Math.round(d/N*100)+'%"></i></div><p class="bm-n">'+(ok?'<b>Fatto!</b> Hai completato il Budget lampo e puoi andare avanti nel percorso. È un risultato <b>indicativo</b>: quando vuoi, estendilo al Budget completo per numeri precisi.':'Stima veloce. Scrivi un importo in ogni voce (0 se non ti riguarda): la ✓ verde ti dice che è fatta. Le sezioni delle spese si aprono una dopo l\'altra.')+'</p><button type="button" class="btn'+(ok?'':' ghost')+'" id="bm-full" data-bmode="full">Estendi al Budget completo</button><span class="bm-s">Il Budget completo parte vuoto. Quando inserisci la prima voce, l\'app calcola solo sul completo; il lampo resta salvato.</span><button type="button" class="bm-l" data-lqreset style="display:block;margin-top:8px">Cambia le 4 risposte</button></div>'}
   else{var fOn=hasB(S.budF),lHas=hasB(S.budL),useL=S.buse==='lampo'&&lHas;
@@ -1707,6 +1716,7 @@ R.bud=function(){
   var obj=num(S.obj)/100;
   $('#k-o').textContent=tasso===null?'':'obiettivo '+pct(obj);
   if(tasso===null)$('#obj-out').innerHTML='<span class="sub">Inserisci le entrate per vedere il confronto.</span>';
+  else if(!(num(S.obj)>0))$('#obj-out').innerHTML='<span>Oggi: <b>'+pct(tasso)+'</b></span><span class="sub">Scrivi il tuo obiettivo per vedere il confronto.</span>';
   else{var need=obj*ent-sur;$('#obj-out').innerHTML='<span>Oggi: <b>'+pct(tasso)+'</b></span><span>Obiettivo: <b>'+pct(obj)+'</b></span>'+(need<=0?pill('ok','Obiettivo raggiunto'):pill('warn','Ti mancano '+eur(need/12)+' al mese ('+eur(need)+' all\'anno)'))}
   renderSched(SCH,ent,sur);
   renderGoals();renderLt();
@@ -1841,7 +1851,7 @@ R.home=function(){
     var need=obj*ent-sur,reached=need<=0,fill=obj>0?Math.max(0,Math.min(1,t/obj)):(t>=0?1:0);
     g+='<div class="cmp"><span>Oggi risparmi</span><b>'+pct(t)+'</b></div><div class="cmp"><span>Obiettivo</span><b>'+pct(obj)+'</b></div>'
      +'<div class="bar gap"><i class="'+(reached?'ok':(t<0?'risk':''))+'" style="width:'+(fill*100)+'%"></i></div>'
-     +pill(reached?'ok':'warn',reached?'Obiettivo raggiunto':'Ti mancano '+eur(need/12)+' al mese')
+     +(obj>0?pill(reached?'ok':'warn',reached?'Obiettivo raggiunto':'Ti mancano '+eur(need/12)+' al mese'):'<span class="sub">Scrivi il tuo obiettivo in «Obiettivi».</span>')
      +'<p class="sub" style="margin:8px 0 0">'+(reached?'Stai risparmiando più di quanto volevi.':'Per arrivarci devi spendere meno o guadagnare di più per '+eur(need)+' in un anno.')+'</p>';
   }
   g+='<p class="sub" style="margin:8px 0 0">Cambia l\'obiettivo in «Obiettivi a breve termine» (tasso di risparmio).</p>';
@@ -2195,15 +2205,15 @@ $('#faq-q').addEventListener('input',function(){R.faq();fitSoon()});
 var PSTEPS=[
  {n:1,t:'Budget',tab:'budget',go:'Vai al Budget',
   why:'Scrivi cosa entra e cosa esce. Senza questo, tutto il resto è alla cieca.',
-  how:'<b>Mini-missione:</b> inserisci nel Budget almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
+  how:'<b>Mini-missione:</b> compila il <b>Budget lampo</b> (4 domande e le voci principali; se una voce non ti riguarda scrivi 0) e poi «Soldi messi da parte»: contanti, conto e investiti (se non hai niente, scrivi 0). Se scegli il <b>Budget completo</b>, bastano almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
  {n:2,t:'Obiettivi a breve termine',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
   how:'<b>Mini-missione:</b> in «Obiettivi a breve termine» compila tutte le caselle: risparmio e investimento a 6 mesi, 12 mesi, 30 mesi e 5 anni (se non hai un obiettivo, scrivi 0).'},
  {n:3,t:'Contratto in regola',tab:'contratto',go:'Vai al Contratto',
-  why:'Un contratto sbagliato ti fa perdere soldi, tutele e il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
+  why:'Un contratto sbagliato può farti perdere soldi e tutele, e creare problemi con il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
   how:'<b>Mini-missione:</b> inserisci i tuoi dati nel Contratto, rispondi a tutte le domande della Conformità e prova il Simulatore netto. Le 3 verifiche qui sotto sono consigliate: spuntale solo quando le hai fatte davvero.'},
  {n:4,t:'Fondo di emergenza e protezione assicurativa',tab:'fondo',go:'Vai a «Fondo di emergenza»',
-  why:'Il fondo copre infortuni, mesi senza compenso e imprevisti. Di base sei coperto soltanto dall\'assicurazione del tesseramento, che ha limiti: massimali, franchigie e, di solito, nessun rimborso per il compenso che perdi mentre sei fermo. Per questo conviene assicurarti anche da solo contro gli infortuni.',
+  why:'Il fondo copre infortuni, mesi senza compenso e imprevisti. Di solito hai solo l\'assicurazione del tesseramento, che ha limiti: massimali, franchigie e spesso nessun rimborso per il compenso che perdi mentre sei fermo. Controlla la tua polizza. Per questo conviene assicurarti anche da solo contro gli infortuni.',
   how:'<b>Mini-missione:</b> in «Fondo di emergenza» inserisci i tuoi conti e i contanti, spunta quelli che fanno parte del fondo e arriva ai mesi di spese che scegli. Poi chiedi per iscritto al club cosa copre l\'assicurazione del tesseramento. L\'assicurazione personale è facoltativa, ma consigliata.'},
  {n:5,t:'Analisi debiti',tab:'debiti',go:'Vai a «Debiti»',
   why:'Prima si tolgono i debiti con gli interessi più alti: di solito costano più di quanto renderebbe un investimento. È una regola generale, non una norma.',
@@ -2693,43 +2703,43 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    hello:[{t:null,form:1,x:function(){return 'Ciao, sono il tuo assistente personale. <b>Chiamami come vuoi e personalizzami come preferisci.</b>'}}],
    ask:[{t:null,x:function(){return (C().name?'Piacere, sono <b>{N}</b>! ':'Piacere! ')+'Ora ti guiderò in un breve tour dell\'app, va bene?'}}],
    intro:[{t:null,x:function(){return 'Terzo Tempo mette in un unico posto <b>contratto, tasse, budget e risparmio</b>, spiegati in modo semplice per chi gioca tra i dilettanti. Ti mostro come è fatta l\'app: ci vuole circa un minuto. Puoi uscire quando vuoi con «Esci».'}},
-          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>Il tuo contratto</b> (contratto e tasse), <b>I tuoi soldi</b> (budget, fondo e debiti) e <b>Il tuo futuro</b> (investire e pensione). Sotto «Parti da qui» c\'è anche <b>Dubbi?</b>, con le domande frequenti. I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
-   percorso:[{tab:'percorso',t:'#pitch',x:function(){return 'La sezione <b>«Il mio percorso»</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
+          {t:'.tabs',x:function(){return 'Questo è il <b>menu</b>, diviso in 4 '+(M()?'riquadri':'gruppi')+': <b>Parti da qui</b> (a che punto sei), <b>Il tuo contratto</b> (contratto e tasse), <b>I tuoi soldi</b> (budget, obiettivi, fondo e debiti) e <b>Il tuo futuro</b> (investire e pensione). Sotto «Parti da qui» c\'è anche <b>Dubbi?</b>, con le domande frequenti. I numeri nei pallini sono i passi del percorso che completi in quella sezione.'}}],
+   percorso:[{tab:'percorso',t:'#dash',x:function(){return 'In alto trovi <b>«A che punto sei dei 7 passi?»</b>: i soldi che hai oggi, il tuo obiettivo a 12 mesi, i passi fatti e il prossimo da fare.'}},
+             {tab:'percorso',t:'#pitch',x:function(){return 'La sezione <b>«Il mio percorso»</b> è un campo da calcio: parti dalla tua porta e arrivi a quella avversaria. Ogni <b>cono</b> è un passo e ha un <b>lucchetto</b> finché non lo completi. Quando completi le mini-missioni corrispondenti, il lucchetto si sblocca e il tuo giocatore si sposta al cono successivo.'}},
              {tab:'percorso',t:'#pitch',x:function(){return T()+' l\'etichetta di un cono per aprire quel passo. Con i pulsanti <b>Segui</b> e <b>Tutto il campo</b>, in basso a sinistra del campo, cambi inquadratura.'}},
              {tab:'percorso',t:'#steps',x:function(){return 'Sotto il campo trovi i <b>7 passi</b>. '+T()+' un passo per aprirlo: c\'è la spiegazione del <b>perché è importante</b>, le <b>mini-missioni</b> e la lista delle cose da fare per completarle. Il passo è completo quando sono tutte spuntate; quelle segnate «facoltativa» non bloccano.'}}],
    passi:[{tab:'percorso',t:'#steps',x:function(){return 'I 7 passi, in ordine:'+P7}},
+          {tab:'percorso',t:'#pitch',x:function(){return 'La <b>barra a mattoncini</b> sotto il campo ha un mattoncino per ogni passo, con dentro un pezzetto per ogni voce completata: si riempie man mano che avanzi.'}},
           {tab:'percorso',t:'#steps',x:function(){return 'Si sbloccano <b>uno dopo l\'altro</b>: un passo conta solo se tutti quelli prima sono completi. Se una voce torna incompleta, il lucchetto di quel passo ricompare.'}},
           {tab:'percorso',t:'#steps',x:function(){return 'Molti passi si completano in altre sezioni: il pulsante dentro ogni passo (per esempio «Vai al Budget») ti porta nel punto giusto. Fondo di emergenza e debiti, invece, si compilano direttamente qui.'}}],
    home:[{tab:'home',t:'#h-kpi',x:function(){return 'La sezione <b>«Dove sono oggi?»</b> è la fotografia dei tuoi soldi in un anno: <b>entrate</b>, <b>spese</b> e <b>tasso di risparmio</b>, cioè la parte delle entrate che ti resta. I numeri arrivano dal Budget: se cambi il Budget, cambiano anche qui.'}},
          {tab:'home',t:'#h-month',x:function(){return 'Qui vedi <b>dove va il risparmio di questo mese</b>: investimenti, fondo emergenza, spese con scadenza vicina e soldi ancora senza destinazione.'}},
-         {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}},
-         {tab:'home',t:'#percorso',x:function(){return 'Sotto trovi i <b>saldi</b> e <b>Come sta andando il mio percorso?</b>: i tuoi obiettivi, a che punto sei e quanto manca per arrivarci.'}}],
-   obiettivi:[{tab:'obiettivi',sub:'o-goals',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi a breve termine»</b> è il passo 2: i tuoi obiettivi a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Sotto ti dico, con i numeri di oggi, se ci arrivi e quanto serve al mese.'}}],
+         {tab:'home',t:'#percorso',x:function(){return '<b>Come sta andando il mio percorso?</b>: i tuoi obiettivi, a che punto sei e quanto manca per arrivarci. In alto, sopra tutto, trovi anche i tuoi <b>saldi</b>: i soldi che hai oggi.'}},
+         {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}}],
+   obiettivi:[{tab:'obiettivi',sub:'o-goals',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi a breve termine»</b> è il passo 2 e ha due parti: <b>«Quanto risparmio»</b> (la percentuale delle entrate che vuoi mettere da parte) e <b>«Obiettivi a breve»</b>, con i tuoi obiettivi a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Ti mostro, con i numeri di oggi, quanto manca e quanto serve al mese.'}}],
    fondo:[{tab:'fondo',sub:'f-reg',t:'#sub-f-reg .rules',x:function(){return 'La sezione <b>«Fondo di emergenza»</b> è il passo 4 e ha tre parti: <b>Regole del fondo</b>, <b>Il mio fondo</b> e <b>Assicurazione infortuni</b>. Le regole: si tocca solo per vere emergenze, una parte va in contanti, il resto su un conto separato.'}},
          {tab:'fondo',sub:'f-mio',t:'#a-list',x:function(){return 'In <b>«Il mio fondo»</b> inserisci i tuoi <b>conti e i contanti</b>, con il valore di oggi, e spunti quelli che fanno parte del fondo. Sotto vedi quanto ti manca per arrivare ai mesi di spese che scegli.'}},
          {tab:'fondo',sub:'f-ass',t:'#sub-f-ass .chks',x:function(){return 'In <b>«Assicurazione infortuni»</b> capisci perché serve e fai le <b>due verifiche</b>: cosa copre la polizza del club e se ne hai una tua.'}}],
    debiti:[{tab:'debiti',t:'#p-debiti .rules',x:function(){return 'La sezione <b>«Debiti»</b> è il passo 5. Qui trovi le regole per i debiti: prima il mini-fondo, poi quelli con il tasso più alto.'}},
-         {tab:'debiti',t:'#d-list',x:function(){return 'Segna <b>quanto devi, la rata e il tasso</b> di ogni debito, oppure spunta «Non ho debiti». Ti dico in che ordine conviene chiuderli.'}}],
+         {tab:'debiti',t:'#d-list',x:function(){return 'Segna <b>quanto devi, la rata e il tasso</b> di ogni debito, oppure spunta «Non ho debiti». Ti suggerisco un ordine per chiuderli.'}}],
    invest:[{tab:'invest',t:'#p-invest .rules',x:function(){return 'La sezione <b>«Le basi dell\'investire»</b> è il passo 6. Spiega in parole semplici cos\'è investire, in che ordine usare i soldi (fondo, debiti, investimento) e 6 regole facili.'}},
-         {tab:'invest',t:'#inv-soon',x:function(){return 'Qui arriveranno <b>video, PDF ed esercizi</b>. Arriveranno presto.'}}],
-   calc:[{tab:'calc',t:'#lt-bud',x:function(){return 'Qui vedi la <b>tua proiezione</b>: parte dal Budget e ti dice quanto avanza ogni mese e cosa diventa se lo investi tra 10, 20 e 30 anni.'}}],
-   pens:[{tab:'pens',t:'#p-pens .lsubs',x:function(){return 'In <b>«Pianificazione a lungo termine»</b> scegli tra tre argomenti: <b>Interesse composto</b> (prova coi tuoi numeri), <b>Pensione integrativa</b> (spunti come la costruisci) e <b>Consulenza</b> (come scegliere un consulente).'}}],
+         {tab:'invest',t:'#inv-soon',x:function(){return 'In arrivo: <b>video, PDF ed esercizi</b>.'}}],
+   calc:[{tab:'calc',t:'#lt-bud',x:function(){return 'Qui vedi la <b>tua proiezione</b>: parte dal Budget e ti dice quanto avanza ogni mese e cosa diventa se lo investi tra 10, 20 e 30 anni (è un esempio: i rendimenti non sono garantiti).'}}],
+   pens:[{tab:'pens',t:'#p-pens .lsubs',x:function(){return 'In <b>«Pianificazione a lungo termine»</b> scegli tra tre argomenti: <b>Consulenza</b> (come scegliere un consulente), <b>Interesse composto</b> (prova coi tuoi numeri) e <b>Pensione integrativa</b> (spunti come la costruisci).'}}],
 
-   budget:[{tab:'budget',t:'.strip',x:function(){return 'La sezione <b>«Budget»</b> è il passo 1. In alto vedi subito quanto ti <b>avanza al mese</b>, all\'anno e il <b>tasso di risparmio</b>. Si aggiorna mentre scrivi.'}},
-           {tab:'budget',t:'#b-grid',x:function(){return (M()?'Prima le <b>spese</b>, più sotto le <b>entrate</b>':'A sinistra le <b>spese</b>, a destra le <b>entrate</b>')+', divise in gruppi come Casa, Calcio, Lavoro. Scrivi cifre <b>nette</b>: le voci mensili vengono moltiplicate per 12, quelle annuali divise per 12. Nelle entrate del calcio scegli quante mensilità paga il club.'}},
-           {tab:'budget',t:'#bal-panel',x:function(){return '<b>Soldi messi da parte</b>: quanti soldi hai oggi in contanti, sul conto e investiti. Serve per vedere a che punto sei rispetto ai tuoi obiettivi.'}}],
+   budget:[{tab:'budget',t:function(){var e=document.querySelector('.bm-opts');return e&&e.offsetParent?e:document.querySelector('#p-budget .strip')},x:function(){return 'Hai due opzioni: puoi compilare il <b>Budget lampo</b> per avere un\'idea veloce e immediata delle tue spese (in 3-5 minuti); se preferisci una maggiore precisione, invece, puoi compilare il <b>Budget completo</b> (15-20 minuti).'}}],
    contratto:[{tab:'contratto',t:'#eng-form',x:function(){return 'La sezione <b>«Contratto»</b> è il passo 3. Inserisci ruolo, categoria, età, compenso e ore settimanali di allenamento. Più sono precisi i dati, più è preciso il risultato.'}},
-              {tab:'contratto',t:'#eng-out',x:function(){return 'Subito sotto trovi il risultato: il <b>tipo di contratto</b> che serve nel tuo caso, la <b>legalità</b> (in regola, da verificare o rischio alto) e una stima del <b>netto</b>.'}}],
+              {tab:'contratto',t:'#eng-out',x:function(){return 'Subito sotto trovi il risultato: il <b>tipo di contratto</b> più adatto (indicativo), la <b>legalità</b> (<b>In regola se rispetti i punti</b>, <b>Da verificare</b> o <b>Rischio alto</b>) e una stima del <b>netto</b>.'}}],
    conformita:[{tab:'conformita',t:'#comp-q',x:function(){return 'La sezione <b>«Conformità»</b> contiene 10 domande sul tuo accordo con il club. Rispondi Sì, No o Non so: «Non so» conta come un punto da verificare.'}},
                {tab:'conformita',t:'#comp-out',x:function(){return 'Il risultato è in 3 schede '+(M()?'una sotto l\'altra':'affiancate')+': <b>Contratto valido</b>, <b>Rischio FIGC</b> e <b>Rischio fiscale</b>, ognuna con il suo semaforo e le cose da controllare.'}}],
    netto:[{tab:'netto',t:function(){var e=document.getElementById('s_altro');return e&&e.closest('.fields')},x:function(){return 'La sezione <b>«Simulatore netto»</b> calcola quanto ti resta. In alto metti l\'eventuale <b>altro reddito</b> (per esempio uno stipendio), i <b>rimborsi esenti</b> e le addizionali: cambiano le tasse che paghi.'}},
           {tab:'netto',t:'#sim-out',x:function(){return M()?'Ogni voce è una scheda: in <b>Compenso lordo annuo</b> scrivi la cifra offerta per ogni categoria, sotto vedi quanto paghi di INPS e IRPEF e quanto <b>netto</b> ti resta.':'Nella tabella metti il <b>compenso lordo</b> offerto in ogni categoria (una colonna per categoria) e leggi, colonna per colonna, quanto paghi di INPS e IRPEF e quanto <b>netto</b> ti resta.'}}],
-   faq:[{tab:'faq',t:'#faq-q',x:function(){return 'La sezione <b>«Domande frequenti»</b> risponde ai dubbi: scrivi una parola nella ricerca, per esempio «rimborsi», «svincolo» o «24 ore», oppure scegli uno degli argomenti qui sotto. Ogni risposta indica la sua fonte.'}}],
+   faq:[{tab:'faq',t:'#faq-q',x:function(){return 'La sezione <b>«Domande frequenti»</b> risponde ai dubbi: scrivi una parola nella ricerca, per esempio «rimborsi», «svincolo» o «24 ore», oppure scegli uno degli argomenti qui sotto. Ogni risposta indica la sua fonte. Sono informazioni generali.'}}],
    choose:[{t:null,choices:1,x:function(){return 'E ora come vuoi procedere? Puoi <b>esplorare l\'app da solo</b>, fare un <b>tour completo</b> di tutte le sezioni oppure <b>iniziare dal passo 1</b>: ti accompagno io.'}}],
    end:[{t:'#hlb',x:function(){return 'Ultima cosa: quando hai un dubbio '+(M()?'tocca':'clicca')+' <b>Hai bisogno di aiuto?</b> e torno io a spiegarti la schermata dove sei.'+(M()?'':' In alto a destra cambi tema chiaro o scuro.')+' Buon percorso!'}}]
   };
   var steps=[],i=0,typing=0,box=document.getElementById('tt-box'),tx=document.getElementById('tt-tx'),raf=0;
-  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso,[SEC.passi[0]],SEC.end,SEC.choose);var o1=function(x){return x.slice(0,1)},TS=['home','budget','obiettivi','fondo','debiti','invest','calc','pens','contratto','conformita','netto','faq'].reduce(function(r,n){return r.concat(o1(SEC[n]))},[]);if(k==='rest')return TS.concat(SEC.end);if(k==='full')return SEC.intro.concat([SEC.percorso[0],SEC.percorso[2]],TS,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
+  function build(k){if(k==='first')return SEC.hello.concat(SEC.ask,SEC.intro,SEC.percorso.slice(1),[SEC.passi[0]],SEC.end,SEC.choose);var o1=function(x){return x.slice(0,1)},TS=['home','budget','obiettivi','fondo','debiti','invest','calc','pens','contratto','conformita','netto','faq'].reduce(function(r,n){return r.concat(o1(SEC[n]))},[]);if(k==='rest')return TS.concat(SEC.end);if(k==='full')return SEC.intro.concat([SEC.percorso[1],SEC.percorso[3]],TS,SEC.end);if(k==='here')k=S.tab||'percorso';return (SEC[k]||SEC.percorso).slice()}
   function start(k){steps=build(k);S.seen=S.seen||{};if(k==='first'||k==='percorso')S.seen.percorso=1;if(SEC[k]&&k!=='passi')S.seen[k]=1;save();i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()}
   window.ttTour=start;window.ttSection=function(t){S.seen=S.seen||{};if(!S.tourDone||S.seen[t]||!TT.hidden||!SEC[t])return;setTimeout(function(){if(TT.hidden&&S.tab===t)start(t)},500)};window.ttCustom=function(arr){steps=arr;i=0;HP.hidden=true;TT.hidden=false;document.documentElement.classList.add('tt-on');show()};
   window.ttCelebrate=function(n){S.celeb=S.celeb||0;if(n<=S.celeb)return;S.celeb=n;save();if(window.__celCancel)window.__celCancel();
@@ -2877,6 +2887,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   hb.addEventListener('click',function(){HP.hidden?openH():closeH()});
   document.getElementById('hlp-x').addEventListener('click',closeH);
   HP.addEventListener('keydown',function(e){if(e.key==='Escape'){closeH();hb.focus()}});
+  Array.prototype.forEach.call(HP.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-go'),tb=document.querySelector('.tabs [data-tab="'+t+'"]');HP.hidden=true;if(tb)tb.click();window.scrollTo(0,0)})});
   Array.prototype.forEach.call(HP.querySelectorAll('[data-tour]'),function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-tour');if(k==='next'){HP.hidden=true;window.ttNext();return}start(k)})});
   
   var DEF={skin:'#cf8f6a',hair:'#2b170e',c1:'#f2c21a',c2:'#1f4fa0'};
@@ -2897,7 +2908,7 @@ function refreshLocks(){
   $$('.tabs [data-tab]').forEach(function(b){var L=tabLocked(b.getAttribute('data-tab')),k=b.querySelector('.lk');
     b.classList.toggle('locked',L);b.setAttribute('aria-disabled',L?'true':'false');
     if(L&&!k)b.insertAdjacentHTML('beforeend',LKSVG);else if(!L&&k)k.remove()});
-  $$('#hlp [data-tour]').forEach(function(b){var t=b.getAttribute('data-tour'),L=tabLocked(t),k=b.querySelector('.lk');
+  $$('#hlp [data-tour],#hlp [data-go]').forEach(function(b){var t=b.getAttribute('data-tour')||b.getAttribute('data-go'),L=tabLocked(t),k=b.querySelector('.lk');
     b.classList.toggle('locked',L);if(L&&!k)b.insertAdjacentHTML('beforeend',LKSVG);else if(!L&&k)k.remove()});
 }
 function lockedMsg(t){var f=function(){showTab('percorso');window.scrollTo(0,0)},r=LKREQ[t],P=window.ttPerc&&window.ttPerc.all,m;
@@ -3080,11 +3091,24 @@ buildQ();buildBudget();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R
     try{if(navigator.clipboard)navigator.clipboard.writeText(t)}catch(e){}
     window.open(FB_URL,'_blank','noopener')});
   var ex=document.getElementById('hlp-exp');
-  if(ex)ex.addEventListener('click',function(){try{var o={app:'terzo-tempo',v:1,d:new Date().toISOString(),data:{}};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf(KEY)===0)o.data[k]=localStorage.getItem(k)}
-    var b=new Blob([JSON.stringify(o)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='terzo-tempo-backup.json';document.body.appendChild(a);a.click();a.remove();say('Backup salvato nei tuoi file. Conservalo: serve per ripristinare i dati.')}catch(e){say('Non riesco a salvare il file su questo dispositivo.')}});
+  function askC(x,lab,yes,no){if(window.ttConfirm)window.ttConfirm(x,lab,yes,no,function(){});else if(confirm(x.replace(/<[^>]+>/g,' ')))yes()}
+  if(ex)ex.addEventListener('click',function(){try{var o={app:'terzo-tempo',v:2,d:new Date().toISOString(),data:{}};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf(KEY)===0)o.data[k]=localStorage.getItem(k)}
+    if(!o.data['terzotempo.v1'])throw 0;
+    var b=new Blob([JSON.stringify(o)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='terzo-tempo-copia-'+o.d.slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();say('Copia salvata nei tuoi file. Conservala e tienila per te: contiene i tuoi dati sui soldi.')}catch(e){say('Non riesco a salvare il file su questo dispositivo.')}});
   var im=document.getElementById('hlp-imp'),fl=document.getElementById('hlp-file');
+  function okFile(o){if(!o||typeof o!=='object'||o.app!=='terzo-tempo')return 'Questo non è un file di Terzo Tempo.';if(typeof o.v!=='number'||o.v>2)return 'File di una versione più nuova: aggiorna l\'app e riprova.';if(!o.data||typeof o.data!=='object'||Array.isArray(o.data))return 'File non valido: mancano i dati.';
+    var ks=Object.keys(o.data);if(!ks.length||ks.length>10)return 'File non valido.';
+    for(var i=0;i<ks.length;i++){var k=ks[i],v=o.data[k];if(k.indexOf(KEY)!==0||typeof v!=='string'||v.length>3000000)return 'File non valido.';try{var j=JSON.parse(v)}catch(e){if(k==='terzotempo.v1')return 'File rovinato: i dati non si leggono.';continue}
+      if(k==='terzotempo.v1'&&(!j||typeof j!=='object'||Array.isArray(j)||typeof j.goals!=='object'||typeof j.prof!=='object'))return 'File rovinato: i dati non sono completi.'}
+    if(!o.data['terzotempo.v1'])return 'File non valido: mancano i tuoi dati.';return ''}
   if(im&&fl){im.addEventListener('click',function(){fl.click()});
-    fl.addEventListener('change',function(){var f=fl.files&&fl.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(){try{var o=JSON.parse(rd.result);if(!o||o.app!=='terzo-tempo'||!o.data)throw 0;if(!confirm('Ripristinando, i dati attuali verranno sostituiti da quelli del file. Continuare?'))return;Object.keys(o.data).forEach(function(k){if(k.indexOf(KEY)===0)localStorage.setItem(k,o.data[k])});say('Dati ripristinati.');setTimeout(function(){location.reload()},600)}catch(e){say('File non valido: scegli un backup di Terzo Tempo.')}};rd.readAsText(f);fl.value=''})}
+    fl.addEventListener('change',function(){var f=fl.files&&fl.files[0];if(!f)return;if(f.size>4000000){say('File troppo grande: non è una copia di Terzo Tempo.');fl.value='';return}var rd=new FileReader();rd.onerror=function(){say('Non riesco a leggere il file.')};rd.onload=function(){var o;try{o=JSON.parse(rd.result)}catch(e){say('File non valido: scegli una copia di Terzo Tempo.');return}
+      var er=okFile(o);if(er){say(er+' I tuoi dati attuali non sono stati toccati.');return}
+      var dt=o.d?new Date(o.d):null,ds=dt&&!isNaN(dt)?dt.toLocaleDateString('it-IT'):'data non indicata';
+      askC('<b>Rimetto i dati salvati il '+ds+'?</b><br>I dati che hai adesso verranno sostituiti e non si recuperano.','Sì, sostituisci',function(){var old={};try{Object.keys(o.data).forEach(function(k){old[k]=localStorage.getItem(k)});window.__wiped=1;Object.keys(o.data).forEach(function(k){localStorage.setItem(k,o.data[k])});setTimeout(function(){location.reload()},300)}catch(e){window.__wiped=0;try{Object.keys(old).forEach(function(k){if(old[k]===null)localStorage.removeItem(k);else localStorage.setItem(k,old[k])})}catch(e2){}say('Non sono riuscito a rimettere i dati: sono rimasti quelli di prima.')}},'Annulla')};
+      rd.readAsText(f);fl.value=''})}
+  var dl=document.getElementById('hlp-del');
+  if(dl)dl.addEventListener('click',function(){askC('<b>Cancello tutti i tuoi dati?</b><br>Budget, obiettivi e percorso spariscono da questo telefono. Se non hai una copia, non si recuperano.','Continua',function(){askC('<b>Ultima conferma.</b><br>Cancello tutto per sempre e riparti da zero?','Sì, cancella tutto',function(){try{window.__wiped=1;var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k.indexOf(KEY)===0)ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)});try{sessionStorage.clear()}catch(e){}location.reload()}catch(e){window.__wiped=0;say('Non riesco a cancellare i dati.')}},'Annulla')},'Annulla')});
   document.addEventListener('gesturestart',function(e){e.preventDefault()});
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
   try{if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0&&!location.hash.match(/ttm/))navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
