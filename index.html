@@ -666,6 +666,7 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 #p-obiettivi .lsub h2{margin-top:6px}
 .lbrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.lbrow .qm{margin-left:0}.lbrow+.qm-t{margin-top:6px}
 .lbrow label.l{display:inline;width:auto;margin:0}
+details.bgrp.seq-hide{display:none!important}
 </style>
 
 <div class="wrap">
@@ -1437,7 +1438,7 @@ function renderVar(){
 
 /* ---------- Budget ---------- */
 var B_EXP_M=[
- ['Casa',[['affitto','Affitto o rata del mutuo'],['condominio','Spese condominiali'],['luce','Luce'],['gas','Gas e riscaldamento'],['acqua','Acqua'],['internet','Internet casa'],['mobile','Telefono mobile'],['manut','Piccole manutenzioni e pulizie']]],
+ ['Casa',[['affitto','Affitto o rata del mutuo'],['condominio','Spese condominiali'],['luce','Luce'],['gas','Gas e riscaldamento'],['acqua','Acqua'],['internet','Internet casa'],['manut','Piccole manutenzioni e pulizie']]],
  ['Cibo',[['spesa','Spesa al supermercato'],['fuori','Bar, ristoranti, asporto']]],
  ['Trasporti',[['carb','Carburante'],['mezzi','Abbonamenti bus e treni'],['pedaggi','Parcheggi, pedaggi, ZTL'],['rata_auto','Rata auto o moto, noleggio'],['ass_auto','Assicurazione auto (rata mensile)'],['bollo_m','Bollo auto (rata mensile)']]],
  ['Salute e recupero',[['farmaci','Farmaci'],['fisio','Fisioterapia e massaggi'],['integr','Integratori e alimentazione sportiva']]],
@@ -1445,7 +1446,7 @@ var B_EXP_M=[
  ['Rate e debiti',[['prestito','Rata prestito o finanziamento'],['bnpl','Pagamenti a rate (Klarna, Scalapay)'],['carta','Carta di credito, saldo del mese'],['mantenimento','Mantenimento o assegni versati']]],
  ['Famiglia',[['figli','Figli (nido, scuola, baby sitter)'],['animali','Animali domestici'],['aiuti','Aiuti dati a familiari']]],
  ['Svago e abbonamenti',[['uscite','Uscite, aperitivi, serate'],['stream','Abbonamenti digitali (Spotify, Netflix, …)'],['hobby','Hobby e sport extra'],['vizi','Vizi (drink, sigarette, scommesse, …)']]],
- ['Persona',[['abbigl','Abbigliamento'],['cura','Parrucchiere e cura personale']]],
+ ['Persona',[['mobile','Telefono mobile'],['abbigl','Abbigliamento'],['cura','Parrucchiere e cura personale']]],
  ['Varie',[['regali','Regali e donazioni'],['cuscinetto','Imprevisti (cuscinetto mensile)']]]
 ];
 var B_EXP_A=[
@@ -1585,7 +1586,7 @@ window.ttLampo=function(){return {mode:S.bmode,q:lqDone(),done:lampoComplete()}}
 function renderBMode(){var c=document.getElementById('b-mode');if(!c)return;var m=S.bmode,h='',N=lampoKeys().length;
   if(!m){h='<h3 class="bm-t">Come vuoi fare il Budget?</h3><div class="bm-opts"><button type="button" class="bm-o" data-bmode="lampo"><b>⚡ Budget lampo</b><span>4 domande e da 16 a 29 voci, quelle che contano di più. Circa 5 minuti. Ti dà un\'idea <b>indicativa</b> delle tue spese e ti fa andare avanti nel percorso.</span></button><button type="button" class="bm-o" data-bmode="full"><b>📋 Budget completo</b><span>Tutte le voci. Più lungo, ma i risultati sono <b>precisi</b>.</span></button></div><p class="bm-n">Parliamo dei tuoi soldi: per risultati precisi serve un po\' di impegno in più. Puoi partire dal lampo per farti un\'idea, ma ti consiglio fortemente di completare poi il Budget completo: è quello che ti permette di costruire un futuro solido.</p>'}
   else if(m==='lampo'&&!lqDone()){var q=S.lq||{};h='<div class="bm-bar"><b>⚡ 4 domande veloci</b><p class="bm-n" style="margin:4px 0 10px!important">Così ti mostro solo le voci che ti servono.</p>'+LQ.map(function(x){return '<div class="lq"><span>'+x[1]+'</span><div class="lq-o">'+x[2].map(function(o){return '<button type="button" class="lq-b" data-lq="'+x[0]+'" data-v="'+o[0]+'" aria-pressed="'+(q[x[0]]===o[0])+'">'+o[1]+'</button>'}).join('')+'</div></div>'}).join('')+'<p class="bm-n bm-s"><button type="button" class="bm-l" data-bmode="">← Cambia tipo di budget</button></p></div>'}
-  else if(m==='lampo'){var d=lampoDone(),ok=d>=N;h='<div class="bm-bar"><div><b>⚡ Budget lampo</b> · '+d+' di '+N+' voci</div><div class="bm-pg"><i style="width:'+Math.round(d/N*100)+'%"></i></div><p class="bm-n">'+(ok?'<b>Fatto!</b> Hai completato il Budget lampo e puoi andare avanti nel percorso. È un risultato <b>indicativo</b>: quando vuoi, estendilo al Budget completo per numeri precisi.':'Stima veloce. Scrivi un importo in ogni voce (0 se non ti riguarda): la ✓ verde ti dice che è fatta.')+'</p><button type="button" class="btn'+(ok?'':' ghost')+'" id="bm-full" data-bmode="full">Estendi al Budget completo</button><span class="bm-s">Il Budget completo parte vuoto. Quando inserisci la prima voce, l\'app calcola solo sul completo; il lampo resta salvato.</span><button type="button" class="bm-l" data-lqreset style="display:block;margin-top:8px">Cambia le 4 risposte</button></div>'}
+  else if(m==='lampo'){var d=lampoDone(),ok=d>=N;h='<div class="bm-bar"><div><b>⚡ Budget lampo</b> · '+d+' di '+N+' voci</div><div class="bm-pg"><i style="width:'+Math.round(d/N*100)+'%"></i></div><p class="bm-n">'+(ok?'<b>Fatto!</b> Hai completato il Budget lampo e puoi andare avanti nel percorso. È un risultato <b>indicativo</b>: quando vuoi, estendilo al Budget completo per numeri precisi.':'Stima veloce. Scrivi un importo in ogni voce (0 se non ti riguarda): la ✓ verde ti dice che è fatta. Le sezioni delle spese si aprono una dopo l\'altra.')+'</p><button type="button" class="btn'+(ok?'':' ghost')+'" id="bm-full" data-bmode="full">Estendi al Budget completo</button><span class="bm-s">Il Budget completo parte vuoto. Quando inserisci la prima voce, l\'app calcola solo sul completo; il lampo resta salvato.</span><button type="button" class="bm-l" data-lqreset style="display:block;margin-top:8px">Cambia le 4 risposte</button></div>'}
   else{var fOn=hasB(S.budF),lHas=hasB(S.budL),useL=S.buse==='lampo'&&lHas;
     h='<div class="bm-bar bm-full"><b>📋 Budget completo</b><p class="bm-n" style="margin:4px 0 0!important">'+(useL?'⚠️ Ora i calcoli usano i numeri del <b>Budget lampo</b>. <button type="button" class="bm-l" data-buse="">Torna a calcolare sul completo</button>':(fOn?'I calcoli usano solo il Budget completo.'+(lHas?' Il lampo resta salvato. <button type="button" class="bm-l" data-buse="lampo">Usa di nuovo il lampo</button>':''):(lHas?'Quando inserisci la prima voce qui sotto, l\'app smette di usare il Budget lampo e calcola solo sul completo. Il lampo resta salvato e puoi tornarci quando vuoi.':'Compila le voci qui sotto.')))+'</p><p class="bm-n bm-s"><button type="button" class="bm-l" data-bmode="lampo">Vai al Budget lampo</button></p></div>'}
   c.innerHTML=h;
@@ -1598,7 +1599,7 @@ function applyBMode(){var p=document.getElementById('p-budget');if(!p)return;var
   [].forEach.call(p.querySelectorAll('.row'),function(r){var i=r.querySelector('input[data-bud]'),keep=!lam||(i&&LK.indexOf(i.getAttribute('data-bud'))>-1)||(!!r.querySelector('[data-mens]'));r.classList.toggle('lp-hide',!keep);var nx=r.nextElementSibling;if(nx&&nx.classList.contains('sched'))nx.classList.toggle('lp-hide',!keep)});
   [].forEach.call(p.querySelectorAll('details.bgrp,details.bsub'),function(d){var vis=d.querySelectorAll('.row:not(.lp-hide) input[data-bud]').length>0;d.classList.toggle('lp-hide',lam&&!vis);if(lam&&vis)d.open=true});
   if(lam)[].forEach.call(p.querySelectorAll('details.bmain'),function(d){d.open=true});
-  renderBMode();try{rkPaint()}catch(e){}try{updatePerc()}catch(e){}}
+  renderBMode();try{budBadges(false)}catch(e){}try{rkPaint()}catch(e){}try{updatePerc()}catch(e){}}
 window.ttBMode=function(){return S.bmode};
 
 var BEX=[['im_calcio_m','ia_calcio_a'],['im_rimb','ia_rimb_a']];
@@ -1608,6 +1609,16 @@ function budExcl(){var D=BD();BEX.forEach(function(p){var m=document.getElementB
   if(vm&&va){note(m,'⚠️ Contato due volte: lascia solo il mensile o solo l\'annuale.','bad');note(a,'⚠️ Contato due volte: lascia solo il mensile o solo l\'annuale.','bad')}
   else if(vm){a.disabled=true;note(a,'(già nel mensile)')}
   else if(va){m.disabled=true;note(m,'(già nell\'annuale)')}})}
+
+function seqApply(){var p=document.getElementById('p-budget');if(!p)return;var lam=S.bmode==='lampo'&&lqDone();
+  ['EM','EA'].forEach(function(sk){var prevOk=true;[].slice.call(p.querySelectorAll('details.bsub[data-sub="'+sk+'"] details.bgrp')).forEach(function(d){
+    if(!lam||d.classList.contains('lp-hide')){d.classList.remove('seq-hide');return}
+    var any=[].some.call(d.querySelectorAll('input[data-bud]'),function(i){return !i.closest('.lp-hide')&&String(i.value).trim()!==''});
+    var show=prevOk||any||d.dataset.rev==='1';
+    if(show&&d.classList.contains('seq-hide'))d.open=true;
+    if(show)d.dataset.rev='1';
+    d.classList.toggle('seq-hide',!show);
+    prevOk=prevOk&&d.classList.contains('gdone')})})}
 function budBadges(closeNew,only){
   $$('#p-budget details.bgrp').forEach(function(d){
     if(only&&d!==only)return;
@@ -1619,6 +1630,7 @@ function budBadges(closeNew,only){
     else if(!closeNew&&!only&&!d.dataset.shut&&!d.open)d.dataset.shut='1';
   });
   $$('#p-budget details.bsub').forEach(function(s){var g=$$('details.bgrp',s);s.classList.toggle('gdone',g.length>0&&g.every(function(x){return x.classList.contains('gdone')}))});
+  try{seqApply()}catch(e){}
 }
 function renderSched(L,ent,sur){
   var el=$('#b-sched');
@@ -2727,7 +2739,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   function gpsOpen(el){var p=el;while(p){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}return el}
   function gpsLab(el){var l=el.id&&document.querySelector('label[for="'+el.id+'"]'),t=l?l.textContent:(el.getAttribute('aria-label')||'');if(!t){var r=el.closest('.row,.q,label');t=r?((r.querySelector('label,.l')||r).textContent||''):''}return (t||'').trim().replace(/\s+/g,' ').slice(0,70)}
   function gpsFilled(i){return String(i.value||'').trim()!==''}
-  function budNext(){var L=[].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.closest('.lp-hide')&&!x.disabled});if(!L.length)return null;
+  function budNext(){var L=[].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.disabled});if(!L.length)return null;
     var inc=L.filter(function(i){return /^(im_|ia_)/.test(i.getAttribute('data-bud'))}),out=L.filter(function(i){return /^(m_|a_)/.test(i.getAttribute('data-bud'))});
     if(inc.length&&!inc.some(gpsFilled)){var cm=inc.filter(function(x){return x.getAttribute('data-bud')==='im_calcio_m'})[0];return cm||inc[0]}if(out.length&&!out.some(gpsFilled))return out[0];
     var last=-1,k;L.forEach(function(x,j){if(gpsFilled(x))last=j});
@@ -3003,7 +3015,7 @@ function percBar(){var f=document.getElementById('pp-fill');if(!f)return;var cur
     tot+=(PW[i]||0)*fr});
   var p=Math.max(0,Math.min(100,Math.round(tot)));f.style.width=p+'%';f.parentNode.setAttribute('aria-valuenow',p);
   var t=document.getElementById('pp-txt');if(t)t.textContent=p>=100?'Percorso: 100%. Gol!':'Percorso: '+p+'% fatto'}
-function rkVis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(i){return !i.closest('.lp-hide')&&!i.disabled})}
+function rkVis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(i){return !i.closest('.lp-hide')&&!i.closest('.seq-hide')&&!i.disabled})}
 function rkPaint(){[].forEach.call(document.querySelectorAll('#p-budget input[data-bud]'),function(i){var f=String(i.value).trim()!=='';i.classList.toggle('rk',f&&!i.closest('.lp-hide'));if(f){i.classList.remove('rsk');i.classList.remove('rnx')}})}
 window.ttToast=function(m){var t=document.getElementById('tt-toast');if(!t){t=document.createElement('div');t.id='tt-toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},5500)};
 function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
