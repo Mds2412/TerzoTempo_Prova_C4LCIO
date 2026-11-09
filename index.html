@@ -3052,7 +3052,7 @@ function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
   [].forEach.call(document.querySelectorAll('#p-budget .rnx'),function(x){x.classList.remove('rnx')});
   if(String(el.value).trim()==='')return;
   var sk=0;
-  if(S.bmode==='lampo'){var g=el.closest('details.bgrp');L.slice(0,i).forEach(function(x){if(x.closest('details.bgrp')===g&&String(x.value).trim()===''){x.classList.add('rsk');sk++}})}
+  if(S.bmode==='lampo'){var g=el.closest('details.bsub');L.slice(0,i).forEach(function(x){if(x.closest('details.bsub')===g&&String(x.value).trim()===''&&!x.closest('.row').querySelector('input.cl')){x.classList.add('rsk');sk++}})}
   if(sk)ttToast('Ei boss, ricordati di completare tutte le voci. Se non ti riguarda? Scrivi 0.');
   var nx=null,cu=function(x){return !!x.closest('.row').querySelector('input.cl')};for(var k=i+1;k<L.length;k++)if(String(L[k].value).trim()===''&&!cu(L[k])){nx=L[k];break}
   if(!nx)return;var same=nx.closest('details.bgrp')===el.closest('details.bgrp');
