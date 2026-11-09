@@ -2234,7 +2234,7 @@ function fmtM(m){
 }
 function pCrit(n){
   var bt=Object.keys(S.bt||{}),B=S.bud||{},G=S.goals||{},U=S.used||{},C=S.chk||{};
-  if(n===1&&window.ttLampo&&lampoComplete())return [['Budget lampo completato',true]];
+  if(n===1&&window.ttLampo&&lampoComplete()){var GG=S.goals||{},sOk=(S.celeb||0)>=1||['c0','cc0','i0'].every(function(k){return String(GG[k]===undefined?'':GG[k]).trim()!==''});return [['Budget lampo completato',true],['Soldi già messi da parte (contanti, conto, investiti; se non hai scrivi 0)',sOk]]}
   if(n===1&&S.bmode==='lampo'&&window.ttLampo){var LL=window.ttLampo(),LN=lampoKeys().length,LD=lampoDone();return [['Rispondi alle 4 domande del Budget lampo',LL.q],['Budget lampo completato ('+Math.min(LD,LN)+' su '+LN+' voci; se una voce non ti riguarda scrivi 0)',LL.done]]}
   if(n===1){
     var vk=Object.keys(B).filter(function(k){return /^(im_|ia_|m_|a_)/.test(k)&&num(B[k])>0&&(S.bt[k]||S.exDone)});
@@ -2762,8 +2762,9 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     var nx=n<7?P[n]:null,c=nx?cr(nx.n):[],head=nx?'<b>Passo '+nx.n+': '+nx.t+'</b><br>':'';
     function B(extra){var bm=window.ttBMode&&window.ttBMode();if(!bm){var bc=document.getElementById('b-mode');if(bc)return {tab:'budget',el:bc,x:head+'📍 Prima scegli come fare il Budget: <b>lampo</b> (veloce, indicativo) o <b>completo</b> (più lungo, risultati veri).'}}
       if(bm==='lampo'&&window.ttLampo&&!window.ttLampo().q){var bq=document.getElementById('b-mode');if(bq)return {tab:'budget',el:bq,x:head+'📍 Rispondi alle 4 domande veloci: così ti mostro solo le voci che ti servono.'}}
+      if(nx&&nx.n===1&&window.ttLampo&&lampoComplete()){var sd=[].slice.call(document.querySelectorAll('#bal-panel [data-goal]')).filter(function(i){return String(i.value||'').trim()===''})[0];if(sd)return {tab:'budget',el:sd,x:head+'📍 Ultimo pezzo del passo 1: <b>«Soldi messi da parte»</b>.<br>Scrivi quanto hai oggi: <b>«'+gpsLab(sd)+'»</b>. Non ne hai? Scrivi 0.'}}
       var el=budNext();if(!el&&bm==='lampo'){var bf=document.getElementById('bm-full');if(bf)return {tab:'budget',el:bf,x:'<b>Budget lampo completato!</b><br>📍 Quando vuoi, estendilo al Budget completo per numeri precisi. Il lampo resta salvato; il completo parte da zero.'}}return el?{tab:'budget',el:el,sel:function(){return document.querySelector('#b_'+el.getAttribute('data-bud'))},x:((nx&&(nx.n===1||nx.n===4))?head:'<b>Continuiamo il Budget</b><br>')+'📍 Prossima casella: <b>«'+gpsLab(el)+'»</b>.<br>Scrivi l\'importo. Non ce l\'hai? Scrivi 0.'+(extra||'')}:null}
-    if(S.tab==='budget'||(nx&&nx.n===1)){var b=B();if(b)return b}
+    if((S.tab==='budget'&&!(nx&&nx.n>=2&&S.skipFull))||(nx&&nx.n===1)){var b=B();if(b)return b}
     if(!nx)return null;
     var s=nx.n,q;
     if(s===2){q=firstEmpty('#p-obiettivi [data-goal="r6"],#p-obiettivi [data-goal="i6"],#p-obiettivi [data-goal="r12"],#p-obiettivi [data-goal="i12"],#p-obiettivi [data-goal="r30"],#p-obiettivi [data-goal="i30"],#p-obiettivi [data-goal="r60"],#p-obiettivi [data-goal="i60"]');return q&&{tab:'obiettivi',sub:'o-goals',el:q,x:head+'📍 Prossima casella: <b>«'+gpsLab(q)+'»</b>.<br>Se non hai questo obiettivo, scrivi 0.'}}
@@ -2788,6 +2789,8 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     return null}
   window.ttGps=gpsPlan;
   window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
+    if(n>=1&&n<7&&S.tab==='budget'&&S.bmode==='full'&&!S.skipFull&&!window.__fullYes&&window.ttConfirm){var fe=null;try{fe=budNext()}catch(e){}
+      if(fe){window.ttConfirm('<b>Il passo 1 è fatto!</b><br>Puoi continuare col <b>Budget completo</b> (numeri più precisi), oppure andare avanti con il <b>passo '+P[n].n+': '+P[n].t+'</b> e tornare al completo quando vuoi.<br><br>Cosa preferisci?','Continua il Budget completo',function(){window.__fullYes=1;try{window.ttNext()}finally{window.__fullYes=0}},'Vai agli Obiettivi',function(){S.skipFull=1;save();window.ttNext()});return}}
     if(n>=7&&S.tab!=='budget'){window.ttCustom([{t:null,x:'<b>Hai completato tutti i 7 passi!</b> Ora tieni aggiornati budget e obiettivi.'}]);return}
     var g=null;try{g=gpsPlan()}catch(e){g=null}
     if(g&&g.el){if(g.tab==='budget'){S.ub=1;save();if(window.ttRefreshLocks)window.ttRefreshLocks()}
@@ -2972,7 +2975,7 @@ if(S.goals&&S.goals.c0==null&&S.goals.cc0==null&&S.goals.r0)S.goals.c0=S.goals.r
 $$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;if(k==='c0'||k==='cc0')syncBal();S.used.goals=1;save();R.bud()})});
 var oi=$('#obj');oi.value=S.obj||'';oi.addEventListener('input',function(){S.obj=oi.value;save();R.bud()});
 
-function budReset(){if(S.bmode==='lampo')S.budL={};else S.budF={};S.bud=activeStore();$$('#p-budget details.bgrp').forEach(function(d){delete d.dataset.rev;delete d.dataset.shut;d.open=false});setTimeout(function(){try{applyBMode()}catch(e){}},0);S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});$$('[data-wk]').forEach(function(e){e.checked=false});$$('[data-mo]').forEach(function(e){e.value=''});$$('[data-bud]').forEach(function(e){e.placeholder=''});R.bud();budBadges(false)}
+function budReset(){delete S.skipFull;if(S.bmode==='lampo')S.budL={};else S.budF={};S.bud=activeStore();$$('#p-budget details.bgrp').forEach(function(d){delete d.dataset.rev;delete d.dataset.shut;d.open=false});setTimeout(function(){try{applyBMode()}catch(e){}},0);S.bt={};S.exDone=true;save();$$('[data-bud],[data-bl],[data-bd],[data-bp]').forEach(function(e){e.value=''});$$('[data-wk]').forEach(function(e){e.checked=false});$$('[data-mo]').forEach(function(e){e.value=''});$$('[data-bud]').forEach(function(e){e.placeholder=''});R.bud();budBadges(false)}
 $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttConfirm('Ehi, sei sicuro di voler azzerare il '+(S.bmode==='lampo'?'<b>Budget lampo</b>':'<b>Budget completo</b>')+'? <b>Non potrai recuperare i dati</b>: dovrai reinserirli da zero.'+(S.bmode==='lampo'?' Il Budget completo resta com\'è.':(S.budL&&Object.keys(S.budL).length?' Il Budget lampo resta com\'è.':'')),'Sì, azzera',budReset);else if(confirm('Cancellare tutto il budget?'))budReset()});
 
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
