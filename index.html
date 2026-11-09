@@ -667,6 +667,10 @@ table.gt3 td:not(:first-child),table.gt3 th:not(:first-child){text-align:right;w
 .lbrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.lbrow .qm{margin-left:0}.lbrow+.qm-t{margin-top:6px}
 .lbrow label.l{display:inline;width:auto;margin:0}
 details.bgrp.seq-hide{display:none!important}
+.dash{max-width:520px;margin:0 auto 12px;display:grid;gap:8px}.dash .dc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin:0;text-align:left;color:var(--ink);font:inherit}
+.dash .k{font-size:12px;color:var(--muted)}.dash .v{font-size:22px;font-weight:800}.dash .bar{height:8px;background:var(--accent-soft);border-radius:9px;overflow:hidden;margin-top:6px}.dash .bar i{display:block;height:100%;background:var(--accent)}
+.dash .dg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dash .dcb{cursor:pointer}.dash .dn{background:var(--accent-soft)}.dash .dnm{font-weight:700;margin:4px 0 8px;font-size:14px}.dash .dn .btn,.dash .dw .btn{width:100%;padding:9px}
+.dash .dw{background:var(--accent-soft)}.dash .dw h3{margin:0 0 4px}.dash .dw p{margin:0 0 10px}
 </style>
 
 <div class="wrap">
@@ -735,6 +739,7 @@ details.bgrp.seq-hide{display:none!important}
 <section id="p-percorso" role="tabpanel" aria-labelledby="t-percorso">
   <h2>Il mio percorso</h2>
   <p class="lead">Dalla tua porta a quella avversaria: 7 passi verso la libertà finanziaria.<br>Ogni passo si sblocca completando le varie mini-missioni al suo interno.</p>
+  <div class="dash" id="dash" aria-live="polite"></div>
   <div class="pitch-wrap" id="pitch"></div>
   <p class="pitch-cap" id="pitch-cap" aria-live="polite"></p>
   <div class="pprog" id="pprog"><div class="bar" role="progressbar" aria-label="Avanzamento del percorso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pp-fill" style="width:0%"></i></div><p class="sub" id="pp-txt"></p></div>
@@ -3014,7 +3019,17 @@ function percBar(){var f=document.getElementById('pp-fill');if(!f)return;var cur
     else{var cr=pCrit(st.n);fr=cr.length?cr.filter(function(c){return c[1]}).length/cr.length:0}
     tot+=(PW[i]||0)*fr});
   var p=Math.max(0,Math.min(100,Math.round(tot)));f.style.width=p+'%';f.parentNode.setAttribute('aria-valuenow',p);
-  var t=document.getElementById('pp-txt');if(t)t.textContent=p>=100?'Percorso: 100%. Gol!':'Percorso: '+p+'% fatto'}
+  var t=document.getElementById('pp-txt');if(t)t.textContent=p>=100?'Percorso: 100%. Gol!':'Percorso: '+p+'% fatto';try{dashPaint(p,cur)}catch(e){}}
+function dashPaint(p,cur){var d=document.getElementById('dash');if(!d)return;
+  var fresh=p===0&&!lqDone()&&lampoDone()===0&&!num(ttBal().r+ttBal().i);
+  if(fresh){d.innerHTML='<div class="dc dw"><h3>Ciao'+(S.prof&&S.prof.nome?' '+String(S.prof.nome).replace(/[<>&"]/g,''):'')+'! 👋</h3><p>In 5 minuti vedi quanto ti resta ogni mese.</p><button type="button" class="btn" data-dact="next">Parti dal Budget lampo</button></div>';return}
+  var b=ttBal(),tot=b.r+b.i,G=S.goals||{},T=num(G.r12)+num(G.i12),nm='',P=(window.ttPerc&&window.ttPerc.all)||[];
+  if(cur<7&&P[cur])nm='Passo '+P[cur].n+': '+P[cur].t;
+  var soldi='<div class="k">Quanto hai oggi</div><div class="v">'+eur(tot)+'</div>'+(T>0?'<div class="k">Obiettivo tra 12 mesi: '+Math.min(100,Math.round(tot/T*100))+'%</div><div class="bar"><i style="width:'+Math.min(100,tot/T*100)+'%"></i></div>':'<div class="k">'+(tot>0?'Quanto vuoi avere tra 12 mesi?':'Scrivi quanto hai da parte')+'</div>');
+  d.innerHTML='<div class="dc"><div class="k">Percorso</div><div class="v">'+p+'% <span class="k">fatto</span></div><div class="bar"><i style="width:'+p+'%"></i></div></div>'
+   +'<div class="dg"><button type="button" class="dc dcb" data-dact="obi">'+soldi+'</button>'
+   +'<div class="dc dn"><div class="k">Prossimo passo</div><div class="dnm">'+(cur>=7?'Fatto! Una volta al mese aggiorna i numeri.':nm||'Continua')+'</div><button type="button" class="btn" data-dact="next">Vai →</button></div></div>'}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-dact]');if(!a)return;if(a.getAttribute('data-dact')==='obi'){if(tabLocked('obiettivi')){lockedMsg('obiettivi');return}showTab('obiettivi');window.scrollTo(0,0)}else if(window.ttNext)window.ttNext()});
 function rkVis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(i){return !i.closest('.lp-hide')&&!i.closest('.seq-hide')&&!i.disabled})}
 function rkPaint(){[].forEach.call(document.querySelectorAll('#p-budget input[data-bud]'),function(i){var f=String(i.value).trim()!=='';i.classList.toggle('rk',f&&!i.closest('.lp-hide'));if(f){i.classList.remove('rsk');i.classList.remove('rnx')}})}
 window.ttToast=function(m){var t=document.getElementById('tt-toast');if(!t){t=document.createElement('div');t.id='tt-toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},5500)};
