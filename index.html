@@ -694,6 +694,20 @@ h2 .qm{width:19px;height:19px;border-width:1.5px;font-size:.7rem;margin-left:8px
 .obj-f .lbrow .qm{margin:0}
 h2 .qm{vertical-align:3px}
 @media (max-width:560px){.obj-f .lbrow{display:block!important;line-height:1.35}.obj-f .lbrow label.l{white-space:normal;margin:0 6px 0 0!important}.obj-f .lbrow .qm{display:inline-grid;vertical-align:-2px}}
+.gres{width:100%;table-layout:fixed;min-width:0;margin:0}
+.gres th{font-family:var(--f-body,inherit)!important;font-size:.74rem!important;font-weight:600;letter-spacing:0!important;text-transform:none!important;color:var(--muted);padding:6px 4px!important;text-align:right;white-space:normal!important;line-height:1.25;border-bottom:1px solid var(--line,rgba(128,128,128,.3))}
+.gres th:first-child,.gres td:first-child{text-align:left;width:19%}
+.gres th:nth-child(4),.gres td:nth-child(4){width:30%}.gres td:first-child{white-space:nowrap}
+.gres td{padding:9px 4px;font-size:.88rem;text-align:right;overflow-wrap:normal;word-break:normal}
+.gres td:first-child{font-weight:600}
+.gsec h4{margin:0 0 4px;font-family:var(--f-display);font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase}
+.gsec .gnow{margin:0 0 8px;color:var(--muted);font-size:.9rem}.gsec .gnow b{color:var(--ink)}
+.gnote{margin:8px 0 0;color:var(--muted);font-size:.78rem}
+.gdiv{border:0;border-top:2px solid var(--ink);margin:22px 0 18px;opacity:.9}
+@media (max-width:560px){.gres th{font-size:.68rem!important}.gres td{font-size:.8rem}.gres th:first-child,.gres td:first-child{width:21%}.gres th:nth-child(4),.gres td:nth-child(4){width:29%}}
+.gres tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}.gres .gm{font-size:.72rem;font-weight:600;color:var(--muted);line-height:1.15;display:inline-block}
+.gres .pill{padding:3px 7px;font-size:.8rem;white-space:nowrap;gap:3px}.gres .pill::before{display:none}
+@media (max-width:560px){.gres .pill{font-size:.72rem;padding:3px 5px}}
 </style>
 
 <div class="wrap">
@@ -901,7 +915,7 @@ h2 .qm{vertical-align:3px}
 <section id="p-obiettivi" role="tabpanel" aria-labelledby="t-obiettivi" hidden>
   <div class="intro"><h3>Perché fissare degli obiettivi</h3><ul>
     <li>Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.</li>
-    <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento.</li>
+    <li>Qui scegli quanto vuoi avere da parte tra 6 mesi, 1 anno, 2 anni e 5 anni, come risparmio e come investimento.</li>
     <li>Ti mostro, con i numeri di oggi, quanto manca e quanto serve al mese. Per questo serve prima il Budget.</li>
   </ul></div>
   <div class="sv-panel" id="sv-panel" style="margin:30px 0 36px">
@@ -922,8 +936,8 @@ h2 .qm{vertical-align:3px}
   <div class="card" id="goals-card" style="margin-bottom:16px">
     <p class="sub" id="g-bal" style="margin:0 0 6px"></p><p class="sub" id="g-hint" style="margin:0 0 12px"></p><div class="tw"><table class="gt3"><thead><tr><th></th><th>Risparmio</th><th>Investimento</th></tr></thead><tbody>
       <tr><td>Obiettivo tra 6 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 6 mesi" data-goal="r6" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 6 mesi" data-goal="i6" placeholder="0"></div></td></tr>
-      <tr><td>Obiettivo tra 12 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 12 mesi" data-goal="r12" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 12 mesi" data-goal="i12" placeholder="0"></div></td></tr>
-      <tr><td>Obiettivo tra 30 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 30 mesi" data-goal="r30" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 30 mesi" data-goal="i30" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 1 anno</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 1 anno" data-goal="r12" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 1 anno" data-goal="i12" placeholder="0"></div></td></tr>
+      <tr><td>Obiettivo tra 2 anni</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 2 anni" data-goal="r24" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 2 anni" data-goal="i24" placeholder="0"></div></td></tr>
       <tr><td>Obiettivo tra 5 anni</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 5 anni" data-goal="r60" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 5 anni" data-goal="i60" placeholder="0"></div></td></tr>
     </tbody></table></div>
     <div class="ret-row"><div class="fields" style="margin:14px 0;max-width:300px"><div><label class="l" for="g_ret">Quanto pensi che rendano gli investimenti in un anno (%)</label><input type="text" inputmode="decimal" id="g_ret" data-goal="ret" placeholder="0"></div></div><small class="ret-n">Una stima realistica di tasso di crescita degli investimenti è tra il 6 e l'8% (non garantito)</small></div>
@@ -1164,7 +1178,7 @@ function num(v){
 function defaults(){
   return {
     tab:'home', exDone:true, obj:'0',
-    goals:{r0:'',i0:'',r6:'',i6:'',r12:'',i12:'',r30:'',i30:'',r60:'',i60:'',ret:''},
+    goals:{r0:'',i0:'',r6:'',i6:'',r12:'',i12:'',r24:'',i24:'',r60:'',i60:'',ret:''},
     eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0'},
     sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0'},
     comp:{},
@@ -1179,7 +1193,7 @@ if(!S||typeof S!=='object')S=D;
 if(S.obj==null)S.obj=D.obj;
 Object.keys(D.sim).forEach(function(k){if(S.sim[k]===undefined)S.sim[k]=D.sim[k]});
 if(!S.v3){if(num(S.sim.add)===0)S.sim.add='3';S.v3=1}
-if(!S.goals)S.goals=D.goals;if(!S.prof)S.prof={};if(S.prof.cognome==null)S.prof.cognome='';if(!S.prof.num)S.prof.num='10';
+if(!S.goals)S.goals=D.goals;if(S.goals.r30!==undefined||S.goals.i30!==undefined){delete S.goals.r30;delete S.goals.i30}if(!S.prof)S.prof={};if(S.prof.cognome==null)S.prof.cognome='';if(!S.prof.num)S.prof.num='10';
 if(!S.used)S.used={};if(!S.bt)S.bt={};if(!S.chk)S.chk={};if(!S.debt||!Array.isArray(S.debt.list))S.debt={none:false,list:[]};if(!S.fund)S.fund={mesi:'3',saved:''};if(!Array.isArray(S.fund.acc))S.fund.acc=[];if(!S.fund.acc.length&&Number(String(S.fund.saved||'').replace(',','.'))>0)S.fund.acc.push({n:'Fondo emergenza',t:'conto',v:S.fund.saved,f:true});if(!S.mens)S.mens='10';
 var st=null;
 function saveErr(){if(window.__saveErrT)return;window.__saveErrT=1;setTimeout(function(){window.__saveErrT=0},30000);try{window.ttToast('Non riesco a salvare i tuoi dati su questo telefono (memoria piena o browser che blocca il salvataggio). Usa «Salva una copia» nel pannello di aiuto per non perdere nulla.')}catch(e){}}
@@ -1880,11 +1894,11 @@ function goalData(){
   function fv(p0,n){return rm===0?p0+invM*n:p0*Math.pow(1+rm,n)+invM*(Math.pow(1+rm,n)-1)/rm}
   function pmt(T,p0,n){var need=T-p0*Math.pow(1+rm,n);if(need<=0)return 0;return rm===0?need/n:need*rm/(Math.pow(1+rm,n)-1)}
   var rows=[];
-  [6,12,30,60].forEach(function(n){
+  [6,12,24,60].forEach(function(n){
     var rt=num(G['r'+n]),it=num(G['i'+n]),r0=num(G.r0),i0=num(G.i0);
-    var tm=n===60?'5 anni':n+' mesi';
-    if(rt>0){var pr=r0+resM*n;rows.push({lab:'Risparmio, '+tm,n:n,T:rt,p0:r0,proj:pr,cur:resM,need:Math.max(0,(rt-r0)/n)})}
-    if(it>0){var pi=fv(i0,n);rows.push({lab:'Investimento, '+tm,n:n,T:it,p0:i0,proj:pi,cur:invM,need:pmt(it,i0,n)})}
+    var tm={6:'6 mesi',12:'1 anno',24:'2 anni',60:'5 anni'}[n];
+    if(rt>0){var pr=r0+resM*n;rows.push({kind:'r',tm:tm,lab:'Risparmio, '+tm,n:n,T:rt,p0:r0,proj:pr,cur:resM,need:Math.max(0,(rt-r0)/n)})}
+    if(it>0){var pi=fv(i0,n);rows.push({kind:'i',tm:tm,lab:'Investimento, '+tm,n:n,T:it,p0:i0,proj:pi,cur:invM,need:pmt(it,i0,n)})}
   });
   return {rows:rows,avM:B.sur/12,invM:invM,resM:resM,ent:B.ent};
 }
@@ -1941,19 +1955,15 @@ function renderGoals(){
   var D2=goalData(),el=$('#goal-out'),gh=$('#g-hint');
   if(gh)gh.textContent='Scrivi un obiettivo per vedere quanto devi mettere da parte ogni mese.';
   if(!D2.rows.length){el.innerHTML='';return}
-  var h='<table style="min-width:560px"><thead><tr><th>Obiettivo</th><th>Da raggiungere</th><th>Arrivi a, con i numeri di oggi</th><th>Metti da parte al mese</th><th>Serve al mese</th><th></th></tr></thead><tbody>';
-  D2.rows.forEach(function(r){
-    var ok=r.proj>=r.T;
-    h+='<tr><td>'+r.lab+'</td><td>'+eur(r.T)+'</td><td>'+eur(r.proj)+'</td><td>'+eur(r.cur)+'</td><td>'+eur(r.need)+'</td><td>'+pill(ok?'ok':'warn',ok?'Ci arrivi':'Ti mancano '+eur(Math.max(0,r.need-r.cur))+' al mese')+'</td></tr>';
-  });
-  h+='</tbody></table><div class="sumline">';
-  [6,12,30,60].forEach(function(n){
-    var rs=D2.rows.filter(function(r){return r.n===n});
-    if(!rs.length)return;
-    var tot=rs.reduce(function(a,r){return a+r.need},0),okk=tot<=D2.avM;
-    h+='<span>'+'Per gli obiettivi a '+(n===60?'5 anni':n+' mesi')+' servono '+eur(tot)+' al mese, ti avanzano '+eur(D2.avM)+'.</span>'+pill(okk?'ok':'risk',okk?'Ci stai dentro':'Non ti basta l\'avanzo');
-  });
-  h+='</div>';
+  var Gx=S.goals||{},r0=num(Gx.r0)||(num(Gx.c0)+num(Gx.cc0)),i0=num(Gx.i0),ret=(Gx.ret===undefined||String(Gx.ret).trim()==='')?'':String(Gx.ret).replace('.',',');
+  function sec(kind,title,nowHtml,note){var rs=D2.rows.filter(function(r){return r.kind===kind});if(!rs.length)return '';
+    var t='<section class="gsec"><h4>'+title+'</h4><table class="gres"><thead><tr><th>Quando</th><th>Obiettivo</th><th>Avrai</th><th>Manca al mese</th></tr></thead><tbody><tr class="goggi"><td>Oggi</td><td>—</td><td>'+nowHtml[0]+'</td><td>'+nowHtml[1]+'</td></tr>';
+    rs.forEach(function(r){var miss=Math.max(0,r.need-r.cur),ok=r.proj>=r.T;
+      t+='<tr><td>'+r.tm+'</td><td>'+eur(r.T)+'</td><td>'+eur(r.proj)+'</td><td>'+(ok?pill('ok','Ci arrivi'):pill('warn',eur(miss)))+'</td></tr>'});
+    return t+'</tbody></table>'+(note?'<p class="gnote">'+note+'</p>':'')+'</section>'}
+  var h=sec('r','Risparmio',[eur(r0),'<span class="gm">'+eur(D2.resM)+' al mese</span>'],'«Avrai» è quanto avrai a quella data se continui come oggi.')
+   +(D2.rows.some(function(r){return r.kind==='r'})&&D2.rows.some(function(r){return r.kind==='i'})?'<hr class="gdiv">':'')
+   +sec('i','Investimento',[eur(i0),'<span class="gm">'+eur(D2.invM)+' al mese</span>'],'Stima'+(ret!==''?' con il rendimento che hai scritto ('+ret+'%)':'')+': non è garantita.');
   el.innerHTML=h;
 }
 
@@ -2208,7 +2218,7 @@ var PSTEPS=[
   how:'<b>Mini-missione:</b> compila il <b>Budget lampo</b> (4 domande e le voci principali; se una voce non ti riguarda scrivi 0) e poi «Soldi messi da parte»: contanti, conto e investiti (se non hai niente, scrivi 0). Se scegli il <b>Budget completo</b>, bastano almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
  {n:2,t:'Obiettivi a breve termine',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
-  how:'<b>Mini-missione:</b> in «Obiettivi a breve termine» compila tutte le caselle: risparmio e investimento a 6 mesi, 12 mesi, 30 mesi e 5 anni (se non hai un obiettivo, scrivi 0).'},
+  how:'<b>Mini-missione:</b> in «Obiettivi a breve termine» compila tutte le caselle: risparmio e investimento a 6 mesi, 1 anno, 2 anni e 5 anni (se non hai un obiettivo, scrivi 0).'},
  {n:3,t:'Contratto in regola',tab:'contratto',go:'Vai al Contratto',
   why:'Un contratto sbagliato può farti perdere soldi e tutele, e creare problemi con il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
   how:'<b>Mini-missione:</b> inserisci i tuoi dati nel Contratto, rispondi a tutte le domande della Conformità e prova il Simulatore netto. Le 3 verifiche qui sotto sono consigliate: spuntale solo quando le hai fatte davvero.'},
@@ -2251,7 +2261,7 @@ function pCrit(n){
     var hasIn=vk.some(function(k){return /^(im_|ia_)/.test(k)}),hasOut=vk.some(function(k){return /^(m_|a_)/.test(k)});
     return [['Almeno 1 entrata (importo maggiore di 0)',hasIn],['Almeno 1 spesa (importo maggiore di 0)',hasOut],['Almeno 3 voci in totale ('+Math.min(vk.length,3)+' su 3)',vk.length>=3]];
   }
-  if(n===2){var gk=['r6','i6','r12','i12','r30','i30','r60','i60'],gn=gk.filter(function(k){return G[k]!==undefined&&String(G[k]).trim()!==''}).length;return [['Tutti gli obiettivi a breve termine compilati ('+gn+' su 8; se non ne hai uno scrivi 0)',gn===8]]}
+  if(n===2){var gk=['r6','i6','r12','i12','r24','i24','r60','i60'],gn=gk.filter(function(k){return G[k]!==undefined&&String(G[k]).trim()!==''}).length;return [['Tutti gli obiettivi a breve termine compilati ('+gn+' su 8; se non ne hai uno scrivi 0)',gn===8||((S.celeb||0)>=2&&gn>=6)]]}
   if(n===3){
     var E=S.eng||{},SM=S.sim||{},CP=S.comp||{};
     var engOk=['comp','altri','altro','ese','ore'].some(function(k){return num(E[k])>0});
@@ -2661,7 +2671,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
 (function(){
   function stack(){Array.prototype.forEach.call(document.querySelectorAll('table'),function(t){
-    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4||t.classList.contains('gt3'))return;
+    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4||t.classList.contains('gt3')||t.classList.contains('gres'))return;
     var L=[];Array.prototype.forEach.call(th.cells,function(c){for(var k=0;k<(c.colSpan||1);k++)L.push(c.textContent.trim())});
     t.classList.add('stk');
     Array.prototype.forEach.call(t.tBodies,function(tb){Array.prototype.forEach.call(tb.rows,function(r){var col=0;
@@ -2716,7 +2726,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
          {tab:'home',t:'#h-month',x:function(){return 'Qui vedi <b>dove va il risparmio di questo mese</b>: investimenti, fondo emergenza, spese con scadenza vicina e soldi ancora senza destinazione.'}},
          {tab:'home',t:'#percorso',x:function(){return '<b>Come sta andando il mio percorso?</b>: i tuoi obiettivi, a che punto sei e quanto manca per arrivarci. In alto, sopra tutto, trovi anche i tuoi <b>saldi</b>: i soldi che hai oggi.'}},
          {tab:'home',t:function(){var e=document.getElementById('h-exp');return e&&e.parentNode},x:function(){return '<b>Dove vanno i soldi</b> e <b>Da dove arrivano</b>, '+(M()?'uno sotto l\'altro':'affiancati')+': ogni gruppo di spese e di entrate con il suo peso in percentuale.'}}],
-   obiettivi:[{tab:'obiettivi',sub:'o-goals',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi a breve termine»</b> è il passo 2 e ha due parti: <b>«Quanto risparmio»</b> (la percentuale delle entrate che vuoi mettere da parte) e <b>«Obiettivi a breve»</b>, con i tuoi obiettivi a 6 mesi, 12 mesi, 30 mesi e 5 anni, come risparmio e come investimento. Ti mostro, con i numeri di oggi, quanto manca e quanto serve al mese.'}}],
+   obiettivi:[{tab:'obiettivi',sub:'o-goals',t:'#goals-card',x:function(){return 'La sezione <b>«Obiettivi a breve termine»</b> è il passo 2 e ha due parti: <b>«Quanto risparmio»</b> (la percentuale delle entrate che vuoi mettere da parte) e <b>«Obiettivi a breve»</b>, con i tuoi obiettivi a 6 mesi, 1 anno, 2 anni e 5 anni, come risparmio e come investimento. Ti mostro, con i numeri di oggi, quanto manca e quanto serve al mese.'}}],
    fondo:[{tab:'fondo',sub:'f-reg',t:'#sub-f-reg .rules',x:function(){return 'La sezione <b>«Fondo di emergenza»</b> è il passo 4 e ha tre parti: <b>Regole del fondo</b>, <b>Il mio fondo</b> e <b>Assicurazione infortuni</b>. Le regole: si tocca solo per vere emergenze, una parte va in contanti, il resto su un conto separato.'}},
          {tab:'fondo',sub:'f-mio',t:'#a-list',x:function(){return 'In <b>«Il mio fondo»</b> inserisci i tuoi <b>conti e i contanti</b>, con il valore di oggi, e spunti quelli che fanno parte del fondo. Sotto vedi quanto ti manca per arrivare ai mesi di spese che scegli.'}},
          {tab:'fondo',sub:'f-ass',t:'#sub-f-ass .chks',x:function(){return 'In <b>«Assicurazione infortuni»</b> capisci perché serve e fai le <b>due verifiche</b>: cosa copre la polizza del club e se ne hai una tua.'}}],
@@ -2777,7 +2787,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     if((S.tab==='budget'&&!(nx&&nx.n>=2&&S.skipFull))||(nx&&nx.n===1)){var b=B();if(b)return b}
     if(!nx)return null;
     var s=nx.n,q;
-    if(s===2){q=firstEmpty('#p-obiettivi [data-goal="r6"],#p-obiettivi [data-goal="i6"],#p-obiettivi [data-goal="r12"],#p-obiettivi [data-goal="i12"],#p-obiettivi [data-goal="r30"],#p-obiettivi [data-goal="i30"],#p-obiettivi [data-goal="r60"],#p-obiettivi [data-goal="i60"]');return q&&{tab:'obiettivi',sub:'o-goals',el:q,x:head+'📍 Prossima casella: <b>«'+gpsLab(q)+'»</b>.<br>Se non hai questo obiettivo, scrivi 0.'}}
+    if(s===2){q=firstEmpty('#p-obiettivi [data-goal="r6"],#p-obiettivi [data-goal="i6"],#p-obiettivi [data-goal="r12"],#p-obiettivi [data-goal="i12"],#p-obiettivi [data-goal="r24"],#p-obiettivi [data-goal="i24"],#p-obiettivi [data-goal="r60"],#p-obiettivi [data-goal="i60"]');return q&&{tab:'obiettivi',sub:'o-goals',el:q,x:head+'📍 Prossima casella: <b>«'+gpsLab(q)+'»</b>.<br>Se non hai questo obiettivo, scrivi 0.'}}
     if(s===3){if(!c[0][1])return {tab:'contratto',el:document.getElementById('e_comp'),x:head+'📍 Scrivi qui il compenso che ti dà il club.'};
       if(!c[1][1]){q=firstEmpty('#comp-q select');return {tab:'conformita',el:q,x:head+'📍 Prossima domanda: <b>«'+gpsLab(q)+'»</b>.<br>Scegli Sì, No o Non so.'}}
       if(!c[2][1]){q=firstEmpty('#p-netto input[data-k^="sim.l"]');return {tab:'netto',el:q,x:head+'📍 Scrivi qui il compenso lordo annuo che ti offrono.'}}}
@@ -3021,7 +3031,7 @@ function balCard(){var bl=ttBal(),tot=bl.r+bl.i,bh='<h3>I miei saldi oggi</h3>';
   [['Contanti',bl.c],['Conto corrente',bl.cc],['Investiti',bl.i]].forEach(function(r){bh+='<div class="br"><span>'+r[0]+'</span><b>'+eur(r[1])+' · '+pct(r[1]/tot)+'</b></div><div class="bar gap"><i style="width:'+(r[1]/tot*100)+'%"></i></div>'});
   return bh}
 function goalCards(GD){var bl=ttBal(),G=S.goals||{},ret=num(G.ret)/100,rm=Math.pow(1+ret,1/12)-1,out='',any=0;
-  [[6,'Tra 6 mesi'],[12,'Tra 12 mesi'],[30,'Tra 30 mesi'],[60,'Tra 5 anni']].forEach(function(z){var n=z[0],rt=num(G['r'+n]),it=num(G['i'+n]),L=[];
+  [[6,'Tra 6 mesi'],[12,'Tra 1 anno'],[24,'Tra 2 anni'],[60,'Tra 5 anni']].forEach(function(z){var n=z[0],rt=num(G['r'+n]),it=num(G['i'+n]),L=[];
     if(rt>0)L.push(['Risparmio',bl.r,rt,GD.resM,0]);if(it>0)L.push(['Investimento',bl.i,it,GD.invM,rm]);
     if(!L.length)return;any=1;var all=L.every(function(l){return l[1]>=l[2]});
     out+='<div class="card gc"><div class="gc-h"><h3>'+z[1]+'</h3>'+pill(all?'ok':'warn',all?'🔓 Raggiunto':'⏳ In corso')+'</div>'+L.map(function(l){var f=Math.max(0,Math.min(1,l[1]/l[2])),ok=l[1]>=l[2],eta;
@@ -3054,7 +3064,7 @@ function dashPaint(p,cur){var d=document.getElementById('dash');if(!d)return;
   var b=ttBal(),tot=b.r+b.i,G=S.goals||{},T=num(G.r12)+num(G.i12),nm='',P=(window.ttPerc&&window.ttPerc.all)||[];
   if(cur<7&&P[cur])nm='Passo '+P[cur].n+': '+P[cur].t;
   var Bd=S.bud||{},hasR=b.r>0||num(Bd.sv_emerg)>0,hasI=b.i>0||num(Bd.sv_pac)+num(Bd.sv_prev)>0,lab=hasI&&hasR?'Risparmi e investimenti':hasI?'Investimenti':'Risparmi';
-  var soldi='<div class="k dq">Quanto hai oggi</div><div class="v">'+eur(tot)+'</div><div class="k">'+lab+'</div>'+(T>0?'<div class="k">Obiettivo tra 12 mesi: <b>'+eur(T)+'</b></div><div class="k">Sei al '+Math.min(100,Math.round(tot/T*100))+'% di completamento rispetto al tuo obiettivo.</div><div class="bar"><i style="width:'+Math.min(100,tot/T*100)+'%"></i></div>':'<div class="k">'+(tot>0?'Quanto vuoi avere tra 12 mesi?':'Scrivi quanto hai da parte')+'</div>');
+  var soldi='<div class="k dq">Quanto hai oggi</div><div class="v">'+eur(tot)+'</div><div class="k">'+lab+'</div>'+(T>0?'<div class="k">Obiettivo tra 1 anno: <b>'+eur(T)+'</b></div><div class="k">Sei al '+Math.min(100,Math.round(tot/T*100))+'% di completamento rispetto al tuo obiettivo.</div><div class="bar"><i style="width:'+Math.min(100,tot/T*100)+'%"></i></div>':'<div class="k">'+(tot>0?'Quanto vuoi avere tra 1 anno?':'Scrivi quanto hai da parte')+'</div>');
   d.innerHTML='<div class="dc"><div class="k dq">A che punto sei dei 7 PASSI?</div><div class="v">'+p+'%</div><div class="bar"><i style="width:'+p+'%"></i></div></div>'
    +'<div class="dg"><button type="button" class="dc dcb" data-dact="obi">'+soldi+'</button>'
    +'<div class="dc dn"><div class="k">Prossimo passo</div><div class="dnm">'+(cur>=7?'Fatto! Una volta al mese aggiorna i numeri.':nm||'Continua')+'</div><button type="button" class="btn" data-dact="next">Vai →</button></div></div>'}
