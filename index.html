@@ -724,6 +724,9 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
 #goals-card table.gt3 th:not(:first-child),#goals-card table.gt3 td:not(:first-child){text-align:center;vertical-align:middle}
 #goals-card table.gt3 td{vertical-align:middle}#goals-card table.gt3 th:first-child{text-align:left}
 #goals-card table.gt3 .eur{margin:0 auto}
+.cwin{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}.cwin button{flex:1 1 150px;padding:10px 12px;border:1px solid var(--line,#ccc);background:transparent;color:inherit;border-radius:10px;font:inherit;font-size:.88rem;cursor:pointer;text-align:left}.cwin button.on{background:var(--ink);color:var(--bg);border-color:transparent;font-weight:700}
+details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opacity:.85}details.qh>div{font-size:.86rem;margin-top:6px;padding:8px 10px;border:1px solid var(--line,#ddd);border-radius:8px}
+#nso-card{margin-top:14px}input:disabled{opacity:.55}
 </style>
 
 <div class="wrap">
@@ -777,7 +780,7 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
   <p class="tag">Facciamo chiarezza su contratti, tasse, strumenti di risparmio e finanza personale per il calciatore dilettante.</p>
   <nav class="tabs" role="tablist" aria-label="Sezioni">
     <div class="tg" role="presentation"><span class="tgl">Parti da qui</span><div class="tgb" role="presentation"><button role="tab" id="t-percorso" data-tab="percorso" aria-selected="true">Il mio percorso</button><button role="tab" id="t-home" data-tab="home" aria-selected="false">Dove sono oggi?</button></div><span class="tgl tgl2">Dubbi?</span><div class="tgb" role="presentation"><button role="tab" id="t-faq" data-tab="faq" aria-selected="false">Domande frequenti</button></div></div>
-    <div class="tg" role="presentation"><span class="tgl">Il tuo contratto</span><div class="tgb" role="presentation"><button role="tab" id="t-contratto" data-tab="contratto" aria-selected="false">Contratto<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-conformita" data-tab="conformita" aria-selected="false">Conformità<span class="ps" aria-label="passi 3"><i>3</i></span></button><button role="tab" id="t-netto" data-tab="netto" aria-selected="false">Simulatore netto<span class="ps" aria-label="passi 3"><i>3</i></span></button></div></div>
+    <div class="tg" role="presentation"><span class="tgl">Il tuo contratto</span><div class="tgb" role="presentation"><button role="tab" id="t-contratto" data-tab="contratto" aria-selected="false">Contratto<span class="ps" aria-label="passi 3"><i>3</i></span></button></div></div>
     <div class="tg" role="presentation"><span class="tgl">I tuoi soldi</span><div class="tgb" role="presentation"><button role="tab" id="t-budget" data-tab="budget" aria-selected="false">Budget<span class="ps" aria-label="passi 1"><i>1</i></span></button><button role="tab" id="t-obiettivi" data-tab="obiettivi" aria-selected="false">Obiettivi a breve termine<span class="ps" aria-label="passi 2"><i>2</i></span></button><button role="tab" id="t-fondo" data-tab="fondo" aria-selected="false">Fondo di emergenza<span class="ps" aria-label="passi 4"><i>4</i></span></button><button role="tab" id="t-debiti" data-tab="debiti" aria-selected="false">Debiti<span class="ps" aria-label="passi 5"><i>5</i></span></button></div></div>
     <div class="tg" role="presentation"><span class="tgl">Il tuo futuro</span><div class="tgb" role="presentation"><button role="tab" id="t-invest" data-tab="invest" aria-selected="false">Le basi dell'investire<span class="ps" aria-label="passi 6"><i>6</i></span></button><button role="tab" id="t-calc" data-tab="calc" aria-selected="false">La tua proiezione</button><button role="tab" id="t-pens" data-tab="pens" aria-selected="false">Piano a lungo termine<span class="ps" aria-label="passi 6, 7"><i>6</i><i>7</i></span></button></div></div>
   </nav>
@@ -790,6 +793,7 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
   <h2>Il mio percorso</h2>
   <p class="lead">Dalla tua porta a quella avversaria: 7 passi verso la libertà finanziaria.<br>Ogni passo si sblocca completando le varie mini-missioni al suo interno.</p>
   <div class="dash" id="dash" aria-live="polite"></div>
+  <div class="card" id="nso-card"></div>
   <div class="pitch-wrap" id="pitch"></div>
   <div class="pprog" id="pprog"><div id="pp-seg" class="pp-seg"></div><div class="bar" role="progressbar" aria-label="Avanzamento del percorso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pp-fill" style="width:0%"></i></div><p class="pp-t1">A che punto sei dei 7 PASSI?</p><p class="pitch-cap" id="pitch-cap" aria-live="polite"></p><p class="sub" id="pp-txt"></p></div>
   <div class="card pf-line"><span id="pf-sum" class="sub" style="margin:0"></span><button type="button" class="btn ghost" id="pf-edit">Modifica profilo</button></div>
@@ -814,6 +818,7 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
 </section>
 
 <section id="p-contratto" role="tabpanel" aria-labelledby="t-contratto" hidden>
+  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
   <h2>Che contratto devo avere?</h2>
   <p class="lead">Inserisci il tuo caso. Ottieni il tipo di contratto corretto, se è in regola e quanto ti resta in tasca.</p>
   <div class="card" id="eng-form">
@@ -824,9 +829,15 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
     <div class="q"><label for="e_eta">Età</label>
       <select id="e_eta" data-k="eng.eta" data-r="eng"><option value="mag">Maggiorenne</option><option value="min">Minorenne</option></select></div>
     <div class="q"><label for="e_reg">Il club è nel Registro nazionale ASD/SSD?</label>
-      <select id="e_reg" data-k="eng.reg" data-r="eng"><option value="si">Sì</option><option value="no">No</option><option value="nso">Non so</option></select></div>
-    <div class="q"><label for="e_comp">Compenso lordo annuo da questo club</label>
+      <select id="e_reg" data-k="eng.reg" data-r="eng"><option value="si">Sì</option><option value="no">No</option><option value="nso">Non so</option></select>
+      <p class="sub" style="margin:6px 0 0"><a href="https://registro.sportesalute.eu/#/registro/n/" target="_blank" rel="noopener">Cerca qui il nome del club nel Registro ↗</a> (si apre in una nuova scheda).</p></div>
+    <div class="q"><label for="e_comp">Compenso LORDO annuo da questo club</label>
       <div class="eur"><input type="text" inputmode="decimal" id="e_comp" data-k="eng.comp" data-r="eng"></div></div>
+    <div class="q"><label for="e_net">oppure compenso NETTO annuo che vuoi in tasca</label>
+      <div class="eur"><input type="text" inputmode="decimal" id="e_net" data-k="eng.net" data-r="eng"></div>
+      <p class="sub" id="e_net_h" style="margin:6px 0 0">Scrivi solo uno dei due: se inserisci il netto, ti dico quanto LORDO far scrivere nel contratto.</p></div>
+    <div class="q"><label for="e_mesi">Mesi in cui il club ti paga</label>
+      <input type="text" inputmode="numeric" id="e_mesi" data-k="eng.mesi" data-r="eng" placeholder="10 (dal Budget)"></div>
     <div class="q"><label for="e_altri">Altri compensi sportivi nell'anno (altri club)</label>
       <div class="eur"><input type="text" inputmode="decimal" id="e_altri" data-k="eng.altri" data-r="eng"></div></div>
     <div class="q"><label for="e_ore">Ore settimanali, escluse le gare (circa)</label>
@@ -842,15 +853,17 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
 </section>
 
 <!-- CONFORMITA -->
-<section id="p-conformita" role="tabpanel" aria-labelledby="t-conformita" hidden>
+<section id="p-conformita" role="tabpanel" aria-labelledby="t-contratto" hidden>
+  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
   <h2>Sono in regola?</h2>
-  <p class="lead">Dieci domande sul tuo accordo con il club. Rispondi con quello che sai. "Non so" conta come punto da verificare.</p>
+  <p class="lead">Poche domande sul tuo accordo con il club (le risposte già date nel passo «Che contratto» non si ripetono). Rispondi con quello che sai. "Non so" conta come punto da verificare.</p>
   <div class="card" id="comp-q"></div>
   <div class="flags" id="comp-out"></div>
 </section>
 
 <!-- NETTO -->
-<section id="p-netto" role="tabpanel" aria-labelledby="t-netto" hidden>
+<section id="p-netto" role="tabpanel" aria-labelledby="t-contratto" hidden>
+  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
   <h2>Quanto mi resta, per categoria</h2>
   <p class="lead">Metti il compenso lordo annuo che ti offrono in ogni categoria. Il fisco è uguale per tutte, cambia solo quanto il club paga e che tipo di accordo usa.</p>
   <div class="fields f3">
@@ -858,6 +871,8 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
       <div class="eur"><input type="text" inputmode="decimal" id="s_altro" data-k="sim.altro" data-r="sim"></div></div>
     <div><label class="l" for="s_rimb">Rimborsi spese esenti (€ l'anno)</label>
       <div class="eur"><input type="text" inputmode="decimal" id="s_rimb" data-k="sim.rimb" data-r="sim"></div></div>
+    <div><label class="l" for="s_mesi">Mesi in cui il club ti paga</label>
+      <input type="text" inputmode="numeric" id="s_mesi" data-k="sim.mesi" data-r="sim" placeholder="10 (dal Budget)"></div>
     <div><label class="l" for="s_add">Addizionali regionali e comunali</label>
       <div class="suf"><input type="text" inputmode="decimal" id="s_add" data-k="sim.add" data-r="sim"></div></div>
   </div>
@@ -1198,8 +1213,8 @@ function defaults(){
   return {
     tab:'home', exDone:true, obj:'0',
     goals:{r0:'',i0:'',r6:'',i6:'',r12:'',i12:'',r24:'',i24:'',r60:'',i60:'',ret:''},
-    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0'},
-    sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0'},
+    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0',net:'',mesi:''},
+    sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0',nD:'',nE:'',nP:'',mesi:''},
     comp:{},
     bud:{}
   };
@@ -1252,6 +1267,11 @@ function calc(C,altro){
   return {C:C,base:base,ivsBase:ivsBase,ivs:ivs,ass:ass,inps:inps,w:w,cl:cl,ina:ina,inaW:inaW,inaCl:inaCl,imp:imp,tax:tax,add:add,
           net:C-w-inaW-tax-add,cost:C+cl+inaCl};
 }
+function mesiPag(v){var m=Math.round(num(v));return (m>=1&&m<=12)?m:(Math.round(num(S.mens))||10)}
+function solveGross(f,target){ /* f(gross)->netto totale, crescente */
+  if(!(target>0))return 0;var lo=0,hi=1e6;if(f(hi)<target)return hi;
+  for(var i=0;i<60;i++){var mid=(lo+hi)/2;if(f(mid)<target)lo=mid;else hi=mid}
+  return Math.round(hi)}
 function marginal(C,altri,altro){
   var a=calc(C+altri,altro),b=calc(altri,altro),r={C:C};
   ['w','cl','inaW','inaCl','tax','add','net','cost'].forEach(function(k){r[k]=a[k]-b[k]});
@@ -1283,7 +1303,12 @@ function pill(level,text){
 }
 R.eng=function(){
   var e=S.eng,C=num(e.comp),altri=num(e.altri),ore=num(e.ore),altro=num(e.altro);
-  var ESE=4300,eseIn=num(e.ese),es=Math.min(eseIn,ESE),esx=Math.max(0,eseIn-ESE),Ctot=C;
+  var ESE=4300,eseIn=num(e.ese),es=Math.min(eseIn,ESE),esx=Math.max(0,eseIn-ESE),Ctot=C,netIn=num(e.net),solved=false,mesi=mesiPag(e.mesi);
+  var ec=$('#e_comp'),en=$('#e_net');if(ec)ec.disabled=(netIn>0&&!(num(e.comp)>0));if(en)en.disabled=(num(e.comp)>0);
+  if(netIn>0&&!(C>0)&&e.eta==='mag'){
+    Ctot=solveGross(function(g){return marginal(Math.max(0,g-es),altri,altro).net+es},netIn);
+    if(netIn<=es)Ctot=netIn;
+    C=Ctot;solved=true}
   C=Math.max(0,C-es);
   var type,why,level='ok',reasons=[];
   if(e.eta==='min'){
@@ -1306,7 +1331,7 @@ R.eng=function(){
     reasons.push('Il contratto va depositato dal club presso la Lega o il Comitato al tesseramento. Se non lo fa, puoi depositarlo tu entro 15 giorni dopo la scadenza (art. 94 ter NOIF). Senza deposito non giochi gare ufficiali.');
     if(e.pag==='cont'){level='risk';reasons.push('Pagamento in contanti: per le collaborazioni non è ammesso. Chiedi il bonifico.')}
     if(e.reg==='no'){level='risk';reasons.push('Il club non è nel Registro nazionale: il regime sportivo agevolato non è garantito.')}
-    else if(e.reg==='nso'){if(level==='ok')level='warn';reasons.push('Controlla se il club è nel Registro nazionale ASD/SSD (sito del Dipartimento per lo Sport).')}
+    else if(e.reg==='nso'){if(level==='ok')level='warn';reasons.push('Controlla se il club è nel Registro nazionale ASD/SSD: cerca il nome del club su registro.sportesalute.eu.')}
     if(C+altri>5000)reasons.push('Il totale sportivo supera 5.000 euro: scattano i contributi INPS sulla parte sopra i 5.000 euro.');
   }
   if(eseIn>0){
@@ -1318,7 +1343,8 @@ R.eng=function(){
   var netCard;
   if(m){
     var tot=m.net+es;
-    netCard='<div class="card"><h3>Netto stimato</h3><div class="big">'+eur(tot)+'</div><div class="sub">all\'anno, circa '+eur(tot/12)+' al mese su 12'+(es>0?', compresi i rimborsi esenti':'')+'</div>'
+    netCard=(solved?'<div class="card"><h3>Lordo da scrivere nel contratto</h3><div class="big">'+eur(Ctot)+'</div><div class="sub">all\'anno, cioè circa '+eur(Ctot/mesi)+' al mese per '+mesi+' mesi. Con questo lordo ti restano '+eur(netIn)+' netti all\'anno. Stima: fai confermare la cifra da un professionista.</div></div>':'')
+    +'<div class="card"><h3>Netto stimato</h3><div class="big">'+eur(tot)+'</div><div class="sub">all\'anno, circa '+eur(tot/mesi)+' al mese per '+mesi+' mesi'+(es>0?', compresi i rimborsi esenti':'')+'</div>'
     +'<div class="tw"><table><tbody><tr><td>Compenso lordo</td><td>'+eur(m.C)+'</td></tr><tr><td>INPS a tuo carico (1/3)</td><td>'+mn(m.w)+'</td></tr>'
     +(m.inaW>0?'<tr><td>INAIL a tuo carico</td><td>−'+eur(m.inaW)+'</td></tr>':'')
     +'<tr><td>IRPEF e addizionali</td><td>'+mn(m.tax+m.add)+'</td></tr><tr><td>Netto del compenso</td><td>'+eur(m.net)+'</td></tr>'
@@ -1334,6 +1360,7 @@ R.eng=function(){
    +netCard;
   var b=$('#use-eng');
   if(b)b.onclick=function(){useBud(m.net,es,b)};
+  try{nsoRender()}catch(e){}
 };
 function useBud(net,ri,btn){
   var B=BD(),mens=num(S.mens)||10,calM=num(B.im_calcio_m),rimM=num(B.im_rimb),calA=num(B.ia_calcio_a),rimA=num(B.ia_rimb_a),
@@ -1356,52 +1383,65 @@ function useBud(net,ri,btn){
 function alert0(t,el){var s=document.createElement('div');s.className='sub';s.textContent=t;s.setAttribute('role','status');el.insertAdjacentElement('afterend',s);setTimeout(function(){s.remove()},3500);R.bud&&R.bud()}
 
 /* ---------- Compliance ---------- */
+/* ---------- elenco "Non so" / da chiedere al club ---------- */
+var NSO=[['q1','Copia firmata del contratto','Chiedi al club una copia del contratto firmata.','conformita'],['q2','Deposito del contratto in Lega','Chiedi alla segreteria la prova del deposito.','conformita'],['q4','Compenso uguale al contratto','Confronta gli estratti conto con il compenso scritto.','conformita'],['q5','Certificazione Unica (CU)','Chiedi al club se la rilascia ogni anno e cercala nel cassetto fiscale.','conformita'],['q6','Contributi INPS e INAIL','Chiedi al club di versarli e controlla su MyINPS.','conformita'],['q9','Busta paga mensile','Chiedi al club una copia cartacea ogni mese: da lì controlli compenso e trattenute INPS/INAIL.','conformita'],['q7','Copertura infortuni','Chiedi copia della polizza del tesseramento.','conformita'],['q8','Rimborsi documentati','Chiedi quali giustificativi servono.','conformita']];
+function nsoRender(){
+  var el=$('#nso-card');if(!el)return;var E=S.eng||{},c=S.comp||{},L=[];
+  if(E.reg==='nso')L.push(['Club nel Registro ASD/SSD','Cerca il nome del club: <a href="https://registro.sportesalute.eu/#/registro/n/" target="_blank" rel="noopener">registro.sportesalute.eu ↗</a>','eng']);
+  NSO.forEach(function(n){if(c[n[0]]==='nso')L.push([n[1],n[2],n[3]])});
+  el.innerHTML='<h3>Da chiedere o verificare con il club'+(L.length?' <span class="pill warn">'+L.length+'</span>':'')+'</h3>'
+   +(L.length?'<ul class="r">'+L.map(function(x){return '<li><b>'+x[0]+'</b>: '+x[1]+' <button type="button" class="btn inline ghost" data-nso="'+(x[2]==='eng'?'contratto':x[2])+'">Vai</button></li>'}).join('')+'</ul>':'<p class="sub">Qui compaiono le cose a cui hai risposto «Non so» nel passo Contratto. Per ora non c\'è nulla da chiedere.</p>');
+  $$('#nso-card [data-nso]').forEach(function(b){b.onclick=function(){var t=b.getAttribute('data-nso');if(tabLocked(t)){lockedMsg(t);return}showTab(t);window.scrollTo(0,0)}});
+}
+var HELP_CU='<b>Come controllo la CU:</b><ol class="r"><li>Entra nel sito dell\'Agenzia delle Entrate con SPID, CIE o CNS.</li><li>Vai in <b>Consultazioni → Cassetto fiscale</b> (area personale).</li><li>Apri <b>Dichiarazioni fiscali → Certificazioni Uniche</b> e scegli l\'anno.</li><li>Se il club ti ha pagato e non trovi la CU, chiedila: la deve rilasciare ogni anno.</li></ol><span class="sub">I nomi dei menu possono cambiare. Fonte: Agenzia delle Entrate. Verifica con un professionista.</span>';
+var HELP_INPS='<b>Come controllo che il club versi i contributi INPS:</b><ol class="r"><li>Vai su <b>inps.it → MyINPS</b> e accedi con SPID livello 2, CIE o CNS.</li><li>Apri il <b>Fascicolo previdenziale del cittadino</b> → <b>Estratto conto</b> (Gestione Separata: <b>Posizione assicurativa</b>).</li><li>Guarda se per l\'anno ci sono contributi accreditati. I versamenti del club possono comparire con qualche mese di ritardo.</li></ol><b>INAIL:</b> non si vede in MyINPS. Guarda la busta paga mensile (vedi domanda dedicata) e chiedi al club la prova del versamento, se nel tuo caso è dovuto.<br><span class="sub">Franchigia di 5.000 euro: art. 35 D.Lgs. 36/2021. I menu possono cambiare. Verifica con un professionista.</span>';
+var HELP_BP='<b>Perché conta:</b> nella busta paga devono comparire compenso lordo, trattenute INPS/INAIL (se dovute), imposte e netto. Confrontala con il contratto e con i bonifici ricevuti.<br><b>Attenzione:</b> la busta paga mostra la trattenuta, ma non prova che il club l\'abbia versata. Per l\'INPS controlla su MyINPS; per l\'INAIL chiedi al club la prova del versamento.<br><span class="sub">Verifica con un professionista.</span>';
 var Q=[
  ['q1','Ho un contratto scritto e firmato, non solo un accordo a voce?',[['si','Sì'],['no','No'],['nso','Non so']]],
  ['q2','Il contratto è stato depositato dal club presso la Lega al tesseramento?',[['si','Sì'],['no','No'],['nso','Non so']]],
- ['q3','Ricevo i pagamenti con bonifico o altro mezzo tracciato?',[['si','Sì'],['no','No, in contanti'],['nso','Non so']]],
  ['q4','Quello che ricevo coincide con il compenso scritto nel contratto?',[['si','Sì'],['no','No, ricevo anche altro'],['nso','Non so']]],
- ['q5','Il club mi rilascia la Certificazione Unica ogni anno?',[['si','Sì'],['no','No'],['nso','Non so']]],
- ['q6','Se il totale sportivo supera 5.000 euro, il club versa i contributi INPS?',[['si','Sì'],['na','Non supero 5.000 euro'],['no','No'],['nso','Non so']]],
+ ['q5','Il club mi rilascia ogni anno la Certificazione Unica (CU, ex CUD)?',[['si','Sì'],['no','No'],['nso','Non so']],HELP_CU],
+ ['q6','Se il totale sportivo supera 5.000 euro, il club versa INPS e INAIL?',[['si','Sì'],['na','Non supero 5.000 euro'],['no','No'],['nso','Non so']],HELP_INPS],
+ ['q9','Il club mi dà ogni mese una copia cartacea della busta paga (cedolino)?',[['si','Sì'],['no','No'],['nso','Non so']],HELP_BP],
  ['q7','Il club mi ha detto di avere la copertura infortuni del tesseramento?',[['si','Sì'],['no','No'],['nso','Non so']]],
- ['q8','I rimborsi spese che ricevo sono documentati con giustificativi?',[['doc','Sì, a piè di lista'],['trasf','Indennità di trasferta a giornata, per trasferte reali fuori comune'],['forf','Importi fissi senza trasferte né giustificativi'],['nessuno','Non ricevo rimborsi'],['nso','Non so']]],
- ['q9','Il club è iscritto al Registro nazionale ASD/SSD?',[['si','Sì'],['no','No'],['nso','Non so']]],
- ['q10','Quanto ricevi in un anno tra indennità di trasferta e rimborsi esenti?',[['no','Nulla'],['fino','Fino a circa 4.300 euro'],['oltre','Oltre circa 4.300 euro'],['nso','Non so']]]
+ ['q8','I rimborsi spese che ricevo sono documentati con giustificativi?',[['doc','Sì, a piè di lista'],['trasf','Indennità di trasferta a giornata, per trasferte reali fuori comune'],['forf','Importi fissi senza trasferte né giustificativi'],['nessuno','Non ricevo rimborsi'],['nso','Non so']]]
 ];
 function buildQ(){
   $('#comp-q').innerHTML=Q.map(function(q){
     return '<div class="q"><label for="c_'+q[0]+'">'+q[1]+'</label><select id="c_'+q[0]+'" data-k="comp.'+q[0]+'" data-r="comp"><option value="">Scegli</option>'
-    +q[2].map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>'}).join('')+'</select></div>';
+    +q[2].map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>'}).join('')+'</select>'
+    +(q[3]?'<details class="qh"><summary>Come controllo?</summary><div>'+q[3]+'</div></details>':'')+'</div>';
   }).join('');
 }
 function lvl(a){return a.some(function(x){return x.l==='risk'})?'risk':(a.some(function(x){return x.l==='warn'})?'warn':'ok')}
 R.comp=function(){
-  var c=S.comp,answered=Q.filter(function(q){return c[q[0]]}).length;
+  var c=S.comp,E=S.eng||{},answered=Q.filter(function(q){return c[q[0]]}).length+((E.reg&&E.reg!=='si')||num(E.comp)>0?1:0);
+  var qq6=c.q6||((num(E.comp)>0&&num(E.comp)+num(E.altri)<=5000)?'na':'');
   var F={contratto:[],figc:[],fisco:[]};
   function add(f,l,t){F[f].push({l:l,t:t})}
   if(c.q1==='no')add('contratto','risk','Accordo solo a voce: chiedi un contratto scritto prima di giocare altre gare.');
   if(c.q1==='nso')add('contratto','warn','Verifica di avere copia firmata del contratto.');
   if(c.q4==='no'){add('contratto','risk','Il compenso reale non coincide con quello scritto: fai allineare il contratto.');add('figc','risk','Pagamenti non dichiarati sono un illecito sportivo secondo la normativa federale.')}
   if(c.q4==='nso')add('contratto','warn','Confronta gli estratti conto con il compenso scritto.');
-  if(c.q9==='no')add('contratto','risk','Club fuori dal Registro: il regime sportivo non è garantito.');
-  if(c.q9==='nso')add('contratto','warn','Controlla il club nel Registro nazionale ASD/SSD.');
+  if(E.reg==='no')add('contratto','risk','Club fuori dal Registro: il regime sportivo non è garantito.');
+  if(E.reg==='nso')add('contratto','warn','Controlla il club nel Registro nazionale ASD/SSD (registro.sportesalute.eu).');
   if(c.q2==='no')add('figc','risk','Contratto non depositato: niente gare ufficiali. Puoi depositarlo tu entro 15 giorni dalla scadenza dei termini (art. 94 ter NOIF), oltre non è accettato.');
   if(c.q2==='nso')add('figc','warn','Chiedi alla segreteria la prova del deposito in Lega.');
   if(c.q1==='no')add('figc','warn','Senza contratto non c\'è nulla da depositare.');
-  if(c.q3==='no')add('fisco','risk','Contanti non ammessi per le collaborazioni: chiedi il bonifico.');
-  if(c.q3==='nso')add('fisco','warn','Verifica come ti paga il club.');
+  if(E.pag==='cont')add('fisco','risk','Contanti non ammessi per le collaborazioni: chiedi il bonifico.');
   if(c.q5==='no')add('fisco','warn','Chiedi la Certificazione Unica: serve per la dichiarazione dei redditi.');
   if(c.q5==='nso')add('fisco','warn','Chiedi se emettono la Certificazione Unica.');
-  if(c.q6==='no')add('fisco','risk','Contributi INPS non versati oltre 5.000 euro: il club ne deve 2/3 e tu 1/3, chiedi la regolarizzazione.');
-  if(c.q6==='nso')add('fisco','warn','Chiedi se il club versa i contributi INPS oltre 5.000 euro.');
+  if(qq6==='no')add('fisco','risk','Contributi non versati oltre 5.000 euro: INPS al club per 2/3 e a te per 1/3, chiedi la regolarizzazione. Verifica con un professionista.');
+  if(qq6==='nso')add('fisco','warn','Chiedi al club se versa INPS e INAIL oltre 5.000 euro e controlla su MyINPS.');
+  if(c.q9==='no')add('fisco','warn','Chiedi la busta paga mensile: è il documento che mostra compenso, trattenute INPS/INAIL e netto.');
+  if(c.q9==='nso')add('fisco','warn','Chiedi al club se ti dà la busta paga mensile.');
   if(c.q7==='no')add('fisco','warn','La polizza infortuni del tesseramento è a carico del club a prescindere dall\'importo: chiedine copia.');
   if(c.q7==='nso')add('fisco','warn','Chiedi copia della polizza infortuni del tesseramento.');
   if(c.q8==='forf')add('fisco','risk','Importi fissi senza trasferte né giustificativi sono compensi mascherati: rischio fiscale e contributivo (rimborsi fittizi).');
   if(c.q8==='trasf')add('fisco','warn','Indennità di trasferta: regge solo per trasferte reali fuori comune. Entro circa 4.300 euro annui è esente, la parte sopra è compenso. Tieni un elenco di trasferte e date.');
-  if(c.q10==='oltre')add('fisco','warn','Sopra circa 4.300 euro annui di trasferte e rimborsi esenti, la parte sopra la soglia è compenso (tassata e con contributi). Fai verificare l\'importo esatto.');
-  if(c.q10==='nso')add('fisco','warn','Chiedi al club quanto ti ha pagato in indennità di trasferta e rimborsi nell\'anno.');
-  if(c.q10==='fino')add('contratto','warn','Quota esente fino a circa 4.300 euro: toglila dal compenso e documenta le trasferte. La struttura del contratto può cambiare, serve la perizia.');
   if(c.q8==='nso')add('fisco','warn','Verifica se i rimborsi sono documentati.');
+  if(num(E.ese)>0&&c.q8!=='doc'&&c.q8!=='trasf')add('fisco','warn','Dichiari una quota di rimborsi o trasferte esente: serve documentarla con giustificativi o trasferte reali. Verifica con un professionista.');
+  try{nsoRender()}catch(e){}
   var names={contratto:'Contratto valido',figc:'Rischio FIGC',fisco:'Rischio fiscale'};
   var lab={ok:'Nessun problema rilevato',warn:'Da verificare',risk:'Rischio alto'};
   $('#comp-out').innerHTML=['contratto','figc','fisco'].map(function(k){
@@ -1418,11 +1458,16 @@ var AIC_T='https://www.assocalciatori.it/sites/default/files/attachment/pagina/S
 var AIC_N='https://www.assocalciatori.it/sites/default/files/attachment/pagina/NOTE-INTRODUTTIVE-2026.pdf';
 R.sim=function(){
   var altro=num(S.sim.altro),ri=num(S.sim.rimb),o=S.sim;
-  var res=COLS.map(function(c){var Ca=num(S.sim[c[0]]),inc=!!o.rinc,rE=inc?Math.min(ri,Ca):ri,r=calc(inc?Math.max(0,Ca-rE):Ca,altro);r.Ca=Ca;r.ri=rE;r.tot=r.net+rE;r.rem=r.w+r.inaW+r.tax+r.add;return r});
+  var mesi=mesiPag(o.mesi);
+  var res=COLS.map(function(c){var Ca=num(S.sim[c[0]]),nt=num(S.sim['n'+c[0].charAt(1)]),inc=!!o.rinc,sol=false;
+    if(nt>0&&!(Ca>0)){Ca=solveGross(function(g){var x=inc?Math.min(ri,g):ri,q=calc(inc?Math.max(0,g-x):g,altro);return q.net+x},nt);sol=true}
+    var rE=inc?Math.min(ri,Ca):ri,r=calc(inc?Math.max(0,Ca-rE):Ca,altro);r.sol=sol;r.nt=nt;r.Ca=Ca;r.ri=rE;r.tot=r.net+rE;r.rem=r.w+r.inaW+r.tax+r.add;return r});
   function row(l,f,cls){return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+l+'</td>'+res.map(function(r){return '<td>'+f(r)+'</td>'}).join('')+'</tr>'}
   function head(t){return '<tr><td colspan="'+(COLS.length+1)+'" class="sec-h">'+t+'</td></tr>'}
   var h='<table style="min-width:700px"><thead><tr><th></th>'+COLS.map(function(c){return '<th>'+c[1]+'</th>'}).join('')+'</tr></thead><tbody>';
-  h+='<tr><td>Compenso lordo annuo</td>'+COLS.map(function(c){return '<td><div class="eur"><input type="text" inputmode="decimal" aria-label="Compenso lordo '+c[1]+'" data-k="sim.'+c[0]+'" data-r="sim" value="'+(S.sim[c[0]]||'')+'"></div></td>'}).join('')+'</tr>';
+  h+='<tr><td>Compenso lordo annuo</td>'+COLS.map(function(c){return '<td><div class="eur"><input type="text" inputmode="decimal" aria-label="Compenso lordo '+c[1]+'" data-k="sim.'+c[0]+'" data-r="sim" value="'+(S.sim[c[0]]||'')+'"'+(num(S.sim['n'+c[0].charAt(1)])>0&&!(num(S.sim[c[0]])>0)?' disabled placeholder="'+eur(res[COLS.indexOf(c)].Ca)+'"':'')+'></div></td>'}).join('')+'</tr>';
+  h+='<tr><td>oppure Netto annuo che vuoi in tasca</td>'+COLS.map(function(c){var k='n'+c[0].charAt(1);return '<td><div class="eur"><input type="text" inputmode="decimal" aria-label="Netto voluto '+c[1]+'" data-k="sim.'+k+'" data-r="sim" value="'+(S.sim[k]||'')+'"'+(num(S.sim[c[0]])>0?' disabled':'')+'></div></td>'}).join('')+'</tr>';
+  h+='<tr><td class="sub" colspan="'+(COLS.length+1)+'" style="text-align:left;white-space:normal;font-size:.8rem">Scrivi solo il lordo o solo il netto. Con il netto ti dico il lordo da far scrivere nel contratto (riga «Compenso lordo annuo»).</td></tr>';
   h+='<tr><td>Contratto tipico</td>'+COLS.map(function(c){return '<td class="sub" style="font-size:.8rem">'+c[2]+'</td>'}).join('')+'</tr>';
   if(o.rinc){
     h+=row('Meno i rimborsi già dentro il compenso',function(r){return '−'+eur(r.ri)});
@@ -1447,7 +1492,7 @@ R.sim=function(){
   h+=row('Netto del compenso',function(r){return eur(r.net)});
   h+=row('Rimborsi spese esenti (senza tasse)',function(r){return '+'+eur(r.ri)});
   h+=row('<b>Netto annuo totale</b>',function(r){return '<b>'+eur(r.tot)+'</b>'},'tot');
-  h+=row('Netto al mese (su 12)',function(r){return eur(r.tot/12)});
+  h+=row('Netto al mese (su '+mesi+' mesi pagati)',function(r){return eur(r.tot/mesi)});
   h+=row('Quanto ti viene tolto del compenso',function(r){return r.Ca?pct(r.rem/r.Ca):'–'});
   h+=row('di cui INPS e INAIL',function(r){return r.Ca?pct((r.w+r.inaW)/r.Ca):'–'});
   h+=row('di cui IRPEF e addizionali',function(r){return r.Ca?pct((r.tax+r.add)/r.Ca):'–'});
@@ -2301,9 +2346,9 @@ function pCrit(n){
   if(n===2){var gk=['r6','i6','r12','i12','r24','i24','r60','i60'],gn=gk.filter(function(k){return G[k]!==undefined&&String(G[k]).trim()!==''}).length;return [['Tutti gli obiettivi a breve termine compilati ('+gn+' su 8; se non ne hai uno scrivi 0)',gn===8||((S.celeb||0)>=2&&gn>=6)]]}
   if(n===3){
     var E=S.eng||{},SM=S.sim||{},CP=S.comp||{};
-    var engOk=['comp','altri','altro','ese','ore'].some(function(k){return num(E[k])>0});
+    var engOk=['comp','net','altri','altro','ese','ore'].some(function(k){return num(E[k])>0});
     var qOk=Q.length>0&&Q.every(function(q){return !!CP[q[0]]});
-    var simOk=['lD','lE','lP','altro','rimb'].some(function(k){return num(SM[k])>0});
+    var simOk=['lD','lE','lP','nD','nE','nP','altro','rimb'].some(function(k){return num(SM[k])>0});
     return [['Contratto: ho inserito i miei dati',engOk],['Conformità: ho risposto a tutte le '+Q.length+' domande',qOk],['Simulatore netto: ho provato il calcolo',simOk],['Contratto depositato in Lega (consigliato)',!!C.dep,1],['Ho una copia firmata del contratto (consigliato)',!!C.cop,1],['Conservo bonifici e ricevute dei pagamenti (consigliato)',!!C.pro,1]];
   }
   if(n===4){
@@ -2777,7 +2822,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
    budget:[{tab:'budget',t:function(){var e=document.querySelector('.bm-opts');return e&&e.offsetParent?e:document.querySelector('#p-budget .strip')},x:function(){return 'Hai due opzioni: puoi compilare il <b>Budget lampo</b> per avere un\'idea veloce e immediata delle tue spese (in 3-5 minuti); se preferisci una maggiore precisione, invece, puoi compilare il <b>Budget completo</b> (15-20 minuti).'}}],
    contratto:[{tab:'contratto',t:'#eng-form',x:function(){return 'La sezione <b>«Contratto»</b> è il passo 3. Inserisci ruolo, categoria, età, compenso e ore settimanali di allenamento. Più sono precisi i dati, più è preciso il risultato.'}},
               {tab:'contratto',t:'#eng-out',x:function(){return 'Subito sotto trovi il risultato: il <b>tipo di contratto</b> più adatto (indicativo), la <b>legalità</b> (<b>In regola se rispetti i punti</b>, <b>Da verificare</b> o <b>Rischio alto</b>) e una stima del <b>netto</b>.'}}],
-   conformita:[{tab:'conformita',t:'#comp-q',x:function(){return 'La sezione <b>«Conformità»</b> contiene 10 domande sul tuo accordo con il club. Rispondi Sì, No o Non so: «Non so» conta come un punto da verificare.'}},
+   conformita:[{tab:'conformita',t:'#comp-q',x:function(){return 'La sezione <b>«Conformità»</b> contiene poche domande sul tuo accordo con il club. Rispondi Sì, No o Non so: «Non so» conta come un punto da verificare.'}},
                {tab:'conformita',t:'#comp-out',x:function(){return 'Il risultato è in 3 schede '+(M()?'una sotto l\'altra':'affiancate')+': <b>Contratto valido</b>, <b>Rischio FIGC</b> e <b>Rischio fiscale</b>, ognuna con il suo semaforo e le cose da controllare.'}}],
    netto:[{tab:'netto',t:function(){var e=document.getElementById('s_altro');return e&&e.closest('.fields')},x:function(){return 'La sezione <b>«Simulatore netto»</b> calcola quanto ti resta. In alto metti l\'eventuale <b>altro reddito</b> (per esempio uno stipendio), i <b>rimborsi esenti</b> e le addizionali: cambiano le tasse che paghi.'}},
           {tab:'netto',t:'#sim-out',x:function(){return M()?'Ogni voce è una scheda: in <b>Compenso lordo annuo</b> scrivi la cifra offerta per ogni categoria, sotto vedi quanto paghi di INPS e IRPEF e quanto <b>netto</b> ti resta.':'Nella tabella metti il <b>compenso lordo</b> offerto in ogni categoria (una colonna per categoria) e leggi, colonna per colonna, quanto paghi di INPS e IRPEF e quanto <b>netto</b> ti resta.'}}],
@@ -2984,7 +3029,8 @@ document.querySelectorAll('#p-pens .lsb').forEach(function(b){b.addEventListener
 document.addEventListener('input',function(e){var t=e.target;if(!t||t.tagName!=='INPUT'||t.getAttribute('inputmode')!=='decimal')return;var v=t.value.trim(),neg=/^-/.test(v),bad=v&&(neg||/[a-zA-Z]/.test(v));t.classList.toggle('bad-in',!!bad);var p=t.parentNode,m=p.querySelector('.badm');if(bad){if(!m){m=document.createElement('div');m.className='badm';m.setAttribute('role','alert');p.appendChild(m)}m.textContent=neg?'Scrivi una cifra positiva (es. 300)':'Scrivi solo numeri (es. 300)'}else if(m)m.remove()},true);
 function showTab(t){
   S.tab=t;
-  $$('[data-tab]').forEach(function(b){b.setAttribute('aria-selected',b.getAttribute('data-tab')===t?'true':'false')});
+  $$('[data-tab]').forEach(function(b){var bt=b.getAttribute('data-tab');b.setAttribute('aria-selected',(bt===t||(bt==='contratto'&&(t==='conformita'||t==='netto')))?'true':'false')});
+  $$('.cwin button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-cw')===t)});
   ['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
   save();
   if(window.ttSection)window.ttSection(t);
@@ -2994,8 +3040,9 @@ function showTab(t){
   if(t==='fondo'||t==='debiti'){try{updatePerc()}catch(e){}}
   if(t==='percorso'){updatePerc();closeDone(pCur());var dd=$('#step-'+(pCur()+1));if(dd)dd.open=true}
   fitSoon();
-  var ab=$('[data-tab="'+t+'"]'),tb=$('.tabs');if(ab&&tb&&tb.scrollWidth>tb.clientWidth)tb.scrollLeft=ab.offsetLeft-tb.clientWidth/2+ab.offsetWidth/2;
+  var ab=$('[data-tab="'+((t==='conformita'||t==='netto')?'contratto':t)+'"]'),tb=$('.tabs');if(ab&&tb&&tb.scrollWidth>tb.clientWidth)tb.scrollLeft=ab.offsetLeft-tb.clientWidth/2+ab.offsetWidth/2;
 }
+$$('.cwin button').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-cw'));window.scrollTo(0,0)})});
 $$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-tab');if(tabLocked(t)){lockedMsg(t);return}showTab(t)})});
 $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-go');if(tabLocked(t)){lockedMsg(t);return}showTab(t);window.scrollTo(0,0)})});
 (function(){
