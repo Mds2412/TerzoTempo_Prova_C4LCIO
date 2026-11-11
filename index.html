@@ -732,6 +732,14 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 .qhp{margin-top:8px;padding:8px 12px;border-left:3px solid var(--line);font-size:.84rem;background:var(--bg);border-radius:0 8px 8px 0}.qhp ol{margin:0;padding-left:18px}.qhp li{margin:3px 0}
 .ea .sched{display:none}.ea .sched.on{display:grid}
 .swhy{margin:0 0 12px}.swhy ul.r ul{margin:4px 0 6px;padding-left:18px}.swhy>ul.r>li{margin:6px 0}
+.atab{width:100%;border-collapse:collapse;margin:0 0 12px}.atab th{font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;text-align:left;color:var(--muted);padding:6px 6px;border-bottom:2px solid var(--line)}.atab td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}.atab .c{text-align:center}.atab small{display:block;color:var(--muted);font-size:.74rem;margin-top:2px}.atab td input[type=text],.atab td select{width:100%;box-sizing:border-box;min-width:0}.atab td select{margin-top:6px;font-size:.86rem}.atab .ack{width:22px;height:22px;accent-color:var(--ink)}.atab .eur{min-width:96px}.atab .ax{padding:4px 9px;min-height:0}
+#f-mesi{width:100%;max-width:340px;min-height:50px;padding:10px 14px;font-size:1.08rem;font-weight:700}
+@media (max-width:640px){.atab th,.atab td{padding:8px 4px}.atab .eur{min-width:84px}.atab td:first-child{width:38%}.atab td>input[type=text]{padding:8px}}
+.fd-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0 0}.fd-r{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}.fd-r b{font-size:1.05rem;white-space:nowrap}.fd-bad{color:#c0392b}.fd-ok{color:#1b7a4c}
+.fd-p{display:flex;align-items:baseline;gap:8px;margin:14px 0 8px}.fd-big{font-size:2.4rem;font-weight:900;line-height:1}.fd-p small{color:var(--muted)}
+.fd-e{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}.fd-e svg{width:62px;height:62px;display:block}.fd-e span{display:block;font-size:.72rem;color:var(--muted);font-weight:700;margin-top:2px}.fd-rt{text-align:right}.fd-rt svg{margin-left:auto}
+.fd-bar{display:flex;height:22px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--line)}.fd-bar i{flex:1;border-right:2px solid var(--surface);background:linear-gradient(90deg,#1b7a4c var(--f),transparent var(--f));background-color:rgba(127,127,127,.15)}.fd-bar i:last-child{border:0}
+.fd-t{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:4px}.fd-badge{display:inline-block;margin-top:12px;padding:6px 12px;border-radius:999px;background:rgba(27,122,76,.12);color:#1b7a4c;font-weight:800;font-size:.85rem}
 </style>
 
 <div class="wrap">
@@ -1010,8 +1018,8 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
   <p class="sub"><b>Contanti</b> e <b>Conto corrente</b> arrivano da Budget e Obiettivi: se li cambi qui, cambiano anche lì. Gli investimenti non contano nel fondo. Spunta «Nel fondo» per quello che fa parte del fondo di emergenza e aggiungi altri conti se ne hai. Puoi cambiare i valori quando vuoi: il fondo si aggiorna.</p>
   <div class="dbt"><div id="a-list"></div><button type="button" class="btn ghost" id="a-add">+ Aggiungi conto o contanti</button><div id="a-sum" class="sub"></div></div>
   <h2>Il mio obiettivo</h2>
-  <div class="fields fnd"><div><label class="l" for="f-mesi">Quanti mesi di spese voglio avere da parte</label><select id="f-mesi"><option value="1">1 mese</option><option value="2">2 mesi</option><option value="3">3 mesi</option><option value="4">4 mesi</option><option value="6">6 mesi</option><option value="9">9 mesi</option><option value="12">12 mesi</option></select></div></div>
-  <div class="bar gap"><i id="f-bar" style="width:0%"></i></div><p class="sub" id="f-txt"></p>
+  <div class="fields fnd"><div><label class="l" for="f-mesi">Quanti mesi di spese voglio avere da parte?</label><select id="f-mesi"><option value="1">1 mese</option><option value="2">2 mesi</option><option value="3">3 mesi</option><option value="4">4 mesi</option><option value="6">6 mesi</option><option value="9">9 mesi</option><option value="12">12 mesi</option></select></div></div>
+  <div class="fdash" id="f-txt"></div>
   </div>
   <div class="lsub" id="sub-f-ass" hidden>
   <h2>Perché serve un'assicurazione infortuni</h2>
@@ -2643,11 +2651,12 @@ var ATYPES=[['conto','Conto corrente'],['deposito','Conto deposito'],['prepagata
 function setLinked(k,v){S.goals=S.goals||{};S.goals[k]=v;try{syncBal()}catch(e){}var xs=document.querySelectorAll('[data-goal="'+k+'"]');[].forEach.call(xs,function(x){x.value=v});if(xs[0])xs[0].dispatchEvent(new Event('input',{bubbles:true}))}
 function renderAcc(){
   var L=S.fund.acc,G=S.goals||{},F=S.fund.fl||(S.fund.fl={});
-  var LK=[['c0','Contanti','contanti'],['cc0','Conto corrente','conto']];
-  var lk=LK.map(function(k){return '<div class="drow arow lkd"><input type="text" aria-label="Nome del conto" value="'+k[1]+'" disabled><select aria-label="Tipo" disabled><option>'+(k[2]==='contanti'?'Contanti':'Conto corrente')+'</option></select><div class="eur"><input type="text" inputmode="decimal" aria-label="Importo oggi: '+k[1]+'" placeholder="0" data-ai="L:'+k[0]+'" data-af="v" value="'+esc(G[k[0]]||'')+'"></div><label class="chk"><input type="checkbox" data-ai="L:'+k[0]+'" data-af="f"'+(F[k[0]]?' checked':'')+'><span>Nel fondo</span></label><span></span></div>'}).join('');
-  $('#a-list').innerHTML=lk+L.map(function(d,i){
-    return '<div class="drow arow"><input type="text" aria-label="Nome del conto" placeholder="Nome (es. conto banca)" data-ai="'+i+'" data-af="n" value="'+esc(d.n||'')+'"><select aria-label="Tipo" data-ai="'+i+'" data-af="t">'+ATYPES.map(function(t){return '<option value="'+t[0]+'"'+(d.t===t[0]?' selected':'')+'>'+t[1]+'</option>'}).join('')+'</select><div class="eur"><input type="text" inputmode="decimal" aria-label="Importo oggi" placeholder="Importo oggi" data-ai="'+i+'" data-af="v" value="'+esc(d.v||'')+'"></div><label class="chk"><input type="checkbox" data-ai="'+i+'" data-af="f"'+(d.f?' checked':'')+'><span>Nel fondo</span></label><button type="button" class="btn ghost" data-arm="'+i+'" aria-label="Togli questo conto">✕</button></div>';
-  }).join('');
+  var LK=[['c0','Contanti'],['cc0','Conto corrente']];
+  function amt(ai,v,lab){return '<div class="eur"><input type="text" inputmode="decimal" aria-label="Importo oggi: '+lab+'" placeholder="0" data-ai="'+ai+'" data-af="v" value="'+esc(v||'')+'"></div>'}
+  function chk(ai,on){return '<input type="checkbox" class="ack" aria-label="Nel fondo di emergenza" data-ai="'+ai+'" data-af="f"'+(on?' checked':'')+'>'}
+  var rows=LK.map(function(k){return '<tr class="lkd"><td><b>'+k[1]+'</b><small>dal Budget</small></td><td>'+amt('L:'+k[0],G[k[0]],k[1])+'</td><td class="c">'+chk('L:'+k[0],F[k[0]])+'</td><td></td></tr>'}).join('')
+   +L.map(function(d,i){return '<tr><td><input type="text" aria-label="Nome del conto" placeholder="Nome (es. conto banca)" data-ai="'+i+'" data-af="n" value="'+esc(d.n||'')+'"><select aria-label="Tipo" data-ai="'+i+'" data-af="t">'+ATYPES.map(function(t){return '<option value="'+t[0]+'"'+(d.t===t[0]?' selected':'')+'>'+t[1]+'</option>'}).join('')+'</select></td><td>'+amt(String(i),d.v,d.n||'conto')+'</td><td class="c">'+chk(String(i),d.f)+'</td><td><button type="button" class="btn ghost ax" data-arm="'+i+'" aria-label="Togli questo conto">✕</button></td></tr>'}).join('');
+  $('#a-list').innerHTML='<table class="atab"><thead><tr><th>Conto</th><th>Importo oggi</th><th class="c">Nel fondo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
   $$('[data-ai]',$('#a-list')).forEach(function(el){var ev=el.type==='checkbox'||el.tagName==='SELECT'?'change':'input';el.addEventListener(ev,function(){var ai=el.getAttribute('data-ai'),f=el.getAttribute('data-af'),val=el.type==='checkbox'?el.checked:el.value;
     if(ai.charAt(0)==='L'){var k=ai.slice(2);if(f==='f'){S.fund.fl[k]=val;save()}else setLinked(k,val)}else{S.fund.acc[+ai][f]=val;save()}updatePerc()})});
   $$('[data-arm]',$('#a-list')).forEach(function(b){b.onclick=function(){S.fund.acc.splice(+b.getAttribute('data-arm'),1);save();renderAcc();updatePerc()}});
@@ -2733,15 +2742,20 @@ function updatePerc(){
     else{m='Liquidità totale: <b>'+eur(tot)+'</b>. Nel fondo di emergenza: <b>'+eur(inF)+'</b> (di cui contanti: '+eur(cash)+'). Fuori dal fondo: '+eur(tot-inF)+'.';
       if(inF>0&&cash<=0)m+='<br>Nessuna parte del fondo è in contanti: la regola 3 consiglia di tenerne un po\'.'}
     $('#a-sum').innerHTML=m})();
-  $('#f-bar').style.width=(tg>0?Math.min(100,sv/tg*100):0)+'%';
-  var em=num(S.bud.sv_emerg),ft='';
-  if(mo<=0)ft='Compila prima il Budget (passo 1): mi serve sapere quanto spendi al mese.';
+  var em=num(S.bud.sv_emerg),box=$('#f-txt'),mN=num(S.fund.mesi)||0;
+  if(mo<=0){box.innerHTML='<p class="sub">Compila prima il Budget (passo 1): mi serve sapere quanto spendi al mese.</p>'}
   else{
-    ft='Spendi circa '+eur(mo)+' al mese (dal tuo Budget). Obiettivo: '+eur(tg)+'. '+(sv>=tg?'Obiettivo raggiunto.':'Ti mancano '+eur(tg-sv)+'.');
-    if(sv<tg&&em>0)ft+=' Mettendo da parte '+eur(em)+' al mese ci arrivi in circa '+Math.ceil((tg-sv)/em)+' mesi.';
-    else if(sv<tg)ft+=' Inserisci una cifra mensile per il fondo emergenza in «Obiettivi a breve termine», «Cosa fai di ciò che ti resta a fine mese?».';
+    var raw=tg>0?sv/tg*100:0,pc=Math.max(0,Math.min(100,Math.floor(raw))),miss=tg-sv,full=raw>=100,
+      blocks='',k;for(k=0;k<10;k++){var f=Math.max(0,Math.min(1,(Math.min(100,raw)-k*10)/10));blocks+='<i style="--f:'+(f*100)+'%"></i>'}
+    var msg=full?'Obiettivo raggiunto! Il fondo è completo.':pc>=70?'Ci sei quasi: ancora '+eur(miss):pc>=30?'Sei in cammino: ancora '+eur(miss):'Si parte: ancora '+eur(miss);
+    var eta=(!full&&em>0)?'<p class="sub" style="margin:10px 0 0">Mettendo da parte '+eur(em)+' al mese ci arrivi in circa '+Math.ceil(miss/em)+' mesi.</p>':'';
+    box.innerHTML='<div class="fd-card"><div class="fd-r"><span>Oggi spendi al mese</span><b>'+eur(mo)+'</b></div><div class="fd-r"><span>Obiettivo ('+mN+(mN===1?' mese':' mesi')+' di spese)</span><b>'+eur(tg)+'</b></div><div class="fd-r"><span>Nel fondo ora</span><b>'+eur(sv)+'</b></div><div class="fd-r"><span>'+(full?'Surplus':'Ti mancano')+'</span><b class="'+(full?'fd-ok':'fd-bad')+'">'+eur(Math.abs(miss))+'</b></div>'
+     +'<div class="fd-p"><span class="fd-big">'+pc+'%</span><small>dell\'obiettivo completato</small></div>'
+     +'<div class="fd-e"><div><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="22" width="44" height="34" rx="2" fill="#8a97a0"/><rect x="16" y="28" width="8" height="8" fill="#cfd8dd"/><rect x="28" y="28" width="8" height="8" fill="#cfd8dd"/><rect x="40" y="28" width="8" height="8" fill="#cfd8dd"/><rect x="16" y="42" width="8" height="14" fill="#5b6770"/><rect x="40" y="42" width="8" height="8" fill="#cfd8dd"/><path d="M6 22 L32 8 L58 22Z" fill="#6c7880"/><rect x="14" y="2" width="36" height="12" rx="2" fill="#c0392b" transform="rotate(-8 32 8)"/><text x="32" y="11" font-size="7" text-anchor="middle" fill="#fff" font-weight="900" transform="rotate(-8 32 8)">FALLITO</text></svg><span>0% · sei a secco</span></div><div class="fd-rt"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="3" y="3" width="15" height="9" rx="1.5" fill="#2ea36b" transform="rotate(-16 10 8)"/><circle cx="10" cy="8" r="2.4" fill="#d9f2e5"/><rect x="44" y="1" width="15" height="9" rx="1.5" fill="#2ea36b" transform="rotate(14 51 6)"/><circle cx="51" cy="6" r="2.4" fill="#d9f2e5"/><path d="M26 28 L14 14 M38 28 L50 12" stroke="#f0c9a0" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="20" r="6.5" fill="#f0c9a0"/><path d="M25 17 Q32 9 39 17 Q32 14 25 17Z" fill="#3a2a1a"/><path d="M24 27 H40 L42 44 H22 Z" fill="#f2c230"/><path d="M26 44 L24 58" stroke="#2c5aa0" stroke-width="5" stroke-linecap="round"/><path d="M38 44 L46 52" stroke="#2c5aa0" stroke-width="5" stroke-linecap="round"/><path d="M24 58 H29" stroke="#2c5aa0" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="56" r="6" fill="#fff" stroke="#7d8a93" stroke-width="1.6"/><path d="M50 53 L53 55.5 L52 59 H48 L47 55.5Z" fill="#5b6770"/></svg><span>100% · obiettivo raggiunto</span></div></div>'
+     +'<div class="fd-bar" role="progressbar" aria-label="Fondo di emergenza" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pc+'">'+blocks+'</div>'
+     +'<div class="fd-t"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span><span>100%</span></div>'
+     +'<span class="fd-badge'+(full?' ok':'')+'">'+msg+'</span>'+eta+'</div>';
   }
-  $('#f-txt').textContent=ft;
 }
 function buildPerc(){
   $('#steps').innerHTML=PSTEPS.map(stepHtml).join('');
@@ -2764,7 +2778,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
 (function(){
   function stack(){Array.prototype.forEach.call(document.querySelectorAll('table'),function(t){
-    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4||t.classList.contains('gt3')||t.classList.contains('gres'))return;
+    var th=t.tHead?t.tHead.rows[0]:null;if(!th||th.cells.length<4||t.classList.contains('gt3')||t.classList.contains('gres')||t.classList.contains('atab'))return;
     var L=[];Array.prototype.forEach.call(th.cells,function(c){for(var k=0;k<(c.colSpan||1);k++)L.push(c.textContent.trim())});
     t.classList.add('stk');
     Array.prototype.forEach.call(t.tBodies,function(tb){Array.prototype.forEach.call(tb.rows,function(r){var col=0;
@@ -3028,12 +3042,12 @@ function lockedMsg(t){var f=function(){showTab('percorso');window.scrollTo(0,0)}
   if(window.ttConfirm)window.ttConfirm('<b>Sezione bloccata</b> \ud83d\udd12 '+m,'Vai al percorso',f,'Ok');else f()}
 window.ttRefreshLocks=refreshLocks;window.ttFixLock=function(){if(tabLocked(S.tab))showTab('percorso')};
 
-(function(){function sub(k,ns){document.querySelectorAll('#p-pens .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-pens .lsb').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-sub')===k?'true':'false')});var t=k&&document.querySelector('#sub-'+k);if(t&&!ns&&t.scrollIntoView){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
+(function(){function sub(k,ns){try{if(window.__subRec){(S.sb=S.sb||{}).pens=k;save()}}catch(e){}document.querySelectorAll('#p-pens .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-pens .lsb').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-sub')===k?'true':'false')});var t=k&&document.querySelector('#sub-'+k);if(t&&!ns&&t.scrollIntoView){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
 window.ttSub=function(k){if(/^f-/.test(k))fsub(k,1);else if(/^o-/.test(k))osub(k,1);else sub(k,1)};
-function osub(k,open){var d=document.getElementById('sub-'+k),show=open?true:!(d&&!d.hidden);document.querySelectorAll('#p-obiettivi .lsub').forEach(function(x){x.hidden=true});document.querySelectorAll('#p-obiettivi .lsb').forEach(function(b){b.setAttribute('aria-pressed','false')});if(show&&d){d.hidden=false;var b=document.querySelector('#p-obiettivi .lsb[data-sub="'+k+'"]');if(b)b.setAttribute('aria-pressed','true')}}
+function osub(k,open){try{if(window.__subRec){var dd=document.getElementById('sub-'+k);(S.sb=S.sb||{}).obiettivi=(open||(dd&&dd.hidden))?k:'';save()}}catch(e){}var d=document.getElementById('sub-'+k),show=open?true:!(d&&!d.hidden);document.querySelectorAll('#p-obiettivi .lsub').forEach(function(x){x.hidden=true});document.querySelectorAll('#p-obiettivi .lsb').forEach(function(b){b.setAttribute('aria-pressed','false')});if(show&&d){d.hidden=false;var b=document.querySelector('#p-obiettivi .lsb[data-sub="'+k+'"]');if(b)b.setAttribute('aria-pressed','true')}}
 document.querySelectorAll('#p-obiettivi .lsb').forEach(function(b){b.addEventListener('click',function(){osub(b.getAttribute('data-sub'))})});
 document.addEventListener('click',function(e){var q=e.target.closest&&e.target.closest('[data-qm]');if(!q)return;e.preventDefault();var t=document.getElementById(q.getAttribute('data-qm'));if(!t)return;t.hidden=!t.hidden;q.setAttribute('aria-expanded',t.hidden?'false':'true')});sub('comp',1);
-function fsub(k,ns){document.querySelectorAll('#p-fondo .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-fondo .lsb').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-sub')===k?'true':'false')});var t=document.querySelector('#sub-'+k);if(t&&!ns&&t.scrollIntoView){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
+function fsub(k,ns){try{if(window.__subRec){(S.sb=S.sb||{}).fondo=k;save()}}catch(e){}document.querySelectorAll('#p-fondo .lsub').forEach(function(d){d.hidden=(d.id!=='sub-'+k)});document.querySelectorAll('#p-fondo .lsb').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-sub')===k?'true':'false')});var t=document.querySelector('#sub-'+k);if(t&&!ns&&t.scrollIntoView){try{t.scrollIntoView({block:'start',behavior:'smooth'})}catch(e){}}}
 fsub('f-reg',1);document.querySelectorAll('#p-fondo .lsb').forEach(function(b){b.addEventListener('click',function(){fsub(b.getAttribute('data-sub'))})});
 document.querySelectorAll('#p-pens .lsb').forEach(function(b){b.addEventListener('click',function(){sub(b.getAttribute('data-sub'))})})})();
 
@@ -3268,8 +3282,10 @@ buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closes
 })();
 [['#p-contratto','contr'],['#p-conformita','comp'],['#p-netto','sim']].forEach(function(x){var el=$(x[0]);['input','change'].forEach(function(ev){el.addEventListener(ev,function(){if(!S.used[x[1]]){S.used[x[1]]=1;save()}})})});
 buildPerc();
-var h=(location.hash||'').replace('#','');
-if(tabLocked(h))h='percorso';refreshLocks();showTab(['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'].indexOf(h)>-1?h:'percorso');
+var h=(location.hash||'').replace('#','');var TABS=['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'];
+if(!h&&S.booted&&TABS.indexOf(S.tab)>-1)h=S.tab;
+if(tabLocked(h))h='percorso';refreshLocks();var t0=TABS.indexOf(h)>-1?h:'percorso';showTab(t0);S.booted=1;save();
+try{var sk=(S.sb||{})[t0];if(sk&&(t0==='fondo'||t0==='obiettivi'||t0==='pens')&&window.ttSub)window.ttSub(sk)}catch(e){}window.__subRec=1;
 })();
 </script>
 <script id="tt3d">
