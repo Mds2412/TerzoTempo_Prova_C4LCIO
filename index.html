@@ -1007,7 +1007,7 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
   </div>
   <div class="lsub" id="sub-f-mio" hidden>
   <h2>I miei conti</h2>
-  <p class="sub">Inserisci i tuoi conti e i contanti, con il valore di oggi. Spunta «Nel fondo» per quelli che fanno parte del fondo di emergenza. Puoi cambiare i valori quando vuoi: il fondo si aggiorna.</p>
+  <p class="sub"><b>Contanti</b> e <b>Conto corrente</b> arrivano da Budget e Obiettivi: se li cambi qui, cambiano anche lì. Gli investimenti non contano nel fondo. Spunta «Nel fondo» per quello che fa parte del fondo di emergenza e aggiungi altri conti se ne hai. Puoi cambiare i valori quando vuoi: il fondo si aggiorna.</p>
   <div class="dbt"><div id="a-list"></div><button type="button" class="btn ghost" id="a-add">+ Aggiungi conto o contanti</button><div id="a-sum" class="sub"></div></div>
   <h2>Il mio obiettivo</h2>
   <div class="fields fnd"><div><label class="l" for="f-mesi">Quanti mesi di spese voglio avere da parte</label><select id="f-mesi"><option value="1">1 mese</option><option value="2">2 mesi</option><option value="3">3 mesi</option><option value="4">4 mesi</option><option value="6">6 mesi</option><option value="9">9 mesi</option><option value="12">12 mesi</option></select></div></div>
@@ -2322,8 +2322,9 @@ var PSTEPS=[
   why:'La pensione di base può non bastare. Pensarci presto costa meno ogni mese e il tempo fa crescere i soldi.',
   how:'<b>Mini-missione:</b> in «Pianificazione a lungo termine» > «Interesse composto» scrivi quanto vuoi versare al mese. Poi, in «Pensione integrativa», spunta come la stai costruendo.'}
 ];
-function fundSaved(){var a=S.fund.acc||[];if(a.length)return a.reduce(function(s,r){return s+(r.f?num(r.v):0)},0);return num(S.fund.saved)}
-function fundCash(){return (S.fund.acc||[]).reduce(function(s,r){return s+(r.f&&r.t==='contanti'?num(r.v):0)},0)}
+function fundLk(){var G=S.goals||{},F=S.fund.fl||{};return {c:F.c0?num(G.c0):0,cc:F.cc0?num(G.cc0):0,on:!!(F.c0||F.cc0)}}
+function fundSaved(){var a=S.fund.acc||[],L=fundLk();if(a.length||L.on)return a.reduce(function(s,r){return s+(r.f?num(r.v):0)},0)+L.c+L.cc;return num(S.fund.saved)}
+function fundCash(){return (S.fund.acc||[]).reduce(function(s,r){return s+(r.f&&r.t==='contanti'?num(r.v):0)},0)+fundLk().c}
 function pMonthly(){return calcBud().sp/12}
 function dMonths(d){
   var res=num(d.res),rata=num(d.rata),r=num(d.tan)/1200;
@@ -2639,12 +2640,16 @@ function stepHtml(st){
   return h+'</div></details>';
 }
 var ATYPES=[['conto','Conto corrente'],['deposito','Conto deposito'],['prepagata','Carta prepagata'],['contanti','Contanti'],['altro','Altro']];
+function setLinked(k,v){S.goals=S.goals||{};S.goals[k]=v;try{syncBal()}catch(e){}var xs=document.querySelectorAll('[data-goal="'+k+'"]');[].forEach.call(xs,function(x){x.value=v});if(xs[0])xs[0].dispatchEvent(new Event('input',{bubbles:true}))}
 function renderAcc(){
-  var L=S.fund.acc;
-  $('#a-list').innerHTML=L.map(function(d,i){
+  var L=S.fund.acc,G=S.goals||{},F=S.fund.fl||(S.fund.fl={});
+  var LK=[['c0','Contanti','contanti'],['cc0','Conto corrente','conto']];
+  var lk=LK.map(function(k){return '<div class="drow arow lkd"><input type="text" aria-label="Nome del conto" value="'+k[1]+'" disabled><select aria-label="Tipo" disabled><option>'+(k[2]==='contanti'?'Contanti':'Conto corrente')+'</option></select><div class="eur"><input type="text" inputmode="decimal" aria-label="Importo oggi: '+k[1]+'" placeholder="0" data-ai="L:'+k[0]+'" data-af="v" value="'+esc(G[k[0]]||'')+'"></div><label class="chk"><input type="checkbox" data-ai="L:'+k[0]+'" data-af="f"'+(F[k[0]]?' checked':'')+'><span>Nel fondo</span></label><span></span></div>'}).join('');
+  $('#a-list').innerHTML=lk+L.map(function(d,i){
     return '<div class="drow arow"><input type="text" aria-label="Nome del conto" placeholder="Nome (es. conto banca)" data-ai="'+i+'" data-af="n" value="'+esc(d.n||'')+'"><select aria-label="Tipo" data-ai="'+i+'" data-af="t">'+ATYPES.map(function(t){return '<option value="'+t[0]+'"'+(d.t===t[0]?' selected':'')+'>'+t[1]+'</option>'}).join('')+'</select><div class="eur"><input type="text" inputmode="decimal" aria-label="Importo oggi" placeholder="Importo oggi" data-ai="'+i+'" data-af="v" value="'+esc(d.v||'')+'"></div><label class="chk"><input type="checkbox" data-ai="'+i+'" data-af="f"'+(d.f?' checked':'')+'><span>Nel fondo</span></label><button type="button" class="btn ghost" data-arm="'+i+'" aria-label="Togli questo conto">✕</button></div>';
   }).join('');
-  $$('[data-ai]',$('#a-list')).forEach(function(el){var ev=el.type==='checkbox'||el.tagName==='SELECT'?'change':'input';el.addEventListener(ev,function(){S.fund.acc[+el.getAttribute('data-ai')][el.getAttribute('data-af')]=el.type==='checkbox'?el.checked:el.value;save();updatePerc()})});
+  $$('[data-ai]',$('#a-list')).forEach(function(el){var ev=el.type==='checkbox'||el.tagName==='SELECT'?'change':'input';el.addEventListener(ev,function(){var ai=el.getAttribute('data-ai'),f=el.getAttribute('data-af'),val=el.type==='checkbox'?el.checked:el.value;
+    if(ai.charAt(0)==='L'){var k=ai.slice(2);if(f==='f'){S.fund.fl[k]=val;save()}else setLinked(k,val)}else{S.fund.acc[+ai][f]=val;save()}updatePerc()})});
   $$('[data-arm]',$('#a-list')).forEach(function(b){b.onclick=function(){S.fund.acc.splice(+b.getAttribute('data-arm'),1);save();renderAcc();updatePerc()}});
 }
 function renderDebts(){
@@ -2723,8 +2728,8 @@ function updatePerc(){
   }
   $('#d-sum').innerHTML=sum;
   var mo=pMonthly(),tg=num(S.fund.mesi)*mo,sv=fundSaved();
-  (function(){var A=S.fund.acc||[],tot=A.reduce(function(s,r){return s+num(r.v)},0),inF=fundSaved(),cash=fundCash(),m='';
-    if(!A.length)m='Aggiungi i tuoi conti e i contanti per vedere da dove parti.';
+  (function(){var A=S.fund.acc||[],GG=S.goals||{},tot=A.reduce(function(s,r){return s+num(r.v)},0)+num(GG.c0)+num(GG.cc0),inF=fundSaved(),cash=fundCash(),m='';
+    if(!A.length&&tot<=0)m='Aggiungi i tuoi conti e i contanti per vedere da dove parti.';
     else{m='Liquidità totale: <b>'+eur(tot)+'</b>. Nel fondo di emergenza: <b>'+eur(inF)+'</b> (di cui contanti: '+eur(cash)+'). Fuori dal fondo: '+eur(tot-inF)+'.';
       if(inF>0&&cash<=0)m+='<br>Nessuna parte del fondo è in contanti: la regola 3 consiglia di tenerne un po\'.'}
     $('#a-sum').innerHTML=m})();
@@ -3044,7 +3049,7 @@ function showTab(t){
   if(t==='budget'||t==='obiettivi'||t==='invest'||t==='calc'||t==='pens')R.bud();
   if(t==='home')R.home();
   if(t==='faq')R.faq();
-  if(t==='fondo'||t==='debiti'){try{updatePerc()}catch(e){}}
+  if(t==='fondo'||t==='debiti'){try{if(t==='fondo')renderAcc();updatePerc()}catch(e){}}
   if(t==='percorso'){updatePerc();closeDone(pCur());var dd=$('#step-'+(pCur()+1));if(dd)dd.open=true}
   fitSoon();
   var ab=$('[data-tab="'+((t==='conformita'||t==='netto')?'contratto':t)+'"]'),tb=$('.tabs');if(ab&&tb&&tb.scrollWidth>tb.clientWidth)tb.scrollLeft=ab.offsetLeft-tb.clientWidth/2+ab.offsetWidth/2;
