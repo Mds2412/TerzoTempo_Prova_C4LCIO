@@ -719,6 +719,7 @@ h2 .qm{vertical-align:3px}
 #sv-body .sv-grid{background:transparent;border:0;border-radius:0;padding:0;gap:10px;max-width:640px}
 #sv-body .sv-grid .row{background:var(--surface);border:1px solid var(--line)!important;border-radius:12px;padding:10px 14px;margin:0}
 #sv-body .sv-grid .row:first-child{border-top:1px solid var(--line)!important}
+.dash .dseg{margin:8px 0 2px}.dash .dv2{font-size:24px}
 </style>
 
 <div class="wrap">
@@ -3074,9 +3075,9 @@ function percBar(){var f=document.getElementById('pp-fill');if(!f)return;var cur
     else{var cr=pCrit(st.n);fr=cr.length?cr.filter(function(c){return c[1]}).length/cr.length:0}
     tot+=(PW[i]||0)*fr;var cc=pCrit(st.n).filter(function(c){return !c[2]}),cd=cc.filter(function(c){return c[1]}).length;SG.push({n:st.n,w:PW[i]||10,fr:fr,d:st.n>cur+1?0:cd,t:cc.length,ok:st.n<=cur})});
   var p=Math.max(0,Math.min(100,Math.round(tot)));f.style.width=p+'%';f.parentNode.setAttribute('aria-valuenow',p);
-  var t=document.getElementById('pp-txt');if(t)t.textContent=p>=100?'100% di completamento. Gol! ⚽':p+'% di completamento';try{dashPaint(p,cur)}catch(e){}
+  var t=document.getElementById('pp-txt');if(t)t.textContent=p>=100?'100% di completamento. Gol! ⚽':p+'% di completamento';var segH=SG.map(function(s){return '<div class="sg'+(s.ok?' ok':'')+'" style="flex:'+s.w+' 1 0"><span class="sgb">'+(function(){var t=Math.max(1,s.t),o='',j,f;for(j=0;j<t;j++){f=Math.max(0,Math.min(1,s.fr*t-j));o+='<b><i style="width:'+Math.round(f*100)+'%"></i></b>'}return o})()+'</span><small>'+s.n+'</small><small class="sgc">'+(s.ok?'✓':s.d+'/'+s.t)+'</small></div>'}).join('');window.__segH=segH;try{dashPaint(p,cur)}catch(e){}
   var sg=document.getElementById('pp-seg');if(sg){sg.setAttribute('role','progressbar');sg.setAttribute('aria-valuemin','0');sg.setAttribute('aria-valuemax','100');sg.setAttribute('aria-valuenow',p);sg.setAttribute('aria-label','Avanzamento dei 7 passi');
-    sg.innerHTML=SG.map(function(s){return '<div class="sg'+(s.ok?' ok':'')+'" style="flex:'+s.w+' 1 0"><span class="sgb">'+(function(){var t=Math.max(1,s.t),o='',j,f;for(j=0;j<t;j++){f=Math.max(0,Math.min(1,s.fr*t-j));o+='<b><i style="width:'+Math.round(f*100)+'%"></i></b>'}return o})()+'</span><small>'+s.n+'</small><small class="sgc">'+(s.ok?'✓':s.d+'/'+s.t)+'</small></div>'}).join('')}}
+    sg.innerHTML=segH}}
 function dashBen(){var P=S.prof||{},g=(P.sex==='f'||P.sex==='m')?P.sex:'',n=String(P.nome||'').trim().toLowerCase().split(/\s+/)[0];
   if(!g&&n){var M=['andrea','luca','nicola','mattia','elia','gianluca','enea','tobia','jacopo','giosue','joshua','sasha'];
     if(M.indexOf(n)>-1)g='m';else if(/a$/.test(n))g='f';else if(/o$/.test(n))g='m'}
@@ -3086,9 +3087,9 @@ function dashPaint(p,cur){var d=document.getElementById('dash');if(!d)return;
   if(fresh){d.innerHTML='<div class="dc dw"><h3>'+dashBen()+(S.prof&&S.prof.nome?' '+String(S.prof.nome).replace(/[<>&"]/g,''):'')+' 👋</h3><p>Scopri in 5 minuti quanti soldi ti restano ogni mese.</p><button type="button" class="btn" data-dact="next"><span aria-hidden="true">⚡</span> Parti dal Budget lampo</button></div>';return}
   var b=ttBal(),tot=b.r+b.i,G=S.goals||{},T=num(G.r12)+num(G.i12),nm='',P=(window.ttPerc&&window.ttPerc.all)||[];
   if(cur<7&&P[cur])nm='Passo '+P[cur].n+': '+P[cur].t;
-  var Bd=S.bud||{},hasR=b.r>0||num(Bd.sv_emerg)>0,hasI=b.i>0||num(Bd.sv_pac)>0,lab=hasI&&hasR?'Risparmi e investimenti':hasI?'Investimenti':'Risparmi';
-  var soldi='<div class="k dq">Quanto hai oggi</div><div class="v">'+eur(tot)+'</div><div class="k">'+lab+'</div>'+(T>0?'<div class="k">Obiettivo tra 1 anno: <b>'+eur(T)+'</b></div><div class="k">Sei al '+Math.min(100,Math.round(tot/T*100))+'% di completamento rispetto al tuo obiettivo.</div><div class="bar"><i style="width:'+Math.min(100,tot/T*100)+'%"></i></div>':'<div class="k">'+(tot>0?'Quanto vuoi avere tra 1 anno?':'Scrivi quanto hai da parte')+'</div>');
-  d.innerHTML='<div class="dc"><div class="k dq">A che punto sei dei 7 PASSI?</div><div class="v">'+p+'%</div><div class="bar"><i style="width:'+p+'%"></i></div></div>'
+  var Bd=S.bud||{},hasR=b.r>0||num(Bd.sv_emerg)>0,hasI=b.i>0||num(Bd.sv_pac)>0,lab=hasI&&hasR?'Risparmi + investimenti':hasI?'Investimenti':'Risparmi';
+  var soldi='<div class="k dq">Quanto hai oggi?</div><div class="v">'+eur(tot)+'</div><div class="k">('+lab+')</div>'+(T>0?'<div class="k dq" style="margin-top:10px">Obiettivo a 1 anno</div><div class="v dv2">'+eur(T)+'</div><div class="k"><b>(Obiettivo completato al '+Math.min(100,Math.round(tot/T*100))+'%)</b></div><div class="bar"><i style="width:'+Math.min(100,tot/T*100)+'%"></i></div>':'<div class="k">'+(tot>0?'Quanto vuoi avere tra 1 anno?':'Scrivi quanto hai da parte')+'</div>');
+  d.innerHTML='<div class="dc"><div class="k dq">A che punto sei dei 7 PASSI?</div><div class="v">'+p+'%</div><div class="pp-seg dseg">'+(window.__segH||'')+'</div></div>'
    +'<div class="dg"><button type="button" class="dc dcb" data-dact="obi">'+soldi+'</button>'
    +'<div class="dc dn"><div class="k">Prossimo passo</div><div class="dnm">'+(cur>=7?'Fatto! Una volta al mese aggiorna i numeri.':nm||'Continua')+'</div><button type="button" class="btn" data-dact="next">Vai →</button></div></div>'}
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-dact]');if(!a)return;if(a.getAttribute('data-dact')==='obi'){if(tabLocked('obiettivi')){lockedMsg('obiettivi');return}showTab('obiettivi');window.scrollTo(0,0)}else if(window.ttNext)window.ttNext()});
