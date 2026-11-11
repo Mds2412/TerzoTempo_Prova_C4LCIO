@@ -2061,6 +2061,7 @@ document.addEventListener('toggle',fitSoon,true);
   function vis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud],#p-budget .sched.on [data-bt],#p-budget .sched.on [data-bp]')).filter(function(x){var r=x.closest('.row');return !x.disabled&&!x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!(r&&r.querySelector('input.cl'))})}
   document.addEventListener('focusin',function(e){var X=e.target;if(busy||!X||!X.matches)return;
     var isB=X.matches('#p-budget input[data-bud],#p-budget .sched.on [data-bt],#p-budget .sched.on [data-bp]');
+    try{if(X.matches('#p-budget input[data-bud]')){var L0=vis(),i0=L0.indexOf(X),T0=L0[i0+1];if(T0&&X.closest('#col-exp,#col-inc')!==T0.closest('#col-exp,#col-inc'))for(var a0=T0;a0;a0=a0.parentElement&&a0.parentElement.closest('details'))if(!a0.open)a0.open=true}}catch(e0){}
     if(S.bmode==='lampo'||Date.now()-ptr<700||!lastB||!document.contains(lastB)){lastB=isB?X:null;return}
     if(!X.matches('input,select,textarea,button')){return}
     var L=vis(),i=L.indexOf(lastB);if(i<0){lastB=isB?X:null;return}
@@ -3156,7 +3157,7 @@ function fillBal(){var b=ttBal(),B=calcBud(),avM=B.sur/12,sv=B.T.SV/12,fr=avM-sv
   if(bd)bd.hidden=!pos;if(rd)rd.hidden=!neg;if(pn)pn.classList.toggle('sv-neg',neg);
   if(vi)vi.innerHTML=pos?'<b>Congratulazioni!</b> Ogni mese guadagni più di quanto spendi, quindi hai un avanzo di <b>'+eur(avM)+'</b>.<br>È il momento di decidere dove vuoi metterlo (Investimenti, Risparmi, Vacanza, Beneficenza, ...).':(B.ent>0?(neg?'':'Entrate e spese si pareggiano: questo mese non ti avanza nulla da destinare.'):'Qui decidi dove mettere ciò che ti avanza ogni mese. Prima compila le entrate e le spese nel Budget: quando ti avanza qualcosa, lo vedi qui.');
   if(e)e.innerHTML=pos?'<span>'+(fr>=0?'Ancora da destinare: <b>'+eur(fr)+'</b>.':'Hai destinato <b>'+eur(-fr)+'</b> in più di quanto avanza.')+'</span>':'';
-  if(rd&&neg){rd.innerHTML='<div class="sv-redbox"><h4>Ops... qualcosa non va</h4><p>La situazione attuale è in rosso: spendi <b>'+eur(-avM)+'</b> al mese più di quanto entra. Abbiamo due strade: aumentare le entrate o ridurre le spese.</p><p>Pensi che alcune spese possano essere ridotte o siano superflue? Torniamo nel Budget e cerchiamo di trovare una soluzione.</p>'+(B.T.SV>0?'<p class="sub">Avevi indicato <b>'+eur(B.T.SV/12)+'</b> al mese da destinare: li ritrovi quando il Budget torna in positivo.</p>':'')+'<button class="btn" type="button" id="sv-goB">Torna al Budget</button></div>';var gb=$('#sv-goB');if(gb)gb.onclick=function(){if(tabLocked('budget')){lockedMsg('budget');return}showTab('budget');window.scrollTo(0,0)}}
+  if(rd&&neg){rd.innerHTML='<div class="sv-redbox"><h4>Ops... qualcosa non va</h4><p><b>La situazione attuale è in rosso: spendi '+eur(-avM)+' al mese più di quanto entra.</b> Abbiamo due strade: aumentare le entrate o ridurre le spese.</p><p>Pensi che alcune spese possano essere ridotte o siano superflue? Torniamo nel Budget e cerchiamo di trovare una soluzione.</p>'+(B.T.SV>0?'<p class="sub">Avevi indicato <b>'+eur(B.T.SV/12)+'</b> al mese da destinare: li ritrovi quando il Budget torna in positivo.</p>':'')+'<button class="btn" type="button" id="sv-goB">Torna al Budget</button></div>';var gb=$('#sv-goB');if(gb)gb.onclick=function(){if(tabLocked('budget')){lockedMsg('budget');return}showTab('budget');window.scrollTo(0,0)}}
   else if(rd)rd.innerHTML=''}
 function balCard(){var bl=ttBal(),tot=bl.r+bl.i,bh='<h3>I miei saldi oggi</h3>';
   if(tot<=0)return bh+'<p class="sub" style="margin:0 0 10px">Scrivi quanto hai oggi in contanti, sul conto e investito.</p><button class="btn ghost" type="button" data-go2="budget">Inserisci i saldi</button>';
@@ -3214,11 +3215,15 @@ function fullNext(G){var all=[].slice.call(document.querySelectorAll('#p-budget 
     setTimeout(function(){try{t.focus({preventScroll:true});t.classList.add('rnx');t.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}},60);return true}
   return false}
 function schedVis(){[].forEach.call(document.querySelectorAll('#p-budget .row'),function(r){var s=r.nextElementSibling;if(!s||!s.classList||!s.classList.contains('sched'))return;var i=r.querySelector('input[data-bud]');s.classList.toggle('on',S.bmode!=='lampo'&&!!i&&num(i.value)>0)})}
+function colJump(el){var L=rkVis(),i=L.indexOf(el);if(i<0||i>=L.length-1)return false;var T=L[i+1],cE=el.closest('#col-exp,#col-inc'),cT=T.closest('#col-exp,#col-inc');if(!cE||!cT||cE===cT)return false;
+  var Gs=el.closest('details.bsub');if(Gs){[].forEach.call(Gs.querySelectorAll('details.bgrp'),function(x){x.open=false});Gs.open=false}
+  for(var a=T;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
+  setTimeout(function(){try{T.focus({preventScroll:true});T.classList.add('rnx');T.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}},60);return true}
 function schedNext(sc){sc.dataset.skip='1';var G=sc.closest('details.bgrp'),row=sc.previousElementSibling,el=row&&row.querySelector('input[data-bud]');
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   var L=rkVis(),i=L.indexOf(el),nx=null;for(var k=i+1;k<L.length;k++){if(L[k].closest('details.bgrp')!==G)break;if(String(L[k].value).trim()===''&&!L[k].closest('.row').querySelector('input.cl')){nx=L[k];break}}
   if(nx){G.open=true;setTimeout(function(){nx.focus({preventScroll:true});nx.classList.add('rnx');nx.scrollIntoView({block:'center',behavior:'smooth'})},40)}
-  else setTimeout(function(){fullNext(G)},40)}
+  else setTimeout(function(){if(!colJump(el))fullNext(G)},40)}
 (function(){var pb=document.getElementById('p-budget');if(!pb)return;
   pb.addEventListener('input',function(e){if(e.target.matches&&e.target.matches('input[data-bud]'))schedVis()},true);
   pb.addEventListener('keydown',function(e){if(e.key!=='Enter')return;var t=e.target,sc=t.closest&&t.closest('.sched');if(!sc)return;e.preventDefault();
@@ -3233,6 +3238,7 @@ function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
   var sk=0;
   if(S.bmode==='lampo'){var g=el.closest('details.bsub');L.slice(0,i).forEach(function(x){if(x.closest('details.bsub')===g&&String(x.value).trim()===''&&!x.closest('.row').querySelector('input.cl')){x.classList.add('rsk');sk++}})}
   if(sk)ttToast('Ei boss, ricordati di completare tutte le voci. Se non ti riguarda? Scrivi 0.');
+  if(!sk&&colJump(el))return;
   var nx=null,cu=function(x){return !!x.closest('.row').querySelector('input.cl')};for(var k=i+1;k<L.length;k++)if(String(L[k].value).trim()===''&&!cu(L[k])){nx=L[k];break}
   if(S.bmode!=='lampo'){var G=el.closest('details.bgrp');if(G&&!cu(el)){var gin=[].slice.call(G.querySelectorAll('input[data-bud]')).filter(function(x){return !x.disabled&&!x.closest('.lp-hide')&&!cu(x)});
     if(gin.length&&gin[gin.length-1]===el&&gin.every(function(x){return String(x.value).trim()!==''})&&fullNext(G))return}}
