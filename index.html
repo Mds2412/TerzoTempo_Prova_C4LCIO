@@ -730,6 +730,8 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 .cwin{display:block;margin:0 0 14px}.cwin .l{display:block;margin:0 0 4px}.cw-sel{width:100%;max-width:100%;font-weight:700}
 .qhb{display:inline-block;margin-top:6px;padding:2px 10px;font:inherit;font-size:.74rem;line-height:1.5;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
 .qhp{margin-top:8px;padding:8px 12px;border-left:3px solid var(--line);font-size:.84rem;background:var(--bg);border-radius:0 8px 8px 0}.qhp ol{margin:0;padding-left:18px}.qhp li{margin:3px 0}
+.ea .sched{display:none}.ea .sched.on{display:grid}
+.swhy{margin:0 0 12px}.swhy ul.r ul{margin:4px 0 6px;padding-left:18px}.swhy>ul.r>li{margin:6px 0}
 </style>
 
 <div class="wrap">
@@ -1726,7 +1728,9 @@ function budBadges(closeNew,only){
     var ins=$$('.row input[data-bud]',d).filter(function(i){return !i.closest('.row').querySelector('input.cl')&&!i.closest('.lp-hide')&&!i.disabled});
     var ok=ins.length>0&&ins.every(function(i){return String(i.value).trim()!==''});
     d.classList.toggle('gdone',ok);
-    if(!ok)delete d.dataset.shut;
+    var pend=ok&&closeNew&&[].some.call(d.querySelectorAll('.sched.on'),function(s){var dd=s.querySelector('[data-bt]');return !s.dataset.skip&&dd&&!String(dd.value).trim()});
+    if(pend){}
+    else if(!ok)delete d.dataset.shut;
     else if(closeNew&&!d.dataset.shut){d.dataset.shut='1';d.open=false}
     else if(!closeNew&&!only&&!d.dataset.shut&&!d.open)d.dataset.shut='1';
   });
@@ -2046,9 +2050,9 @@ var rz=null;window.addEventListener('resize',function(){clearTimeout(rz);rz=setT
 document.addEventListener('toggle',fitSoon,true);
 (function(){var lastB=null,ptr=0,busy=0;
   ['pointerdown','touchstart','mousedown'].forEach(function(ev){document.addEventListener(ev,function(){ptr=Date.now()},true)});
-  function vis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.disabled&&!x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.closest('.row').querySelector('input.cl')})}
+  function vis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud],#p-budget .sched.on [data-bt],#p-budget .sched.on [data-bp]')).filter(function(x){var r=x.closest('.row');return !x.disabled&&!x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!(r&&r.querySelector('input.cl'))})}
   document.addEventListener('focusin',function(e){var X=e.target;if(busy||!X||!X.matches)return;
-    var isB=X.matches('#p-budget input[data-bud]');
+    var isB=X.matches('#p-budget input[data-bud],#p-budget .sched.on [data-bt],#p-budget .sched.on [data-bp]');
     if(S.bmode==='lampo'||Date.now()-ptr<700||!lastB||!document.contains(lastB)){lastB=isB?X:null;return}
     if(!X.matches('input,select,textarea,button')){return}
     var L=vis(),i=L.indexOf(lastB);if(i<0){lastB=isB?X:null;return}
@@ -2306,7 +2310,7 @@ var PSTEPS=[
   why:'Un contratto sbagliato può farti perdere soldi e tutele, e creare problemi con il tesseramento. Qui controlli che tipo di contratto serve e se il tuo è in regola.',
   how:'<b>Mini-missione:</b> inserisci i tuoi dati nel Contratto, rispondi a tutte le domande della Conformità e prova il Simulatore netto. Le 3 verifiche qui sotto sono consigliate: spuntale solo quando le hai fatte davvero.'},
  {n:4,t:'Fondo di emergenza e protezione assicurativa',tab:'fondo',go:'Vai a «Fondo di emergenza»',
-  why:'Il fondo copre infortuni, mesi senza compenso e imprevisti. Di solito hai solo l\'assicurazione del tesseramento, che ha limiti: massimali, franchigie e spesso nessun rimborso per il compenso che perdi mentre sei fermo. Controlla la tua polizza. Per questo conviene assicurarti anche da solo contro gli infortuni.',
+  why:'Sono <b>due protezioni diverse</b> e servono entrambe.<ul class="r"><li><b>Fondo di emergenza</b><ul><li><b>A cosa serve:</b> sono soldi tuoi, messi da parte e da toccare solo nelle vere emergenze.</li><li><b>Cosa copre:</b> mesi senza compenso, spese impreviste, periodi di stop.</li><li><b>Come ti tutela:</b> non devi chiedere prestiti né vendere investimenti quando capita un imprevisto.</li></ul></li><li><b>Protezione assicurativa</b><ul><li><b>Quella del club:</b> con il tesseramento hai già una polizza infortuni. Ha limiti (massimali, franchigie) e di solito non rimborsa il compenso che perdi mentre sei fermo. Chiedine copia al club.</li><li><b>Perché ne serve una tua:</b> a volte si resta scoperti, per esempio con un infortunio più lungo del previsto.</li><li><b>Come ti aiuta:</b> paghi una piccola quota ogni anno e, se ti fai male, puoi ricevere un indennizzo secondo le condizioni di polizza. Così gestisci meglio i tuoi soldi e stai più tranquillo.</li></ul></li></ul>',
   how:'<b>Mini-missione:</b> in «Fondo di emergenza» inserisci i tuoi conti e i contanti, spunta quelli che fanno parte del fondo e arriva ai mesi di spese che scegli. Poi chiedi per iscritto al club cosa copre l\'assicurazione del tesseramento. L\'assicurazione personale è facoltativa, ma consigliata.'},
  {n:5,t:'Analisi debiti',tab:'debiti',go:'Vai a «Debiti»',
   why:'Prima si tolgono i debiti con gli interessi più alti: di solito costano più di quanto renderebbe un investimento. È una regola generale, non una norma.',
@@ -2626,7 +2630,7 @@ function plTick(now){
 var pVert=null,pPos=null;
 function stepHtml(st){
   var h='<details class="step" id="step-'+st.n+'" data-n="'+st.n+'"><summary><span class="sbadge" id="sb-'+st.n+'">'+st.n+'</span><span class="gn">'+st.t+'</span><span class="spill" id="sp-'+st.n+'"></span></summary><div class="sbody">';
-  h+='<p>'+st.why+'</p><p class="sub">'+st.how+'</p><ul class="crit" id="cr-'+st.n+'"></ul>';
+  h+='<div class="swhy">'+st.why+'</div><p class="sub">'+st.how+'</p><ul class="crit" id="cr-'+st.n+'"></ul>';
   if(st.n===3)h+='<div class="chks">'+[['dep','Ho controllato che il mio contratto sia depositato in Lega'],['cop','Ho una copia firmata del mio contratto'],['pro','Conservo bonifici e ricevute di ogni pagamento']].map(function(c){return '<label class="chk" for="c-'+c[0]+'"><input type="checkbox" id="c-'+c[0]+'" data-chk="'+c[0]+'"><span>'+c[1]+'</span></label>'}).join('')+'</div>';
   if(st.n===6)h+='<div class="sgo"><button type="button" class="btn" data-pgo="invest">Le basi</button><button type="button" class="btn" data-pgo="pens:comp">Interesse composto</button></div>';
   else if(st.n===7)h+='<div class="sgo"><button type="button" class="btn" data-pgo="pens:comp">Interesse composto</button><button type="button" class="btn" data-pgo="pens:pens">Pensione integrativa</button></div>';
@@ -2843,7 +2847,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
       var o1={tab:'percorso',t:function(){closeDone(n);var d=document.getElementById('step-'+nx.n);if(d)d.open=true;return d},
         x:'<b>Ora tocca al passo '+nx.n+': '+nx.t+'</b><br>Perché è importante: '+nx.why+'<br><br>'+nx.how+(cr.length?'<br><br><b>Cosa manca:</b><br>'+cr.join('<br>'):'')};if(ret)return o1;window.ttCustom([o1])}
     var fired=0,fb,RMq=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function go(){if(fired)return;fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);window.removeEventListener('tt-unlocked',onU);if(!window.ttPerc)return;if(!TT.hidden){try{finish()}catch(e){return}}var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
+    function go(){if(fired)return;fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);window.removeEventListener('tt-arrived',onAr);window.removeEventListener('tt-unlocked',onU);if(!window.ttPerc)return;if(!TT.hidden){try{finish()}catch(e){return}}var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti, ce l\'hai fatta!!!</b> Hai completato i 7 passi. Sono fiero di te. È stato un onore per me poterti supportare nel percorso. Sei sulla strada giusta verso la tua indipendenza finanziaria.<br><br>Il tuo lavoro non finisce ora: continua ad <b>aggiornare i dati mensilmente</b> per raggiungere i tuoi obiettivi a lungo termine!'}]);return}
       var ut=n===1?' \ud83d\udd13 Ho sbloccato <b>«Obiettivi a breve termine»</b> e <b>«Dove sono oggi?»</b>.':n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Le basi dell\'investire, La tua proiezione e Pianificazione a lungo termine</b>.':n===3?' \ud83d\udd13 Ho sbloccato <b>Fondo di emergenza</b>.':n===4?' \ud83d\udd13 Ho sbloccato <b>Debiti</b>.':'';
       if(n===1){S.skipFull=1;save();var o2=PS[1],o2t=function(){if(window.ttSub)window.ttSub('o-goals');var e=document.querySelector('#p-obiettivi [data-goal="r6"]');if(e)gpsOpen(e);return e};
@@ -2851,10 +2855,11 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
         window.ttCustom([{t:null,x:'<b>Gol!</b> ⚽ Passo '+nm+' fatto!'+ut},{tab:'obiettivi',t:o2t,x:'<b>Ora tocca al passo 2: '+o2.t+'</b><br>Perché è importante: '+o2.why+'<br><br>'+o2.how}]);return}
       window.ttCustom([{t:null,x:'<b>Gol!</b> ⚽ Passo '+nm+' fatto!'+ut},status(1)])}
     function onA(){setTimeout(go,500)}
-    function onU(e){if(!(e.detail>=n))return;window.removeEventListener('tt-unlocked',onU);setTimeout(go,700)}
+    function onAr(){setTimeout(go,2200)}
+    function onU(e){if(!(e.detail>=n))return;window.removeEventListener('tt-unlocked',onU);window.addEventListener('tt-arrived',onAr,{once:true});clearTimeout(fb);fb=setTimeout(go,9000)}
     if(n>=7)window.addEventListener('tt-arrived',onA,{once:true});else window.addEventListener('tt-unlocked',onU);
-    fb=setTimeout(go,RMq?2500:(n>=7?65000:(window.TT3D?12000:2500)));
-    window.__celCancel=function(){fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);window.removeEventListener('tt-unlocked',onU)}};
+    fb=setTimeout(go,RMq?2500:(n>=7?65000:(window.TT3D?16000:2500)));
+    window.__celCancel=function(){fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);window.removeEventListener('tt-arrived',onAr);window.removeEventListener('tt-unlocked',onU)}};
   function gpsOpen(el){var p=el;while(p){if(p.tagName==='DETAILS')p.open=true;p=p.parentElement}return el}
   function gpsLab(el){var l=el.id&&document.querySelector('label[for="'+el.id+'"]'),t=l?l.textContent:(el.getAttribute('aria-label')||'');if(!t){var r=el.closest('.row,.q,label');t=r?((r.querySelector('label,.l')||r).textContent||''):''}return (t||'').trim().replace(/\s+/g,' ').slice(0,70)}
   function gpsFilled(i){return String(i.value||'').trim()!==''}
@@ -3189,9 +3194,23 @@ function fullNext(G){var all=[].slice.call(document.querySelectorAll('#p-budget 
     for(var a=g;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
     setTimeout(function(){try{t.focus({preventScroll:true});t.classList.add('rnx');t.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}},60);return true}
   return false}
+function schedVis(){[].forEach.call(document.querySelectorAll('#p-budget .row'),function(r){var s=r.nextElementSibling;if(!s||!s.classList||!s.classList.contains('sched'))return;var i=r.querySelector('input[data-bud]');s.classList.toggle('on',!!i&&num(i.value)>0)})}
+function schedNext(sc){sc.dataset.skip='1';var G=sc.closest('details.bgrp'),row=sc.previousElementSibling,el=row&&row.querySelector('input[data-bud]');
+  if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  var L=rkVis(),i=L.indexOf(el),nx=null;for(var k=i+1;k<L.length;k++){if(L[k].closest('details.bgrp')!==G)break;if(String(L[k].value).trim()===''&&!L[k].closest('.row').querySelector('input.cl')){nx=L[k];break}}
+  if(nx){G.open=true;setTimeout(function(){nx.focus({preventScroll:true});nx.classList.add('rnx');nx.scrollIntoView({block:'center',behavior:'smooth'})},40)}
+  else setTimeout(function(){fullNext(G)},40)}
+(function(){var pb=document.getElementById('p-budget');if(!pb)return;
+  pb.addEventListener('input',function(e){if(e.target.matches&&e.target.matches('input[data-bud]'))schedVis()},true);
+  pb.addEventListener('keydown',function(e){if(e.key!=='Enter')return;var t=e.target,sc=t.closest&&t.closest('.sched');if(!sc)return;e.preventDefault();
+    if(t.matches('[data-bt]')){var p=sc.querySelector('[data-bp]');if(p){t.blur();p.focus();p.scrollIntoView({block:'center',behavior:'smooth'})}}
+    else schedNext(sc)});
+  pb.addEventListener('focusout',function(e){var sc=e.target.closest&&e.target.closest('.sched');if(!sc||(e.relatedTarget&&sc.contains(e.relatedTarget)))return;if(e.target.matches('[data-bp]')){sc.dataset.skip='1';var G=sc.closest('details.bgrp');setTimeout(function(){try{budBadges(true,G)}catch(x){}},0)}})})();
 function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
   [].forEach.call(document.querySelectorAll('#p-budget .rnx'),function(x){x.classList.remove('rnx')});
   if(String(el.value).trim()==='')return;
+  var rw=el.closest('.row'),sc0=rw&&rw.nextElementSibling;
+  if(sc0&&sc0.classList&&sc0.classList.contains('sched')&&num(el.value)>0&&!sc0.dataset.skip&&!S.bud['D_'+el.getAttribute('data-bud')]){schedVis();if(document.activeElement===el){var dt0=sc0.querySelector('[data-bt]');if(dt0){dt0.focus({preventScroll:true});dt0.scrollIntoView({block:'center',behavior:'smooth'})}}return}
   var sk=0;
   if(S.bmode==='lampo'){var g=el.closest('details.bsub');L.slice(0,i).forEach(function(x){if(x.closest('details.bsub')===g&&String(x.value).trim()===''&&!x.closest('.row').querySelector('input.cl')){x.classList.add('rsk');sk++}})}
   if(sk)ttToast('Ei boss, ricordati di completare tutte le voci. Se non ti riguarda? Scrivi 0.');
@@ -3208,7 +3227,7 @@ function rkInit(){var pb=document.getElementById('p-budget');if(pb){pb.addEventL
   ['input','change'].forEach(function(ev){document.addEventListener(ev,function(){clearTimeout(__pbT);__pbT=setTimeout(function(){try{percBar()}catch(e){}},300)},true)});
   (function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{rkPaint();curaLab()}catch(e){}return x}})();
   rkPaint();try{curaLab();percBar()}catch(e){}}
-buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.qhb');if(!b)return;var p=b.nextElementSibling,o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Chiudi':'Come controllo?'});buildBudget();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
+buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.qhb');if(!b)return;var p=b.nextElementSibling,o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Chiudi':'Come controllo?'});buildBudget();schedVis();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}try{schedVis()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
 
 (function(){
   var KEY='terzotempo.',FB_URL='',msg=document.getElementById('hlp-msg');
