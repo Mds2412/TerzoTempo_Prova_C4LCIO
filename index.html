@@ -714,7 +714,7 @@ h2 .qm{vertical-align:3px}
 #sv-intro:empty{display:none}#sv-avail:empty{display:none}
 .soon{display:flex;gap:12px;align-items:center;border:1px dashed var(--line);border-radius:12px;padding:14px 16px;margin:0 0 26px;color:var(--muted)}
 .soon-i{font-size:1.6rem;line-height:1}.soon b{display:block;color:var(--ink);font-size:.95rem}.soon small{font-size:.8rem}
-#sub-o-tasso h2{margin-bottom:16px}#sub-o-tasso .qm-t.qm-on{display:block!important;margin:0 0 18px}#sub-o-tasso .card .l{display:block;font-weight:700;margin:0}
+#sub-o-tasso h2{margin-bottom:16px}#sub-o-tasso .card .l{display:block;font-weight:700;margin:0}
 #obj-out .pill{white-space:normal;text-align:left;max-width:100%}
 #sv-body .sv-grid{background:transparent;border:0;border-radius:0;padding:0;gap:10px;max-width:640px}
 #sv-body .sv-grid .row{background:var(--surface);border:1px solid var(--line)!important;border-radius:12px;padding:10px 14px;margin:0}
@@ -940,8 +940,8 @@ h2 .qm{vertical-align:3px}
   <div class="lsubs lsubs2" role="group" aria-label="Argomenti"><button type="button" class="lsb" data-sub="o-tasso" aria-pressed="false">Quanto risparmio</button><button type="button" class="lsb" data-sub="o-goals" aria-pressed="false">Obiettivi a breve</button></div>
   <div class="lsub" id="sub-o-tasso" hidden>
   <h2>Quanto risparmio attualmente ogni mese?</h2>
-  <p class="qm-t qm-on" id="qm1">Il tasso di risparmio è la parte delle tue entrate che ti avanza dopo le spese. Esempio: entrano 1.000 € e ne avanzano 150, quindi risparmi il 15%.</p>
-  <div class="card" style="margin-bottom:26px"><div class="fields obj-f" style="margin:0 0 12px"><div><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate (%)?</label><p class="qm-t qm-on" style="margin:8px 0 10px">È il tuo obiettivo: quanta parte delle entrate vuoi riuscire a mettere da parte. Come regola pratica (non è obbligatoria) molti puntano al 10-30%. Se vivi con i tuoi puoi puntare al 30-50% o più.</p><input type="text" inputmode="decimal" id="obj" placeholder="es. 15%" autocomplete="off"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
+  <p class="sub" id="qm1" style="margin:0 0 18px">Il tasso di risparmio è la parte delle tue entrate che ti avanza dopo le spese. Esempio: entrano 1.000 € e ne avanzano 150, quindi risparmi il 15%.</p>
+  <div class="card" style="margin-bottom:26px"><div class="fields obj-f" style="margin:0 0 12px"><div><label class="l" for="obj">Quanto vorresti risparmiare sulle entrate (%)?</label><p class="sub" style="margin:6px 0 12px">È il tuo obiettivo: quanta parte delle entrate vuoi riuscire a mettere da parte. Come regola pratica (non è obbligatoria) molti puntano al 10-30%. Se vivi con i tuoi puoi puntare al 30-50% o più.</p><input type="text" inputmode="decimal" id="obj" placeholder="es. 15%" autocomplete="off"></div></div><div class="sumline" id="obj-out" style="margin-top:0"></div></div>
   <div class="soon"><span class="soon-i" aria-hidden="true">🛬</span><div><b>Consigli per risparmiare di più e spendere di meno</b><small>In arrivo a breve</small></div></div>
   </div>
   <div class="lsub" id="sub-o-goals" hidden>
@@ -2775,6 +2775,9 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     function go(){if(fired)return;fired=1;clearTimeout(fb);window.removeEventListener('tt-arrived',onA);window.removeEventListener('tt-unlocked',onU);if(!window.ttPerc)return;if(!TT.hidden){try{finish()}catch(e){return}}var PS=window.ttPerc.all,st=PS[n-1],nm='«'+st.t+'»';
       if(n>=7){window.ttCustom([{t:null,x:'<b>Complimenti, ce l\'hai fatta!!!</b> Hai completato i 7 passi. Sono fiero di te. È stato un onore per me poterti supportare nel percorso. Sei sulla strada giusta verso la tua indipendenza finanziaria.<br><br>Il tuo lavoro non finisce ora: continua ad <b>aggiornare i dati mensilmente</b> per raggiungere i tuoi obiettivi a lungo termine!'}]);return}
       var ut=n===1?' \ud83d\udd13 Ho sbloccato <b>«Obiettivi a breve termine»</b> e <b>«Dove sono oggi?»</b>.':n===2?' \ud83d\udd13 Ho sbloccato <b>Contratto, Conformità e Simulatore netto</b>.':n===5?' \ud83d\udd13 Ho sbloccato <b>Le basi dell\'investire, La tua proiezione e Pianificazione a lungo termine</b>.':n===3?' \ud83d\udd13 Ho sbloccato <b>Fondo di emergenza</b>.':n===4?' \ud83d\udd13 Ho sbloccato <b>Debiti</b>.':'';
+      if(n===1){S.skipFull=1;save();var o2=PS[1],o2t=function(){if(window.ttSub)window.ttSub('o-goals');var e=document.querySelector('#p-obiettivi [data-goal="r6"]');if(e)gpsOpen(e);return e};
+        window.__ttAfter=function(){var e=document.querySelector('#p-obiettivi [data-goal="r6"]');if(!e)return;try{e.scrollIntoView({block:'center',behavior:'smooth'})}catch(x){}setTimeout(function(){try{e.focus({preventScroll:true})}catch(x){}e.classList.add('tt-flash');setTimeout(function(){e.classList.remove('tt-flash')},1600)},400)};
+        window.ttCustom([{t:null,x:'<b>Gol!</b> ⚽ Passo '+nm+' fatto!'+ut},{tab:'obiettivi',t:o2t,x:'<b>Ora tocca al passo 2: '+o2.t+'</b><br>Perché è importante: '+o2.why+'<br><br>'+o2.how}]);return}
       window.ttCustom([{t:null,x:'<b>Gol!</b> ⚽ Passo '+nm+' fatto!'+ut},status(1)])}
     function onA(){setTimeout(go,500)}
     function onU(e){if(!(e.detail>=n))return;window.removeEventListener('tt-unlocked',onU);setTimeout(go,700)}
@@ -2801,7 +2804,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
       if(bm!=='lampo'&&nx&&nx.n===1&&c.length>3&&c[0][1]&&c[1][1]&&c[2][1]&&!c[3][1]){var LB=[].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.disabled}),lastB=-1;LB.forEach(function(x,j){if(gpsFilled(x))lastB=j});
         if(!LB.slice(lastB+1).some(function(x){return !gpsFilled(x)})){var sd2=[].slice.call(document.querySelectorAll('#bal-panel [data-goal]')).filter(function(i){return String(i.value||'').trim()===''})[0];if(sd2)return {tab:'budget',el:sd2,x:head+'📍 Ultimo pezzo del passo 1: <b>«Soldi messi da parte»</b>.<br>Scrivi quanto hai oggi: <b>«'+gpsLab(sd2)+'»</b>. Non ne hai? Scrivi 0.'}}}
       var el=budNext();if(!el&&bm==='lampo'){var bf=document.getElementById('bm-full');if(bf)return {tab:'budget',el:bf,x:'<b>Budget lampo completato!</b><br>📍 Quando vuoi, estendilo al Budget completo per numeri precisi. Il lampo resta salvato; il completo parte da zero.'}}return el?{tab:'budget',el:el,sel:function(){return document.querySelector('#b_'+el.getAttribute('data-bud'))},x:((nx&&(nx.n===1||nx.n===4))?head:'<b>Continuiamo il Budget</b><br>')+'📍 Prossima casella: <b>«'+gpsLab(el)+'»</b>.<br>Scrivi l\'importo. Non ce l\'hai? Scrivi 0.'+(extra||'')}:null}
-    if((S.tab==='budget'&&!(nx&&nx.n>=2&&S.skipFull))||(nx&&nx.n===1)){var b=B();if(b)return b}
+    if((S.tab==='budget'&&!nx)||(nx&&nx.n===1)){var b=B();if(b)return b}
     if(!nx)return null;
     var s=nx.n,q;
     if(s===2){q=firstEmpty('#p-obiettivi [data-goal="r6"],#p-obiettivi [data-goal="i6"],#p-obiettivi [data-goal="r12"],#p-obiettivi [data-goal="i12"],#p-obiettivi [data-goal="r24"],#p-obiettivi [data-goal="i24"],#p-obiettivi [data-goal="r60"],#p-obiettivi [data-goal="i60"]');return q&&{tab:'obiettivi',sub:'o-goals',el:q,x:head+'📍 Prossima casella: <b>«'+gpsLab(q)+'»</b>.<br>Se non hai questo obiettivo, scrivi 0.'}}
@@ -2826,7 +2829,7 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     return null}
   window.ttGps=gpsPlan;
   window.ttNext=function(){var P=window.ttPerc.all,n=0;for(var k=1;k<=7;k++){if(window.ttPerc.crit(k).filter(function(c){return !c[2]}).every(function(c){return c[1]}))n=k;else break}
-    if(n>=1&&n<7&&S.tab==='budget'&&S.bmode==='full'&&!S.skipFull&&!window.__fullYes&&window.ttConfirm){var fe=null;try{fe=budNext()}catch(e){}
+    if(false&&n>=1&&n<7&&S.tab==='budget'&&S.bmode==='full'&&!S.skipFull&&!window.__fullYes&&window.ttConfirm){var fe=null;try{fe=budNext()}catch(e){}
       if(fe){window.ttConfirm('<b>Il passo 1 è fatto!</b><br>Puoi continuare col <b>Budget completo</b> (numeri più precisi), oppure andare avanti con il <b>passo '+P[n].n+': '+P[n].t+'</b> e tornare al completo quando vuoi.<br><br>Cosa preferisci?','Continua il Budget completo',function(){window.__fullYes=1;try{window.ttNext()}finally{window.__fullYes=0}},'Vai agli Obiettivi',function(){S.skipFull=1;save();window.ttNext()});return}}
     if(n>=7&&S.tab!=='budget'){window.ttCustom([{t:null,x:'<b>Hai completato tutti i 7 passi!</b> Ora tieni aggiornati budget e obiettivi.'}]);return}
     var g=null;try{g=gpsPlan()}catch(e){g=null}
