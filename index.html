@@ -720,6 +720,10 @@ h2 .qm{vertical-align:3px}
 #sv-body .sv-grid .row{background:var(--surface);border:1px solid var(--line)!important;border-radius:12px;padding:10px 14px;margin:0}
 #sv-body .sv-grid .row:first-child{border-top:1px solid var(--line)!important}
 .dash .dseg{margin:8px 0 2px}.dash .dv2{font-size:24px}
+table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3 tr.goggi td:first-child{font-weight:600}
+#goals-card table.gt3 th:not(:first-child),#goals-card table.gt3 td:not(:first-child){text-align:center;vertical-align:middle}
+#goals-card table.gt3 td{vertical-align:middle}#goals-card table.gt3 th:first-child{text-align:left}
+#goals-card table.gt3 .eur{margin:0 auto}
 </style>
 
 <div class="wrap">
@@ -948,13 +952,14 @@ h2 .qm{vertical-align:3px}
   <h2>Obiettivi a breve termine</h2>
   <p class="lead">Da 6 mesi a 5 anni. Compila tutte le caselle: se non hai un obiettivo, scrivi 0. I dati restano solo nel tuo dispositivo.</p>
   <div class="card" id="goals-card" style="margin-bottom:16px">
-    <p class="sub" id="g-bal" style="margin:0 0 6px"></p><p class="sub" id="g-hint" style="margin:0 0 12px"></p><div class="tw"><table class="gt3"><thead><tr><th></th><th>Risparmio</th><th>Investimento</th></tr></thead><tbody>
+    <p class="sub" id="g-bal" style="margin:0 0 6px"></p><p class="sub" id="g-hint" style="margin:0 0 12px"></p><div class="tw"><table class="gt3"><thead><tr><th>Obiettivo</th><th>Risparmio</th><th>Investimento</th></tr></thead><tbody>
+      <tr class="goggi"><td>Saldi di oggi</td><td><b id="g-bal-r">–</b></td><td><b id="g-bal-i">–</b></td></tr>
       <tr><td>Obiettivo tra 6 mesi</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 6 mesi" data-goal="r6" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 6 mesi" data-goal="i6" placeholder="0"></div></td></tr>
       <tr><td>Obiettivo tra 1 anno</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 1 anno" data-goal="r12" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 1 anno" data-goal="i12" placeholder="0"></div></td></tr>
       <tr><td>Obiettivo tra 2 anni</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 2 anni" data-goal="r24" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 2 anni" data-goal="i24" placeholder="0"></div></td></tr>
       <tr><td>Obiettivo tra 5 anni</td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Risparmio: Obiettivo tra 5 anni" data-goal="r60" placeholder="0"></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Investimento: Obiettivo tra 5 anni" data-goal="i60" placeholder="0"></div></td></tr>
     </tbody></table></div>
-    <div class="ret-row"><div class="fields" style="margin:14px 0;max-width:300px"><div><label class="l" for="g_ret">Quanto pensi che rendano gli investimenti in un anno (%)</label><input type="text" inputmode="decimal" id="g_ret" data-goal="ret" placeholder="0"></div></div><small class="ret-n">Una stima realistica di tasso di crescita degli investimenti è tra il 6 e l'8% (non garantito)</small></div>
+    <div class="ret-row"><div class="fields" style="margin:14px 0;max-width:300px"><div><label class="l" for="g_ret">Quanto pensi che rendano gli investimenti in un anno (%)?</label><input type="text" inputmode="decimal" id="g_ret" data-goal="ret" placeholder="es. 6%" autocomplete="off"></div></div><small class="ret-n">Una stima realistica di tasso di crescita degli investimenti è tra il 6 e l'8% (non garantito)</small></div>
     <div class="tw" id="goal-out"></div>
     <ul class="note gl-list" style="margin-top:10px"><li>Ogni obiettivo comprende quelli precedenti.</li><li><b>Risparmio</b> = quello che ti avanza dopo gli investimenti.</li><li><b>Investimento</b> = PAC e pensione integrativa messi da parte nel Budget.</li><li>Gli investimenti non hanno un rendimento garantito e possono perdere valore: con 0% vedi solo i soldi che versi.</li></ul>
   </div>
@@ -1992,6 +1997,25 @@ function fitAll(){$$('.q label, .row label, .fields label.l').forEach(fitEl)}
 function fitSoon(){requestAnimationFrame(fitAll)}
 var rz=null;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(fitAll,120)});
 document.addEventListener('toggle',fitSoon,true);
+(function(){var lastB=null,ptr=0,busy=0;
+  ['pointerdown','touchstart','mousedown'].forEach(function(ev){document.addEventListener(ev,function(){ptr=Date.now()},true)});
+  function vis(){return [].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.disabled&&!x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.closest('.row').querySelector('input.cl')})}
+  document.addEventListener('focusin',function(e){var X=e.target;if(busy||!X||!X.matches)return;
+    var isB=X.matches('#p-budget input[data-bud]');
+    if(S.bmode==='lampo'||Date.now()-ptr<700||!lastB||!document.contains(lastB)){lastB=isB?X:null;return}
+    if(!X.matches('input,select,textarea,button')){return}
+    var L=vis(),i=L.indexOf(lastB);if(i<0){lastB=isB?X:null;return}
+    var pos=lastB.compareDocumentPosition(X),fwd=!!(pos&Node.DOCUMENT_POSITION_FOLLOWING),T=fwd?L[i+1]:L[i-1];
+    if(!T||T===X||X.closest('details.bgrp')===lastB.closest('details.bgrp')){lastB=isB?X:null;return}
+    var Gs=lastB.closest('details.bsub'),Ts=T.closest('details.bsub');
+    if(Gs&&Ts&&Gs!==Ts){[].forEach.call(Gs.querySelectorAll('details.bgrp'),function(x){x.open=false});Gs.open=false}
+    for(var a=T;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
+    busy=1;lastB=T;
+    setTimeout(function(){try{T.focus();T.scrollIntoView({block:'center',behavior:'smooth'})}catch(x){}setTimeout(function(){busy=0},120)},30);
+  },true);
+  document.addEventListener('focusout',function(e){if(e.target===lastB&&!e.relatedTarget&&Date.now()-ptr<700)lastB=null},true);
+})();
+
 document.addEventListener('toggle',function(e){var d=e.target;if(!d||!d.matches||!d.matches('details.bgrp')||!d.open)return;var s=d.closest('details.bsub');if(!s)return;[].forEach.call(s.querySelectorAll('details.bgrp'),function(x){if(x!==d&&x.open&&!x.contains(d))x.open=false})},true);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitSoon);
 var FAQ=[
@@ -3013,7 +3037,11 @@ $$('[data-info]').forEach(function(b){b.addEventListener('click',function(){var 
 var ltf=$('#lt-fill');if(ltf)ltf.addEventListener('click',function(){var inv=num(S.bud.sv_pac);S.lt.m=inv?String(Math.round(inv*100)/100):S.lt.m;if(num(S.goals&&S.goals.i0))S.lt.p0=S.goals.i0;$$('[data-lt]').forEach(function(el){el.value=S.lt[el.getAttribute('data-lt')]||''});save();renderLt()});
 if(S.goals&&S.goals.c0==null&&S.goals.cc0==null&&S.goals.r0)S.goals.c0=S.goals.r0;
 
-$$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal');el.value=(S.goals&&S.goals[k])||'';el.addEventListener('input',function(){S.goals[k]=el.value;if(k==='c0'||k==='cc0')syncBal();S.used.goals=1;save();R.bud()})});
+$$('[data-goal]').forEach(function(el){var k=el.getAttribute('data-goal'),pc=k==='ret';
+  function cr(){var n=el.value.replace('%','').length;try{el.setSelectionRange(n,n)}catch(x){}}
+  var v0=(S.goals&&S.goals[k])||'';el.value=pc?((String(v0).trim()!==''&&String(v0).trim()!=='0')?String(v0).replace('%','')+'%':''):v0;
+  el.addEventListener('input',function(){if(pc){var raw=el.value.replace(/[^0-9.,]/g,'').replace(/^0+(?=\d)/,'').slice(0,5);if(parseFloat(raw.replace(',','.'))>100)raw='100';el.value=raw?raw+'%':'';cr();S.goals[k]=raw}else S.goals[k]=el.value;if(k==='c0'||k==='cc0')syncBal();S.used.goals=1;save();R.bud()});
+  if(pc)['focus','click','keyup'].forEach(function(ev){el.addEventListener(ev,function(){setTimeout(cr,0)})})});
 var oi=$('#obj');function oiCaret(){var n=oi.value.replace('%','').length;try{oi.setSelectionRange(n,n)}catch(e){}}
 oi.value=(S.obj!==undefined&&S.obj!==null&&String(S.obj).trim()!==''&&String(S.obj).trim()!=='0')?String(S.obj).replace('%','')+'%':'';
 oi.addEventListener('input',function(){var raw=oi.value.replace(/[^0-9.,]/g,'').replace(/^0+(?=\d)/,'').slice(0,5);if(parseFloat(raw.replace(',','.'))>100)raw='100';oi.value=raw?raw+'%':'';oiCaret();S.obj=raw;save();R.bud()});
@@ -3048,6 +3076,7 @@ function fmtM(m){var y=Math.floor(m/12),mm=m%12,o=[];if(y)o.push(y+(y===1?' anno
 function monthsTo(T,p0,mon,rm){if(p0>=T)return 0;var p=p0;for(var m=1;m<=600;m++){p=p*(1+rm)+mon;if(p>=T)return m}return null}
 function fillBal(){var b=ttBal(),B=calcBud(),avM=B.sur/12,sv=B.T.SV/12,fr=avM-sv-(function(){try{return schedData().extra}catch(e){return 0}})(),e;
   e=$('#bal-total');if(e)e.innerHTML='Totale: <b>'+eur(b.r+b.i)+'</b> · risparmi '+eur(b.r)+' · investiti '+eur(b.i);
+  e=$('#g-bal-r');if(e)e.textContent=eur(b.r);e=$('#g-bal-i');if(e)e.textContent=eur(b.i);
   e=$('#g-bal');if(e)e.innerHTML='I tuoi saldi di oggi (dal Budget, «Soldi messi da parte»): risparmi <b>'+eur(b.r)+'</b>, investiti <b>'+eur(b.i)+'</b>.';
   e=$('#sv-avail');var ex=0;try{ex=schedData().extra}catch(_){}
   var pos=B.ent>0&&avM>0,neg=B.ent>0&&avM<0,vi=$('#sv-intro'),rd=$('#sv-red'),bd=$('#sv-body'),pn=$('#sv-panel');
