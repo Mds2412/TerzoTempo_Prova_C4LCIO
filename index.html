@@ -727,6 +727,9 @@ table.gt3 tr.goggi td{font-weight:700;background:rgba(127,127,127,.09)}table.gt3
 .cwin{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}.cwin button{flex:1 1 150px;padding:10px 12px;border:1px solid var(--line,#ccc);background:transparent;color:inherit;border-radius:10px;font:inherit;font-size:.88rem;cursor:pointer;text-align:left}.cwin button.on{background:var(--ink);color:var(--bg);border-color:transparent;font-weight:700}
 details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opacity:.85}details.qh>div{font-size:.86rem;margin-top:6px;padding:8px 10px;border:1px solid var(--line,#ddd);border-radius:8px}
 #nso-card{margin-top:14px}input:disabled{opacity:.55}
+.cwin{display:block;margin:0 0 14px}.cwin .l{display:block;margin:0 0 4px}.cw-sel{width:100%;max-width:100%;font-weight:700}
+.qhb{display:inline-block;margin-top:6px;padding:2px 10px;font:inherit;font-size:.74rem;line-height:1.5;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+.qhp{margin-top:8px;padding:8px 12px;border-left:3px solid var(--line);font-size:.84rem;background:var(--bg);border-radius:0 8px 8px 0}.qhp ol{margin:0;padding-left:18px}.qhp li{margin:3px 0}
 </style>
 
 <div class="wrap">
@@ -818,7 +821,7 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 </section>
 
 <section id="p-contratto" role="tabpanel" aria-labelledby="t-contratto" hidden>
-  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
+  <div class="cwin"><label class="l" for="cw-sel">Cosa vuoi fare?</label><select class="cw-sel" aria-label="Scegli cosa fare nel contratto"><option value="contratto">Che contratto devo avere?</option><option value="conformita">Sono in regola?</option><option value="netto">Quanto mi resta?</option></select></div>
   <h2>Che contratto devo avere?</h2>
   <p class="lead">Inserisci il tuo caso. Ottieni il tipo di contratto corretto, se è in regola e quanto ti resta in tasca.</p>
   <div class="card" id="eng-form">
@@ -854,7 +857,7 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 
 <!-- CONFORMITA -->
 <section id="p-conformita" role="tabpanel" aria-labelledby="t-contratto" hidden>
-  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
+  <div class="cwin"><label class="l" for="cw-sel">Cosa vuoi fare?</label><select class="cw-sel" aria-label="Scegli cosa fare nel contratto"><option value="contratto">Che contratto devo avere?</option><option value="conformita">Sono in regola?</option><option value="netto">Quanto mi resta?</option></select></div>
   <h2>Sono in regola?</h2>
   <p class="lead">Poche domande sul tuo accordo con il club (le risposte già date nel passo «Che contratto» non si ripetono). Rispondi con quello che sai. "Non so" conta come punto da verificare.</p>
   <div class="card" id="comp-q"></div>
@@ -863,7 +866,7 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 
 <!-- NETTO -->
 <section id="p-netto" role="tabpanel" aria-labelledby="t-contratto" hidden>
-  <div class="cwin" role="group" aria-label="Scegli cosa fare"><button type="button" data-cw="contratto">1 · Che contratto devo avere?</button><button type="button" data-cw="conformita">2 · Sono in regola?</button><button type="button" data-cw="netto">3 · Quanto mi resta?</button></div>
+  <div class="cwin"><label class="l" for="cw-sel">Cosa vuoi fare?</label><select class="cw-sel" aria-label="Scegli cosa fare nel contratto"><option value="contratto">Che contratto devo avere?</option><option value="conformita">Sono in regola?</option><option value="netto">Quanto mi resta?</option></select></div>
   <h2>Quanto mi resta, per categoria</h2>
   <p class="lead">Metti il compenso lordo annuo che ti offrono in ogni categoria. Il fisco è uguale per tutte, cambia solo quanto il club paga e che tipo di accordo usa.</p>
   <div class="fields f3">
@@ -1393,16 +1396,15 @@ function nsoRender(){
    +(L.length?'<ul class="r">'+L.map(function(x){return '<li><b>'+x[0]+'</b>: '+x[1]+' <button type="button" class="btn inline ghost" data-nso="'+(x[2]==='eng'?'contratto':x[2])+'">Vai</button></li>'}).join('')+'</ul>':'<p class="sub">Qui compaiono le cose a cui hai risposto «Non so» nel passo Contratto. Per ora non c\'è nulla da chiedere.</p>');
   $$('#nso-card [data-nso]').forEach(function(b){b.onclick=function(){var t=b.getAttribute('data-nso');if(tabLocked(t)){lockedMsg(t);return}showTab(t);window.scrollTo(0,0)}});
 }
-var HELP_CU='<b>Come controllo la CU:</b><ol class="r"><li>Entra nel sito dell\'Agenzia delle Entrate con SPID, CIE o CNS.</li><li>Vai in <b>Consultazioni → Cassetto fiscale</b> (area personale).</li><li>Apri <b>Dichiarazioni fiscali → Certificazioni Uniche</b> e scegli l\'anno.</li><li>Se il club ti ha pagato e non trovi la CU, chiedila: la deve rilasciare ogni anno.</li></ol><span class="sub">I nomi dei menu possono cambiare. Fonte: Agenzia delle Entrate. Verifica con un professionista.</span>';
-var HELP_INPS='<b>Come controllo che il club versi i contributi INPS:</b><ol class="r"><li>Vai su <b>inps.it → MyINPS</b> e accedi con SPID livello 2, CIE o CNS.</li><li>Apri il <b>Fascicolo previdenziale del cittadino</b> → <b>Estratto conto</b> (Gestione Separata: <b>Posizione assicurativa</b>).</li><li>Guarda se per l\'anno ci sono contributi accreditati. I versamenti del club possono comparire con qualche mese di ritardo.</li></ol><b>INAIL:</b> non si vede in MyINPS. Guarda la busta paga mensile (vedi domanda dedicata) e chiedi al club la prova del versamento, se nel tuo caso è dovuto.<br><span class="sub">Franchigia di 5.000 euro: art. 35 D.Lgs. 36/2021. I menu possono cambiare. Verifica con un professionista.</span>';
-var HELP_BP='<b>Perché conta:</b> nella busta paga devono comparire compenso lordo, trattenute INPS/INAIL (se dovute), imposte e netto. Confrontala con il contratto e con i bonifici ricevuti.<br><b>Attenzione:</b> la busta paga mostra la trattenuta, ma non prova che il club l\'abbia versata. Per l\'INPS controlla su MyINPS; per l\'INAIL chiedi al club la prova del versamento.<br><span class="sub">Verifica con un professionista.</span>';
+var HELP_CU='<ol class="r"><li>Entra nel sito dell\'Agenzia delle Entrate con SPID, CIE o CNS.</li><li>Vai in <b>Consultazioni → Cassetto fiscale</b> (area personale).</li><li>Apri <b>Dichiarazioni fiscali → Certificazioni Uniche</b> e scegli l\'anno.</li><li>Se il club ti ha pagato e non trovi la CU, chiedila: la deve rilasciare ogni anno.</li></ol><span class="sub">I nomi dei menu possono cambiare. Fonte: Agenzia delle Entrate. Verifica con un professionista.</span>';
+var HELP_INPS='<ol class="r"><li><b>In busta paga:</b> guarda le trattenute INPS e INAIL (mostrano la trattenuta, non che il club l\'abbia versata).</li><li><b>Su MyINPS:</b> vai su <b>inps.it → MyINPS</b> e accedi con SPID livello 2, CIE o CNS.</li><li>Apri il <b>Fascicolo previdenziale del cittadino</b> → <b>Estratto conto</b> (Gestione Separata: <b>Posizione assicurativa</b>).</li><li>Guarda se per l\'anno ci sono contributi accreditati. I versamenti del club possono comparire con qualche mese di ritardo.</li></ol><b>INAIL:</b> non si vede in MyINPS. Chiedi al club la prova del versamento, se nel tuo caso è dovuto.<br><span class="sub">Franchigia di 5.000 euro: art. 35 D.Lgs. 36/2021. I menu possono cambiare. Verifica con un professionista.</span>';
 var Q=[
  ['q1','Ho un contratto scritto e firmato, non solo un accordo a voce?',[['si','Sì'],['no','No'],['nso','Non so']]],
  ['q2','Il contratto è stato depositato dal club presso la Lega al tesseramento?',[['si','Sì'],['no','No'],['nso','Non so']]],
  ['q4','Quello che ricevo coincide con il compenso scritto nel contratto?',[['si','Sì'],['no','No, ricevo anche altro'],['nso','Non so']]],
  ['q5','Il club mi rilascia ogni anno la Certificazione Unica (CU, ex CUD)?',[['si','Sì'],['no','No'],['nso','Non so']],HELP_CU],
  ['q6','Se il totale sportivo supera 5.000 euro, il club versa INPS e INAIL?',[['si','Sì'],['na','Non supero 5.000 euro'],['no','No'],['nso','Non so']],HELP_INPS],
- ['q9','Il club mi dà ogni mese una copia cartacea della busta paga (cedolino)?',[['si','Sì'],['no','No'],['nso','Non so']],HELP_BP],
+ ['q9','Il club mi dà ogni mese una copia cartacea della busta paga (cedolino)?',[['si','Sì'],['no','No'],['nso','Non so']],],
  ['q7','Il club mi ha detto di avere la copertura infortuni del tesseramento?',[['si','Sì'],['no','No'],['nso','Non so']]],
  ['q8','I rimborsi spese che ricevo sono documentati con giustificativi?',[['doc','Sì, a piè di lista'],['trasf','Indennità di trasferta a giornata, per trasferte reali fuori comune'],['forf','Importi fissi senza trasferte né giustificativi'],['nessuno','Non ricevo rimborsi'],['nso','Non so']]]
 ];
@@ -1410,7 +1412,7 @@ function buildQ(){
   $('#comp-q').innerHTML=Q.map(function(q){
     return '<div class="q"><label for="c_'+q[0]+'">'+q[1]+'</label><select id="c_'+q[0]+'" data-k="comp.'+q[0]+'" data-r="comp"><option value="">Scegli</option>'
     +q[2].map(function(o){return '<option value="'+o[0]+'">'+o[1]+'</option>'}).join('')+'</select>'
-    +(q[3]?'<details class="qh"><summary>Come controllo?</summary><div>'+q[3]+'</div></details>':'')+'</div>';
+    +(q[3]?'<button type="button" class="qhb" aria-expanded="false">Come controllo?</button><div class="qhp" hidden>'+q[3]+'</div>':'')+'</div>';
   }).join('');
 }
 function lvl(a){return a.some(function(x){return x.l==='risk'})?'risk':(a.some(function(x){return x.l==='warn'})?'warn':'ok')}
@@ -3030,7 +3032,7 @@ document.addEventListener('input',function(e){var t=e.target;if(!t||t.tagName!==
 function showTab(t){
   S.tab=t;
   $$('[data-tab]').forEach(function(b){var bt=b.getAttribute('data-tab');b.setAttribute('aria-selected',(bt===t||(bt==='contratto'&&(t==='conformita'||t==='netto')))?'true':'false')});
-  $$('.cwin button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-cw')===t)});
+  $$('.cw-sel').forEach(function(s){if(t==='contratto'||t==='conformita'||t==='netto')s.value=t});
   ['percorso','home','contratto','conformita','netto','budget','obiettivi','fondo','debiti','invest','calc','pens','faq'].forEach(function(x){$('#p-'+x).hidden=(x!==t)});
   save();
   if(window.ttSection)window.ttSection(t);
@@ -3042,7 +3044,7 @@ function showTab(t){
   fitSoon();
   var ab=$('[data-tab="'+((t==='conformita'||t==='netto')?'contratto':t)+'"]'),tb=$('.tabs');if(ab&&tb&&tb.scrollWidth>tb.clientWidth)tb.scrollLeft=ab.offsetLeft-tb.clientWidth/2+ab.offsetWidth/2;
 }
-$$('.cwin button').forEach(function(b){b.addEventListener('click',function(){showTab(b.getAttribute('data-cw'));window.scrollTo(0,0)})});
+$$('.cw-sel').forEach(function(s){s.addEventListener('change',function(){showTab(s.value)})});
 $$('[data-tab]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-tab');if(tabLocked(t)){lockedMsg(t);return}showTab(t)})});
 $$('[data-go]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-go');if(tabLocked(t)){lockedMsg(t);return}showTab(t);window.scrollTo(0,0)})});
 (function(){
@@ -3206,7 +3208,7 @@ function rkInit(){var pb=document.getElementById('p-budget');if(pb){pb.addEventL
   ['input','change'].forEach(function(ev){document.addEventListener(ev,function(){clearTimeout(__pbT);__pbT=setTimeout(function(){try{percBar()}catch(e){}},300)},true)});
   (function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{rkPaint();curaLab()}catch(e){}return x}})();
   rkPaint();try{curaLab();percBar()}catch(e){}}
-buildQ();buildBudget();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
+buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.qhb');if(!b)return;var p=b.nextElementSibling,o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Chiudi':'Come controllo?'});buildBudget();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
 
 (function(){
   var KEY='terzotempo.',FB_URL='',msg=document.getElementById('hlp-msg');
