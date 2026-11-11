@@ -1726,8 +1726,8 @@ function budExcl(){var D=BD();BEX.forEach(function(p){var m=document.getElementB
   else if(va){m.disabled=true;note(m,'(già nell\'annuale)')}})}
 
 function seqApply(){var p=document.getElementById('p-budget');if(!p)return;[].forEach.call(p.querySelectorAll('.seq-hide'),function(d){d.classList.remove('seq-hide')})}
-function bGuide(el){if(!el)return;var d=el.closest('details');while(d){if(!d.open)d.open=true;d=d.parentElement&&d.parentElement.closest('details')}
-  setTimeout(function(){var ae=document.activeElement;if(ae&&ae!==document.body&&ae!==el&&ae.matches&&ae.matches('input,select,textarea'))return;try{el.scrollIntoView({block:'center',behavior:'smooth'});el.focus({preventScroll:true})}catch(e){}},90)}
+function bGuide(el,from){if(!el)return;var d=el.closest('details');while(d){if(!d.open)d.open=true;d=d.parentElement&&d.parentElement.closest('details')}
+  setTimeout(function(){var ae=document.activeElement;if(ae&&ae!==document.body&&ae!==el&&ae!==from&&ae.matches&&ae.matches('input,select,textarea'))return;try{el.scrollIntoView({block:'center',behavior:'smooth'});el.focus({preventScroll:true})}catch(e){}},90)}
 function seqOpenCur(s){if(S.bmode!=='lampo')return;var gs=[].slice.call(s.querySelectorAll('details.bgrp:not(.lp-hide)'));if(!gs.length||gs.some(function(g){return g.open}))return;
   var d=gs.filter(function(g){return !g.classList.contains('gdone')})[0];if(d)d.open=true}
 function budBadges(closeNew,only){
@@ -3213,7 +3213,7 @@ function fullNext(G){var all=[].slice.call(document.querySelectorAll('#p-budget 
     for(var a=g;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
     setTimeout(function(){try{t.focus({preventScroll:true});t.classList.add('rnx');t.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}},60);return true}
   return false}
-function schedVis(){[].forEach.call(document.querySelectorAll('#p-budget .row'),function(r){var s=r.nextElementSibling;if(!s||!s.classList||!s.classList.contains('sched'))return;var i=r.querySelector('input[data-bud]');s.classList.toggle('on',!!i&&num(i.value)>0)})}
+function schedVis(){[].forEach.call(document.querySelectorAll('#p-budget .row'),function(r){var s=r.nextElementSibling;if(!s||!s.classList||!s.classList.contains('sched'))return;var i=r.querySelector('input[data-bud]');s.classList.toggle('on',S.bmode!=='lampo'&&!!i&&num(i.value)>0)})}
 function schedNext(sc){sc.dataset.skip='1';var G=sc.closest('details.bgrp'),row=sc.previousElementSibling,el=row&&row.querySelector('input[data-bud]');
   if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   var L=rkVis(),i=L.indexOf(el),nx=null;for(var k=i+1;k<L.length;k++){if(L[k].closest('details.bgrp')!==G)break;if(String(L[k].value).trim()===''&&!L[k].closest('.row').querySelector('input.cl')){nx=L[k];break}}
@@ -3229,7 +3229,7 @@ function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
   [].forEach.call(document.querySelectorAll('#p-budget .rnx'),function(x){x.classList.remove('rnx')});
   if(String(el.value).trim()==='')return;
   var rw=el.closest('.row'),sc0=rw&&rw.nextElementSibling;
-  if(sc0&&sc0.classList&&sc0.classList.contains('sched')&&num(el.value)>0&&!sc0.dataset.skip&&!S.bud['D_'+el.getAttribute('data-bud')]){schedVis();if(document.activeElement===el){var dt0=sc0.querySelector('[data-bt]');if(dt0){dt0.focus({preventScroll:true});dt0.scrollIntoView({block:'center',behavior:'smooth'})}}return}
+  if(S.bmode!=='lampo'&&sc0&&sc0.classList&&sc0.classList.contains('sched')&&num(el.value)>0&&!sc0.dataset.skip&&!S.bud['D_'+el.getAttribute('data-bud')]){schedVis();if(document.activeElement===el){var dt0=sc0.querySelector('[data-bt]');if(dt0){dt0.focus({preventScroll:true});dt0.scrollIntoView({block:'center',behavior:'smooth'})}}return}
   var sk=0;
   if(S.bmode==='lampo'){var g=el.closest('details.bsub');L.slice(0,i).forEach(function(x){if(x.closest('details.bsub')===g&&String(x.value).trim()===''&&!x.closest('.row').querySelector('input.cl')){x.classList.add('rsk');sk++}})}
   if(sk)ttToast('Ei boss, ricordati di completare tutte le voci. Se non ti riguarda? Scrivi 0.');
@@ -3237,7 +3237,7 @@ function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
   if(S.bmode!=='lampo'){var G=el.closest('details.bgrp');if(G&&!cu(el)){var gin=[].slice.call(G.querySelectorAll('input[data-bud]')).filter(function(x){return !x.disabled&&!x.closest('.lp-hide')&&!cu(x)});
     if(gin.length&&gin[gin.length-1]===el&&gin.every(function(x){return String(x.value).trim()!==''})&&fullNext(G))return}}
   if(!nx)return;var same=nx.closest('details.bgrp')===el.closest('details.bgrp');
-  if(S.bmode==='lampo'){nx.classList.add('rnx');bGuide(nx)}
+  if(S.bmode==='lampo'){nx.classList.add('rnx');bGuide(nx,el)}
   else if(same){nx.classList.add('rnx')}}
 var __pbT;
 var __lastSex;
