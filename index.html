@@ -1493,9 +1493,9 @@ function renderVar(){
 var B_EXP_M=[
  ['Casa',[['affitto','Affitto o rata del mutuo'],['condominio','Spese condominiali'],['luce','Luce'],['gas','Gas e riscaldamento'],['acqua','Acqua'],['internet','Internet casa'],['manut','Piccole manutenzioni e pulizie']]],
  ['Cibo',[['spesa','Spesa al supermercato'],['fuori','Bar, ristoranti, asporto']]],
- ['Trasporti',[['carb','Carburante'],['mezzi','Abbonamenti bus e treni'],['pedaggi','Parcheggi, pedaggi, ZTL'],['rata_auto','Rata auto o moto, noleggio'],['ass_auto','Assicurazione auto (rata mensile)'],['bollo_m','Bollo auto (rata mensile)']]],
+ ['Trasporti',[['carb','Carburante'],['mezzi','Abbonamenti bus e treni'],['pedaggi','Parcheggi, pedaggi, ZTL'],['rata_auto','Rata auto o moto, noleggio']]],
  ['Salute e recupero',[['farmaci','Farmaci'],['fisio','Fisioterapia e massaggi'],['integr','Integratori e alimentazione sportiva']]],
- ['Calcio',[['palestra','Palestra e preparazione extra'],['trasf','Trasferte non rimborsate'],['quote','Quote e multe a tuo carico verso il club'],['ass_inf','Assicurazione infortuni (rata mensile)']]],
+ ['Calcio',[['palestra','Palestra e preparazione extra'],['trasf','Trasferte non rimborsate'],['quote','Quote e multe a tuo carico verso il club']]],
  ['Rate e debiti',[['prestito','Rata prestito o finanziamento'],['bnpl','Pagamenti a rate (Klarna, Scalapay)'],['carta','Carta di credito, saldo del mese'],['mantenimento','Mantenimento o assegni versati']]],
  ['Famiglia',[['figli','Figli (nido, scuola, baby sitter)'],['animali','Animali domestici'],['aiuti','Aiuti dati a familiari']]],
  ['Svago e abbonamenti',[['uscite','Uscite, aperitivi, serate'],['stream','Abbonamenti digitali (Spotify, Netflix, …)'],['hobby','Hobby e sport extra'],['vizi','Vizi (drink, sigarette, scommesse, …)']]],
@@ -1758,7 +1758,7 @@ var RNGS='m_affitto 350 600 10;m_condominio 30 80 5;m_luce 40 90 1;m_gas 30 110 
  +'sv_pac 50 200 10;sv_emerg 30 100 10;sv_risp 20 60 10;sv_altro 10 50 10;'
  +'im_stip 1000 1400 10;im_extra 50 300 10;im_premi 20 120 5;im_rimb 30 120 5;im_interessi 1 10 1;im_famiglia 20 100 10;'
  +'ia_bonus 100 500 10;ia_calcio_a 3000 9000 100;ia_firma 100 1000 50;ia_rimb_a 50 300 10;ia_rimb730 50 400 10;ia_vendite 20 200 10;ia_regali_in 50 250 10;'
- +'m_ass_auto 25 50 1;a_rca 350 600 10;m_bollo_m 10 25 1;a_bollo 150 250 5;m_ass_inf 10 25 1;a_polizza_inf 120 300 10';
+ +'a_rca 350 600 10;a_bollo 150 250 5;a_polizza_inf 120 300 10';
 var RDATED=['a_tari','a_ass_casa','a_rca','a_bollo','a_revisione','a_tagliando','a_gomme','a_agonistica','a_scarpini','a_polizza_inf','a_commercialista','a_vacanze','a_saldo_irpef','a_tech','a_regali_a','a_dentista'];
 function iso(d){var m=d.getMonth()+1,dd=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(dd<10?'0':'')+dd}
 function tasso0(b){
@@ -1775,11 +1775,8 @@ function randomBud(){
     var b={};
     RNGS.split(';').forEach(function(r){
       var q=r.trim().split(' ');if(q.length<4)return;
-      var lo=+q[1],hi=+q[2],st=+q[3],keep=q[0].indexOf('m_ass')===0||q[0].indexOf('m_bollo')===0?true:Math.random()<0.88;
+      var lo=+q[1],hi=+q[2],st=+q[3],keep=Math.random()<0.88;
       if(keep)b[q[0]]=String(Math.max(lo,Math.round((lo+Math.random()*(hi-lo))/st)*st));
-    });
-    [['m_ass_auto','a_rca'],['m_bollo_m','a_bollo'],['m_ass_inf','a_polizza_inf']].forEach(function(pr){
-      if(Math.random()<0.5){delete b[pr[1]]}else{delete b[pr[0]]}
     });
     b.ia_tredicesima=b.im_stip||'0';
     if(Math.random()<0.3)b.ia_quattordicesima=b.im_stip||'0';
@@ -1995,6 +1992,7 @@ function fitAll(){$$('.q label, .row label, .fields label.l').forEach(fitEl)}
 function fitSoon(){requestAnimationFrame(fitAll)}
 var rz=null;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(fitAll,120)});
 document.addEventListener('toggle',fitSoon,true);
+document.addEventListener('toggle',function(e){var d=e.target;if(!d||!d.matches||!d.matches('details.bgrp')||!d.open)return;var s=d.closest('details.bsub');if(!s)return;[].forEach.call(s.querySelectorAll('details.bgrp'),function(x){if(x!==d&&x.open&&!x.contains(d))x.open=false})},true);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitSoon);
 var FAQ=[
 {id:"contratto",t:"Il mio contratto",d:"Che rapporto ho con il club e cosa deve esserci scritto",m:[
@@ -2229,7 +2227,7 @@ $('#faq-q').addEventListener('input',function(){R.faq();fitSoon()});
 var PSTEPS=[
  {n:1,t:'Budget',tab:'budget',go:'Vai al Budget',
   why:'Scrivi cosa entra e cosa esce. Senza questo, tutto il resto è alla cieca.',
-  how:'<b>Mini-missione:</b> compila il <b>Budget lampo</b> (4 domande e le voci principali; se una voce non ti riguarda scrivi 0) e poi «Soldi messi da parte»: contanti, conto e investiti (se non hai niente, scrivi 0). Se scegli il <b>Budget completo</b>, bastano almeno 3 voci tue: 1 entrata, 1 spesa e una terza a scelta.'},
+  how:'<b>Mini-missione:</b> compila il <b>Budget lampo</b> (4 domande e le voci principali; se una voce non ti riguarda scrivi 0) e poi «Soldi messi da parte»: contanti, conto e investiti (se non hai niente, scrivi 0). Se scegli il <b>Budget completo</b>, servono almeno 3 voci tue (1 entrata, 1 spesa e una terza a scelta; le altre puoi saltarle) e poi «Soldi messi da parte»: contanti, conto e investiti (se non hai niente, scrivi 0).'},
  {n:2,t:'Obiettivi a breve termine',tab:'obiettivi',go:'Vai agli obiettivi',
   why:'Quanto vuoi avere da parte nei prossimi mesi. Un obiettivo con una cifra e una scadenza è molto più facile da raggiungere.',
   how:'<b>Mini-missione:</b> in «Obiettivi a breve termine» compila tutte le caselle: risparmio e investimento a 6 mesi, 1 anno, 2 anni e 5 anni (se non hai un obiettivo, scrivi 0).'},
@@ -2273,7 +2271,8 @@ function pCrit(n){
   if(n===1){
     var vk=Object.keys(B).filter(function(k){return /^(im_|ia_|m_|a_)/.test(k)&&num(B[k])>0&&(S.bt[k]||S.exDone)});
     var hasIn=vk.some(function(k){return /^(im_|ia_)/.test(k)}),hasOut=vk.some(function(k){return /^(m_|a_)/.test(k)});
-    return [['Almeno 1 entrata (importo maggiore di 0)',hasIn],['Almeno 1 spesa (importo maggiore di 0)',hasOut],['Almeno 3 voci in totale ('+Math.min(vk.length,3)+' su 3)',vk.length>=3]];
+    var sOk1=(S.celeb||0)>=1||['c0','cc0','i0'].every(function(k){return String(G[k]===undefined?'':G[k]).trim()!==''});
+    return [['Almeno 1 entrata (importo maggiore di 0)',hasIn],['Almeno 1 spesa (importo maggiore di 0)',hasOut],['Almeno 3 voci in totale ('+Math.min(vk.length,3)+' su 3)',vk.length>=3],['Soldi già messi da parte (contanti, conto, investiti; se non hai scrivi 0)',sOk1]];
   }
   if(n===2){var gk=['r6','i6','r12','i12','r24','i24','r60','i60'],gn=gk.filter(function(k){return G[k]!==undefined&&String(G[k]).trim()!==''}).length;return [['Tutti gli obiettivi a breve termine compilati ('+gn+' su 8; se non ne hai uno scrivi 0)',gn===8||((S.celeb||0)>=2&&gn>=6)]]}
   if(n===3){
@@ -2787,7 +2786,9 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
   function gpsFilled(i){return String(i.value||'').trim()!==''}
   function budNext(){var L=[].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.disabled});if(!L.length)return null;
     var inc=L.filter(function(i){return /^(im_|ia_)/.test(i.getAttribute('data-bud'))}),out=L.filter(function(i){return /^(m_|a_)/.test(i.getAttribute('data-bud'))});
-    if(out.length&&!out.some(gpsFilled))return out[0];if(inc.length&&!inc.some(gpsFilled)){var cm=inc.filter(function(x){return x.getAttribute('data-bud')==='im_calcio_m'})[0];return cm||inc[0]}
+    var full=S.bmode!=='lampo',any=L.some(gpsFilled);
+    if(full&&!any&&out.length)return out[0];
+    if(!full&&out.length&&!out.some(gpsFilled))return out[0];if(!full&&inc.length&&!inc.some(gpsFilled)){var cm=inc.filter(function(x){return x.getAttribute('data-bud')==='im_calcio_m'})[0];return cm||inc[0]}
     var last=-1,k;L.forEach(function(x,j){if(gpsFilled(x))last=j});
     for(k=last+1;k<L.length;k++)if(!gpsFilled(L[k]))return L[k];
     for(k=0;k<L.length;k++)if(!gpsFilled(L[k]))return L[k];return null}
@@ -2797,6 +2798,8 @@ window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){retu
     function B(extra){var bm=window.ttBMode&&window.ttBMode();if(!bm){var bc=document.getElementById('b-mode');if(bc)return {tab:'budget',el:bc,x:head+'📍 Prima scegli come fare il Budget: <b>lampo</b> (veloce, indicativo) o <b>completo</b> (più lungo, risultati veri).'}}
       if(bm==='lampo'&&window.ttLampo&&!window.ttLampo().q){var bq=document.getElementById('b-mode');if(bq)return {tab:'budget',el:bq,x:head+'📍 Rispondi alle 4 domande veloci: così ti mostro solo le voci che ti servono.'}}
       if(nx&&nx.n===1&&window.ttLampo&&lampoComplete()){var sd=[].slice.call(document.querySelectorAll('#bal-panel [data-goal]')).filter(function(i){return String(i.value||'').trim()===''})[0];if(sd)return {tab:'budget',el:sd,x:head+'📍 Ultimo pezzo del passo 1: <b>«Soldi messi da parte»</b>.<br>Scrivi quanto hai oggi: <b>«'+gpsLab(sd)+'»</b>. Non ne hai? Scrivi 0.'}}
+      if(bm!=='lampo'&&nx&&nx.n===1&&c.length>3&&c[0][1]&&c[1][1]&&c[2][1]&&!c[3][1]){var LB=[].slice.call(document.querySelectorAll('#p-budget input[data-bud]')).filter(function(x){return !x.closest('.lp-hide')&&!x.closest('.seq-hide')&&!x.disabled}),lastB=-1;LB.forEach(function(x,j){if(gpsFilled(x))lastB=j});
+        if(!LB.slice(lastB+1).some(function(x){return !gpsFilled(x)})){var sd2=[].slice.call(document.querySelectorAll('#bal-panel [data-goal]')).filter(function(i){return String(i.value||'').trim()===''})[0];if(sd2)return {tab:'budget',el:sd2,x:head+'📍 Ultimo pezzo del passo 1: <b>«Soldi messi da parte»</b>.<br>Scrivi quanto hai oggi: <b>«'+gpsLab(sd2)+'»</b>. Non ne hai? Scrivi 0.'}}}
       var el=budNext();if(!el&&bm==='lampo'){var bf=document.getElementById('bm-full');if(bf)return {tab:'budget',el:bf,x:'<b>Budget lampo completato!</b><br>📍 Quando vuoi, estendilo al Budget completo per numeri precisi. Il lampo resta salvato; il completo parte da zero.'}}return el?{tab:'budget',el:el,sel:function(){return document.querySelector('#b_'+el.getAttribute('data-bud'))},x:((nx&&(nx.n===1||nx.n===4))?head:'<b>Continuiamo il Budget</b><br>')+'📍 Prossima casella: <b>«'+gpsLab(el)+'»</b>.<br>Scrivi l\'importo. Non ce l\'hai? Scrivi 0.'+(extra||'')}:null}
     if((S.tab==='budget'&&!(nx&&nx.n>=2&&S.skipFull))||(nx&&nx.n===1)){var b=B();if(b)return b}
     if(!nx)return null;
@@ -3033,6 +3036,7 @@ if(!S.bmode&&Object.keys(S.bud||{}).some(function(k){return /^(im_|ia_|m_|a_)/.t
 if(!S.budL&&!S.budF){if(S.bmode==='lampo'){S.budL=S.bud||{};S.budF={}}else{S.budF=S.bud||{};S.budL={}}}
 if(!S.budL)S.budL={};if(!S.budF)S.budF={};S.bud=activeStore();
 (function(){S.budL=S.budL||{};S.budF=S.budF||{};[S.budL,S.budF,S.bud].forEach(function(o){if(!o)return;if(o.m_giochi!==undefined||o.m_tabacco!==undefined){var s=0;['m_giochi','m_tabacco'].forEach(function(k){var v=num(o[k]);if(!v)return;var mo=num(o['M_'+k]);mo=(mo>=1&&mo<=12)?mo:12;s+=v*(o['W_'+k]?52*mo/12:mo)/12;delete o['W_'+k];delete o['M_'+k]});if(!o.m_vizi&&s)o.m_vizi=String(Math.round(s));delete o.m_giochi;delete o.m_tabacco}});[[S.budL,S.budF],[S.budF,S.budL]].forEach(function(p){Object.keys(p[0]).forEach(function(k){if(/^(sv_|L_sv_)/.test(k)&&(p[1][k]===undefined||p[1][k]==='')&&p[0][k]!=='')p[1][k]=p[0][k]})});syncActive()})();
+(function(){var M=[['m_ass_auto','a_rca'],['m_bollo_m','a_bollo'],['m_ass_inf','a_polizza_inf']];[S.bud,S.budL,S.budF].forEach(function(o){if(!o)return;M.forEach(function(p){var v=num(o[p[0]]);if(v&&!num(o[p[1]]))o[p[1]]=String(Math.round(v*12*100)/100);['','L_','D_','P_'].forEach(function(x){delete o[x+p[0]]})})})})();
 (function(){[S.bud,S.budL,S.budF].forEach(function(o){if(!o)return;if(o.sv_prev!==undefined&&o.sv_prev!==''){var v=num(o.sv_pac)+num(o.sv_prev);if(v)o.sv_pac=String(Math.round(v*100)/100)}delete o.sv_prev;delete o.L_sv_prev;delete o.D_sv_prev;delete o.P_sv_prev})})();
 
 function syncBal(){var G=S.goals;G.r0=String(num(G.c0)+num(G.cc0)||'')}
@@ -3098,7 +3102,10 @@ function rkPaint(){[].forEach.call(document.querySelectorAll('#p-budget input[da
 window.ttToast=function(m){var t=document.getElementById('tt-toast');if(!t){t=document.createElement('div');t.id='tt-toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on')},5500)};
 function fullNext(G){var all=[].slice.call(document.querySelectorAll('#p-budget details.bgrp')).filter(function(g){return !g.closest('.lp-hide')&&!g.closest('.seq-hide')}),i=all.indexOf(G);
   for(var k=i+1;k<all.length;k++){var g=all[k],t=[].slice.call(g.querySelectorAll('input[data-bud]')).filter(function(x){return !x.disabled&&!x.closest('.lp-hide')&&!x.closest('.row').querySelector('input.cl')&&String(x.value).trim()===''})[0];
-    if(!t)continue;for(var a=g;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
+    if(!t)continue;
+    var Gs=G&&G.closest('details.bsub'),gs=g.closest('details.bsub');
+    if(Gs&&gs&&Gs!==gs){[].forEach.call(Gs.querySelectorAll('details.bgrp'),function(x){x.open=false});Gs.open=false}
+    for(var a=g;a;a=a.parentElement&&a.parentElement.closest('details'))a.open=true;
     setTimeout(function(){try{t.focus({preventScroll:true});t.classList.add('rnx');t.scrollIntoView({block:'center',behavior:'smooth'})}catch(e){}},60);return true}
   return false}
 function rkCommit(el){var L=rkVis(),i=L.indexOf(el);if(i<0)return;
