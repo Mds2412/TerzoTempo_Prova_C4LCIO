@@ -1,4 +1,4 @@
-<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
 <title>Terzo Tempo</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
-<script>(function(){try{var t=localStorage.getItem('terzotempo.theme');if(t!=='dark'&&t!=='light')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';document.documentElement.setAttribute('data-theme',t);if(location.hash==='#ttm')document.documentElement.classList.add('ttm')}catch(e){document.documentElement.setAttribute('data-theme','light')}})();</script>
+<script>(function(){try{var t=localStorage.getItem('terzotempo.theme');if(t!=='dark'&&t!=='light')t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';document.documentElement.setAttribute('data-theme',t);var z=localStorage.getItem('terzotempo.fs');if(z==='1'||z==='2'||z==='3'||z==='4')document.documentElement.setAttribute('data-fs',z);if(location.hash==='#ttm')document.documentElement.classList.add('ttm')}catch(e){document.documentElement.setAttribute('data-theme','light')}})();</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,9 +39,16 @@
 }
 .thm{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:12px;z-index:150;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px 0 11px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 .82rem var(--f-body);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .thm svg{width:18px;height:18px}
+.fsb{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:62px;z-index:150;display:inline-flex;align-items:center;justify-content:center;height:38px;min-width:38px;padding:0 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:800 15px var(--f-body);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}.fsb small{font-size:11px;font-weight:800}
+.fsp{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));right:12px;z-index:151;width:min(300px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:12px;box-shadow:0 18px 50px rgba(0,0,0,.35)}.fsp[hidden]{display:none}
+.fsp b{display:block;font:800 14px var(--f-body);margin:0 0 8px}.fsp-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.fsp-g button{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;height:62px;padding:6px 2px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-family:var(--f-body);cursor:pointer}.fsp-g button span{font-weight:800;line-height:1}.fsp-g button small{font-size:10.5px;font-weight:700;color:var(--muted)}
+.fsp-g button[aria-pressed=true]{border-color:#1b7a4c;background:rgba(27,122,76,.12)}.fsp-g button[aria-pressed=true] small{color:#1b7a4c}
+html[data-fs="1"]{--fs:.78}html[data-fs="2"]{--fs:.9}html[data-fs="3"]{--fs:1}html[data-fs="4"]{--fs:1.15}
+
 .thm .i-sun{display:none}
 :root[data-theme="dark"] .thm .i-sun{display:block}:root[data-theme="dark"] .thm .i-moon{display:none}
-@media (max-width:640px){.thm{height:38px;padding:0 10px}.thm-t{display:none}.brand{padding-right:52px}}
+@media (max-width:640px){.thm{height:38px;padding:0 10px}.thm-t{display:none}.brand{padding-right:98px}}
 main{padding-bottom:70px}
 .dvb{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:118px;z-index:150;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px 0 10px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 .82rem var(--f-body);cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .dvb svg{width:18px;height:18px}
@@ -145,7 +152,7 @@ main{padding-bottom:90px}
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{font-size:clamp(1.1rem,calc(1.02rem + .26vw),1.19rem);-webkit-text-size-adjust:100%;text-size-adjust:100%;max-width:100%;overflow-x:hidden;touch-action:pan-x pan-y;overscroll-behavior-x:none}
+html{--fs:.9;font-size:calc(clamp(1.1rem,calc(1.02rem + .26vw),1.19rem) * var(--fs));-webkit-text-size-adjust:100%;text-size-adjust:100%;max-width:100%;overflow-x:hidden;touch-action:pan-x pan-y;overscroll-behavior-x:none}
 body{max-width:100%;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
   background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:1rem; line-height:1.5;
   padding-block:0 56px;
@@ -154,10 +161,11 @@ body{max-width:100%;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 .wrap{max-width:1100px;margin:0 auto}
 header{padding:18px 0 0}
-.brand{display:flex;align-items:center;gap:10px;padding-right:270px}
-@media (max-width:820px){.brand{padding-right:110px}}
+.brand{display:flex;align-items:center;gap:10px;padding-right:330px}
+@media (max-width:820px){.brand{padding-right:160px}}
 .brand i{display:block;width:15px;height:22px;background:var(--card);border-radius:2px;transform:rotate(8deg);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .brand b{white-space:nowrap;font-family:var(--f-display);font-weight:800;font-size:clamp(1.9rem,8.6vw,3.2rem);letter-spacing:.06em;text-transform:uppercase;line-height:1}
+@media (max-width:640px){.brand b{font-size:clamp(1.5rem,6.4vw,3.2rem);letter-spacing:.04em}}
 .brand i{width:20px;height:28px;flex:none}
 .tag{color:var(--ink);opacity:.82;margin:8px 0 16px;font-size:clamp(1rem,2.6vw,1.18rem);line-height:1.4;max-width:720px}
 .tabs{display:flex;flex-wrap:wrap;row-gap:10px;gap:18px;overflow:visible;padding:0 0 4px;border-bottom:2px solid var(--line);scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
@@ -743,6 +751,8 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 </style>
 
 <div class="wrap">
+<button type="button" class="fsb" id="fsb" aria-haspopup="true" aria-expanded="false" aria-label="Grandezza del testo" title="Grandezza del testo">A<small>A</small></button>
+<div class="fsp" id="fsp" hidden role="group" aria-label="Grandezza del testo"><b>Grandezza del testo</b><div class="fsp-g"><button type="button" data-fs="1"><span style="font-size:12px">Aa</span><small>Piccolo</small></button><button type="button" data-fs="2"><span style="font-size:15px">Aa</span><small>Medio</small></button><button type="button" data-fs="3"><span style="font-size:18px">Aa</span><small>Grande</small></button><button type="button" data-fs="4"><span style="font-size:22px">Aa</span><small>Molto grande</small></button></div></div>
 <button type="button" class="thm" id="thm" aria-label="Passa al tema scuro" title="Tema chiaro / scuro"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z" fill="currentColor"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg><span class="thm-t">Scuro</span></button>
 <button type="button" class="hlb" id="hlb" aria-haspopup="dialog" aria-controls="hlp" aria-label="Hai bisogno di aiuto?" title="Hai bisogno di aiuto?"><span class="hlb-av" id="hlb-av" aria-hidden="true"><canvas class="co-cv"></canvas></span><span>Hai bisogno di aiuto?</span></button>
 <div class="hlp" id="hlp" role="dialog" aria-labelledby="hlp-t" hidden>
@@ -2774,6 +2784,16 @@ function buildPerc(){
 }
 R.perc=updatePerc;
 window.ttPerc={all:PSTEPS,refresh:function(){updatePerc()},crit:function(n){return pCrit(n)},open:function(n){var d=$('#step-'+n);if(d){d.open=true;d.scrollIntoView({behavior:'smooth',block:'start'})}},steps:PSTEPS.map(function(s){return {n:s.n,t:({1:'Budget',2:'Obiettivi a breve termine',3:'Contratto in regola',4:'Fondo e assicurazione',5:'Analisi debiti',6:'Investire',7:'Lungo termine e pensione'})[s.n]}})};
+(function(){var b=document.getElementById('fsb'),p=document.getElementById('fsp'),th=document.getElementById('thm');if(!b||!p)return;
+  function place(){var r=th.getBoundingClientRect(),w=window.innerWidth-r.left+8;b.style.right=w+'px'}
+  function cur(){return document.documentElement.getAttribute('data-fs')||'2'}
+  function paint(){var c=cur();Array.prototype.forEach.call(p.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x.getAttribute('data-fs')===c?'true':'false')})}
+  function set(v){document.documentElement.setAttribute('data-fs',v);try{localStorage.setItem('terzotempo.fs',v)}catch(e){}paint();setTimeout(place,50)}
+  function close(){p.hidden=true;b.setAttribute('aria-expanded','false')}
+  b.addEventListener('click',function(e){e.stopPropagation();p.hidden=!p.hidden;b.setAttribute('aria-expanded',p.hidden?'false':'true');paint()});
+  p.addEventListener('click',function(e){e.stopPropagation();var x=e.target.closest('button[data-fs]');if(x)set(x.getAttribute('data-fs'))});
+  document.addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  window.addEventListener('resize',place);window.addEventListener('load',place);place();paint()})();
 (function(){var b=document.getElementById('thm');if(!b)return;
   function sync(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.querySelector('.thm-t').textContent=d?'Chiaro':'Scuro';b.setAttribute('aria-label',d?'Passa al tema chiaro':'Passa al tema scuro');var m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',d?'#0c1714':'#f2f5f3')}
   b.addEventListener('click',function(){var d=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',d);try{localStorage.setItem('terzotempo.theme',d)}catch(e){}sync()});sync()})();
