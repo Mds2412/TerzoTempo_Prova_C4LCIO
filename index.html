@@ -239,6 +239,7 @@ input[type=text],input[type=date],select{
   border:1px solid var(--line);border-radius:6px;padding:8px 10px;
 }
 .eur{position:relative}
+.oth-w{border-top:1px solid var(--line);padding:10px 0}#oth-sim{border-top:0}.oth-w select,.oth-w input[type=text]{width:100%;box-sizing:border-box}.oth-w .l{display:block;font-weight:700;margin:10px 0 4px}.oth-w .l:first-child{margin-top:0}.oth-w .eur{max-width:240px}.oth-note{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:.86rem;line-height:1.45}.oth-sum{margin:8px 0 0}
 .eur::before{content:"€";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
 .pf-line{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px}
 .ob{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
@@ -748,6 +749,9 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 .fd-e{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}.fd-e svg{width:62px;height:62px;display:block}.fd-e span{display:block;font-size:.72rem;color:var(--muted);font-weight:700;margin-top:2px}.fd-rt{text-align:right}.fd-rt svg{margin-left:auto}
 .fd-bar{display:flex;height:22px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--line)}.fd-bar i{flex:1;border-right:2px solid var(--surface);background:linear-gradient(90deg,#1b7a4c var(--f),transparent var(--f));background-color:rgba(127,127,127,.15)}.fd-bar i:last-child{border:0}
 .fd-t{display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:4px}.fd-badge{display:inline-block;margin-top:12px;padding:6px 12px;border-radius:999px;background:rgba(27,122,76,.12);color:#1b7a4c;font-weight:800;font-size:.85rem}
+.oth-ck{display:flex;gap:8px;align-items:center;padding:6px 0;font-size:inherit}.oth-ck input{width:20px;height:20px}
+.qh-w{position:relative}.qh{position:absolute;top:0;right:0;width:20px;height:20px;border-radius:50%;border:1.5px solid #2e9b57;background:transparent;color:#2e9b57;font:700 .72rem/1 var(--f-body);cursor:pointer;display:grid;place-items:center;padding:0}.qh:hover{background:rgba(46,155,87,.12)}
+.mini input{width:100%}.mini td,.mini th{padding:6px 8px}
 </style>
 
 <div class="wrap">
@@ -866,11 +870,10 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
     <div class="q"><label for="e_ore">Ore settimanali, escluse le gare (circa)</label>
       <input type="text" inputmode="decimal" id="e_ore" data-k="eng.ore" data-r="eng"></div>
     <div class="q"><label for="e_ese">Di cui esente: indennità di trasferta e rimborsi (€ l'anno)</label>
-      <div class="eur"><input type="text" inputmode="decimal" id="e_ese" data-k="eng.ese" data-r="eng" placeholder="circa 4.300"></div></div>
+      <div class="eur"><input type="text" inputmode="decimal" id="e_ese" data-k="eng.ese" data-r="eng" placeholder="0"></div></div>
     <div class="q"><label for="e_pag">Come vieni pagato</label>
       <select id="e_pag" data-k="eng.pag" data-r="eng"><option value="tr">Bonifico (tracciato)</option><option value="cont">Contanti</option></select></div>
-    <div class="q"><label for="e_altro">Altro reddito imponibile annuo (lavoro, ecc.)</label>
-      <div class="eur"><input type="text" inputmode="decimal" id="e_altro" data-k="eng.altro" data-r="eng"></div></div>
+    <div class="oth-w" id="oth-eng"></div>
   </div>
   <div class="results" id="eng-out"></div>
 </section>
@@ -887,12 +890,12 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 <!-- NETTO -->
 <section id="p-netto" role="tabpanel" aria-labelledby="t-contratto" hidden>
   <div class="cwin"><label class="l" for="cw-sel">Cosa vuoi fare?</label><select class="cw-sel" aria-label="Scegli cosa fare nel contratto"><option value="contratto">Che contratto devo avere?</option><option value="conformita">Sono in regola?</option><option value="netto">Quanto mi resta?</option></select></div>
-  <h2>Quanto mi resta, per categoria</h2>
-  <p class="lead">Metti il compenso lordo annuo che ti offrono in ogni categoria. Il fisco è uguale per tutte, cambia solo quanto il club paga e che tipo di accordo usa.</p>
+  <h2 id="sim-h">Quanto mi resta, per categoria</h2>
+  <p class="lead" id="sim-lead">Metti il compenso lordo annuo che ti offrono in ogni categoria. Il fisco è uguale per tutte, cambia solo quanto il club paga e che tipo di accordo usa.</p>
+  <div class="card oth-w" id="oth-sim" style="margin-bottom:14px"></div>
+  <div class="card tw mini" id="sim-in" style="margin-bottom:14px"></div>
   <div class="fields f3">
-    <div><label class="l" for="s_altro">Altro reddito annuo (es. stipendio)</label>
-      <div class="eur"><input type="text" inputmode="decimal" id="s_altro" data-k="sim.altro" data-r="sim"></div></div>
-    <div><label class="l" for="s_rimb">Rimborsi spese esenti (€ l'anno)</label>
+    <div class="qh-w"><button type="button" class="qh" id="info-rimb" aria-haspopup="dialog" aria-label="Spiegazione: rimborsi spese esenti" title="Cosa sono?">?</button><label class="l" for="s_rimb">Rimborsi spese esenti (€ l'anno)</label>
       <div class="eur"><input type="text" inputmode="decimal" id="s_rimb" data-k="sim.rimb" data-r="sim"></div></div>
     <div><label class="l" for="s_mesi">Mesi in cui il club ti paga</label>
       <input type="text" inputmode="numeric" id="s_mesi" data-k="sim.mesi" data-r="sim" placeholder="10 (dal Budget)"></div>
@@ -914,7 +917,7 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
       <tr><td>Fino a 5.000 €</td><td>Niente</td><td>Niente</td><td>Niente</td></tr>
       <tr><td>Da 5.000 a 15.000 €</td><td>Sulla parte sopra 5.000 €</td><td>Niente</td><td>Niente</td></tr>
       <tr><td>Oltre 15.000 €</td><td>Sulla parte sopra 5.000 € (previdenziale su metà base fino al 2027)</td><td>Sulla parte sopra 15.000 €</td><td>Niente</td></tr>
-      <tr><td>Rimborsi spese e trasferte (circa 4.300 € l'anno)</td><td>Niente</td><td>Niente</td><td>Niente</td></tr>
+      <tr><td>Rimborsi spese di trasferta (con documenti e pagamenti tracciabili)</td><td>Niente</td><td>Niente</td><td>Niente</td></tr>
     </tbody></table>
     <p class="sub" style="margin:10px 0 0"><b>INAIL:</b> non c'è nessun premio INAIL per i collaboratori sportivi dilettanti, a nessun livello di compenso. Non è uno sconto sui primi 5.000 €: gli infortuni sono coperti dalla polizza che il club paga con il tesseramento federale, e il club deve farla a prescindere dall'importo. L'INAIL riguarda i dipendenti sportivi, gli apprendisti e i collaboratori amministrativi (circolare INAIL 46/2023). Se il tuo contratto fosse da dipendente, il calcolo cambia.</p>
   </div>
@@ -1160,6 +1163,16 @@ details.qh{margin-top:6px}details.qh summary{cursor:pointer;font-size:.85rem;opa
 </section>
 </main>
 
+<div class="ov" id="ov-r" hidden>
+  <div class="ov-p" role="dialog" aria-modal="true" aria-labelledby="ov-rt" tabindex="-1">
+    <h3 id="ov-rt">Rimborsi spese esenti: come funzionano</h3>
+    <p>Il rimborso restituisce una spesa che hai fatto tu per il club. Non è compenso e non conta per le soglie di 5.000 € e 15.000 €, ma solo se rispetta le regole.</p>
+    <p>Fuori dal Comune della sede sono esenti: le spese documentate (100%), oppure una diaria fino a 46,48 € al giorno in Italia (77,47 € estero), oppure un metodo misto con diaria ridotta. Con l'auto propria vale la tariffa ACI per chilometro.</p>
+    <p>Dentro il Comune della sede sono tassati i chilometri, i pasti e l'alloggio. Servono pagamenti tracciabili, nota spese firmata e lettera di incarico. Senza questi, il rimborso diventa compenso.</p>
+    <p class="sub">Fonte: guida rimborsi spese co.co.co. (PDF del progetto). Dettagli ed esempi nelle Domande frequenti.</p>
+    <button type="button" class="btn" id="ov-r-close">Ho capito</button>
+  </div>
+</div>
 <div class="ov" id="ov" hidden>
   <div class="ov-p" role="dialog" aria-modal="true" aria-labelledby="ov-t" tabindex="-1">
     <h3 id="ov-t">Cosa vuol dire INPS sul minimale</h3>
@@ -1236,8 +1249,9 @@ function defaults(){
   return {
     tab:'home', exDone:true, obj:'0',
     goals:{r0:'',i0:'',r6:'',i6:'',r12:'',i12:'',r24:'',i24:'',r60:'',i60:'',ret:''},
-    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0',net:'',mesi:''},
-    sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0',nD:'',nE:'',nP:'',mesi:''},
+    eng:{ruolo:'Calciatore o calciatrice',cat:'Serie D',catSet:false,eta:'mag',reg:'si',comp:'0',altri:'0',ore:'0',pag:'tr',altro:'0',ese:'0',net:'',mesi:''},
+    sim:{altro:'0',add:'0',rid:true,min:false,rinc:false,inail:'0',rimb:'0',cmp:'lD',lD:'0',lE:'0',lP:'0',lX:'0',nD:'',nE:'',nP:'',nX:'',mesi:''},
+    oth:{tipo:'',imp:'',netm:'',neta:'',mens:'12'},
     comp:{},
     bud:{}
   };
@@ -1247,6 +1261,9 @@ try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){S=null}
 var D=defaults();
 if(!S||typeof S!=='object')S=D;
 ['eng','sim','comp','bud'].forEach(function(k){if(!S[k])S[k]=D[k]});
+if(S.oth&&S.oth.neta===undefined){S.oth.neta='';S.oth.mens='12'}
+if(!S.oth){var _a=Math.max(Number(String(S.eng.altro||'').replace(',','.'))||0,Number(String(S.sim.altro||'').replace(',','.'))||0);S.oth={tipo:_a>0?'alt':'',imp:_a>0?String(Math.round(_a)):'',netm:'',neta:'',mens:'12'}}
+if(S.eng.catSet===undefined)S.eng.catSet=(S.eng.cat!=='Serie D');
 if(S.obj==null)S.obj=D.obj;
 Object.keys(D.sim).forEach(function(k){if(S.sim[k]===undefined)S.sim[k]=D.sim[k]});
 if(!S.v3){if(num(S.sim.add)===0)S.sim.add='3';S.v3=1}
@@ -1318,6 +1335,35 @@ function bindAll(){
 }
 function renderAll(){R.eng();R.sim();R.comp()}
 
+/* ---------- altro reddito (tipo, netto mensile, imponibile) ---------- */
+var OTH_HINT={dip:'Stipendio da dipendente: il netto è l\'importo che ti arriva sul conto ogni mese.',aut:'Lavoro autonomo: se sei in regime forfettario il calcolo cambia, parlane con un professionista.',alt:'Pensione o altro reddito: scrivi quanto ti arriva al mese.'};
+function budNet(){return null;var b=BD(),m=num(b.im_stip);if(!(m>0))return null;var wk=b['W_im_stip'],mo=num(b['M_im_stip']);mo=(mo>=1&&mo<=12)?mo:12;
+  return {m:wk?m*52/12:m,ann:m*(wk?52*mo/12:mo)+num(b.ia_tredicesima)+num(b.ia_quattordicesima)}}
+function othImp(){var o=S.oth||{};if(o.tipo!=='dip'&&o.tipo!=='aut'&&o.tipo!=='alt')return {v:0,src:'none'};
+  var bn=budNet();if(bn)return {v:bn.ann,src:'budget'};if(num(o.neta)>0)return {v:num(o.neta),src:'neta'};if(num(o.netm)>0){var ms=num(o.mens)||12;return {v:num(o.netm)*ms,src:'netm',ms:ms}}return {v:0,src:'none'}}
+function othSum(){var r=othImp(),o=S.oth||{};
+  if(o.tipo===''||o.tipo==='no')return o.tipo==='no'?'Nessun altro reddito: l\'IRPEF si calcola solo sul compenso sportivo.':'';
+  if(r.src==='cu')return 'Uso <b>'+eur(r.v)+'</b> come altro imponibile annuo (dato dalla CU).';
+  if(r.src==='budget'||r.src==='netm'||r.src==='neta')return 'Uso <b>'+eur(r.v)+'</b> come altro imponibile annuo, partendo dal netto'+(r.src==='netm'?' ('+r.ms+' mensilità)':'')+'. È una <b>stima per difetto</b>: l\'imponibile vero è più alto del netto. Il dato preciso arriva con la CU a fine anno.';
+  return 'Scrivi il netto mensile dell\'altro lavoro: è una stima.'}
+var _othKey='';
+function othKey(){var o=S.oth||{},bn=budNet();return [o.tipo,bn?'b':'n'].join('|')}
+function othHTML(){var o=S.oth||{},bn=budNet(),y=(o.tipo==='dip'||o.tipo==='aut'||o.tipo==='alt');
+  var h='<label class="l" for="o_tipo_X">Hai un altro reddito oltre al calcio?</label><select id="o_tipo_X" data-o="tipo"><option value="">Scegli</option><option value="no"'+(o.tipo==='no'?' selected':'')+'>No, nessun altro reddito</option><option value="dip"'+(o.tipo==='dip'?' selected':'')+'>Sì, stipendio da dipendente</option><option value="aut"'+(o.tipo==='aut'?' selected':'')+'>Sì, lavoro autonomo o partita IVA</option><option value="alt"'+(o.tipo==='alt'?' selected':'')+'>Sì, pensione o altro reddito</option></select>';
+  if(y){h+='<p class="sub" style="margin:8px 0 0">'+OTH_HINT[o.tipo]+'</p>'
+   +('<p class="sub" style="margin:10px 0 0"><b>È una stima.</b> Basta il netto che ti arriva al mese dall\'altro lavoro (diverso dal calcio), lo trovi sul cedolino. I dati definitivi li avrai solo con la CU a fine anno.</p><label class="l" for="o_netm_X">Netto mensile dell\'altro lavoro (dal cedolino)</label><div class="eur"><input type="text" inputmode="decimal" id="o_netm_X" data-o="netm" value="'+(o.netm||'')+'"></div><div class="l" style="margin-top:10px">Hai anche (dall\'altro lavoro):</div><label class="oth-ck"><input type="checkbox" data-om="m13"'+(o.m13?' checked':'')+'> Tredicesima</label><label class="oth-ck"><input type="checkbox" data-om="m14"'+(o.m14?' checked':'')+'> Quattordicesima</label><p class="sub" style="margin:4px 0 0">Mensilità annue: <b>'+(12+(o.m13?1:0)+(o.m14?1:0))+'</b></p><label class="l" for="o_neta_X">oppure netto annuo</label><div class="eur"><input type="text" inputmode="decimal" id="o_neta_X" data-o="neta" value="'+(o.neta||'')+'"></div>')
+   +'<p class="sub oth-sum" role="status">'+othSum()+'</p>'
+   +'<div class="oth-note"><b>INPS e INAIL non si sommano all\'altro reddito:</b> si calcolano solo sul compenso sportivo. <b>L\'IRPEF invece sì:</b> la parte di compenso sportivo sopra 15.000 € si somma all\'altro imponibile, quindi conta in che fascia cadi. Verifica con un professionista.</div>'}
+  return h}
+function othRender(){['eng','sim'].forEach(function(k){var el=document.getElementById('oth-'+k);if(!el)return;var a=document.activeElement;if(a&&el.contains(a)&&a.tagName==='INPUT')return;el.innerHTML=othHTML().replace(/_X/g,'_'+k)});_othKey=othKey()}
+function othUpdate(){var s=othSum();$$('.oth-sum').forEach(function(e){e.innerHTML=s});$$('[data-o="imp"]').forEach(function(e){if(e!==document.activeElement)e.value=(S.oth||{}).imp||''});$$('[data-o="netm"]').forEach(function(e){if(e!==document.activeElement)e.value=(S.oth||{}).netm||''});$$('[data-o="neta"]').forEach(function(e){if(e!==document.activeElement)e.value=(S.oth||{}).neta||''})}
+function syncAltro(){var v=String(Math.round(othImp().v));S.eng.altro=v;S.sim.altro=v;if(othKey()!==_othKey)othRender();else othUpdate()}
+document.addEventListener('input',function(e){var t=e.target,k=t&&t.getAttribute&&t.getAttribute('data-o');if(!k||k==='tipo')return;S.oth[k]=t.value;save();renderAll()});
+document.addEventListener('change',function(e){var t=e.target;if(t&&t.getAttribute&&t.getAttribute('data-om')){S.oth[t.getAttribute('data-om')]=t.checked?1:0;S.oth.mens=String(12+(S.oth.m13?1:0)+(S.oth.m14?1:0));save();othRender();renderAll();return}if(t&&t.getAttribute&&t.getAttribute('data-o')==='tipo'){S.oth.tipo=t.value;save();othRender();renderAll()}else if(t&&t.getAttribute&&t.getAttribute('data-o')==='mens'){S.oth.mens=t.value;save();renderAll()}});
+document.addEventListener('focusin',function(e){var el=e.target;if(!el||el.tagName!=='INPUT'||!el.closest||!el.closest('#p-contratto,#p-netto,#p-conformita'))return;if(/^0([.,]0+)?$/.test(String(el.value||'').trim())){el.value='';el.setAttribute('data-z','1')}});
+document.addEventListener('focusout',function(e){var el=e.target;if(el&&el.getAttribute&&el.getAttribute('data-z')==='1'){el.removeAttribute('data-z');if(el.value==='')el.value='0'}});
+function activeCols(){var e=S.eng||{},set=e.catSet||num(e.comp)>0||num(e.net)>0,m={'Serie D':'lD','Eccellenza':'lE','Promozione':'lP'},A=COLS_ALL;
+  if(!set)return A;if(m[e.cat])return A.filter(function(c){return c[0]===m[e.cat]});return [['lX',e.cat,'Rimborsi e premi; lavoro sportivo se ne ricorrono i requisiti']]}
 /* ---------- Contract Engine ---------- */
 function mn(v){return Math.round(v)>0?'−'+eur(v):eur(0)}
 function pill(level,text){
@@ -1325,8 +1371,9 @@ function pill(level,text){
   return '<span class="pill '+level+'">'+g+' '+text+'</span>';
 }
 R.eng=function(){
+  syncAltro();
   var e=S.eng,C=num(e.comp),altri=num(e.altri),ore=num(e.ore),altro=num(e.altro);
-  var ESE=4300,eseIn=num(e.ese),es=Math.min(eseIn,ESE),esx=Math.max(0,eseIn-ESE),Ctot=C,netIn=num(e.net),solved=false,mesi=mesiPag(e.mesi);
+  var ESE=1e12,eseIn=num(e.ese),es=Math.min(eseIn,ESE),esx=Math.max(0,eseIn-ESE),Ctot=C,netIn=num(e.net),solved=false,mesi=mesiPag(e.mesi);
   var ec=$('#e_comp'),en=$('#e_net');if(ec)ec.disabled=(netIn>0&&!(num(e.comp)>0));if(en)en.disabled=(num(e.comp)>0);
   if(netIn>0&&!(C>0)&&e.eta==='mag'){
     Ctot=solveGross(function(g){return marginal(Math.max(0,g-es),altri,altro).net+es},netIn);
@@ -1358,7 +1405,7 @@ R.eng=function(){
     if(C+altri>5000)reasons.push('Il totale sportivo supera 5.000 euro: scattano i contributi INPS sulla parte sopra i 5.000 euro.');
   }
   if(eseIn>0){
-    reasons.push('Quota esente dichiarata: '+eur(es)+' tolti dal compenso (riferimento circa 4.300 euro l\'anno)'+(esx>0?'. La parte oltre, '+eur(esx)+', resta compenso':'')+'. Va documentata con trasferte reali o rimborsi a piè di lista e confermata nella perizia.');
+    reasons.push('Quota esente dichiarata: '+eur(es)+' tolti dal compenso'+(esx>0?'. La parte oltre, '+eur(esx)+', resta compenso':'')+'. Va documentata con trasferte reali o rimborsi a piè di lista e confermata nella perizia.');
     if(Ctot>5000&&C<=5000)reasons.push('Tolta la quota esente, il compenso sportivo scende a 5.000 euro o meno: niente contributi INPS né IRPEF. La struttura del contratto può essere diversa (ad esempio premi e rimborsi invece di una collaborazione): da valutare nella perizia.');
     if(esx>0&&level==='ok')level='warn';
   }
@@ -1460,7 +1507,7 @@ R.comp=function(){
   if(c.q7==='no')add('fisco','warn','La polizza infortuni del tesseramento è a carico del club a prescindere dall\'importo: chiedine copia.');
   if(c.q7==='nso')add('fisco','warn','Chiedi copia della polizza infortuni del tesseramento.');
   if(c.q8==='forf')add('fisco','risk','Importi fissi senza trasferte né giustificativi sono compensi mascherati: rischio fiscale e contributivo (rimborsi fittizi).');
-  if(c.q8==='trasf')add('fisco','warn','Indennità di trasferta: regge solo per trasferte reali fuori comune. Entro circa 4.300 euro annui è esente, la parte sopra è compenso. Tieni un elenco di trasferte e date.');
+  if(c.q8==='trasf')add('fisco','warn','Indennità di trasferta: regge solo per trasferte reali fuori comune. È esente entro i limiti per trasferta (diaria, spese documentate e pagamenti tracciabili); quello che li supera è compenso. Tieni un elenco di trasferte e date.');
   if(c.q8==='nso')add('fisco','warn','Verifica se i rimborsi sono documentati.');
   if(num(E.ese)>0&&c.q8!=='doc'&&c.q8!=='trasf')add('fisco','warn','Dichiari una quota di rimborsi o trasferte esente: serve documentarla con giustificativi o trasferte reali. Verifica con un professionista.');
   try{nsoRender()}catch(e){}
@@ -1475,21 +1522,31 @@ R.comp=function(){
 };
 
 /* ---------- Simulatore ---------- */
-var COLS=[['lD','Serie D','Lavoro sportivo (co.co.co.) o accordo depositato in Lega'],['lE','Eccellenza','Rimborsi e premi; lavoro sportivo se ne ricorrono i requisiti'],['lP','Promozione','Rimborsi e premi; lavoro sportivo se ne ricorrono i requisiti']];
+var COLS_ALL=[['lD','Serie D','Lavoro sportivo (co.co.co.) o accordo depositato in Lega'],['lE','Eccellenza','Rimborsi e premi; lavoro sportivo se ne ricorrono i requisiti'],['lP','Promozione','Rimborsi e premi; lavoro sportivo se ne ricorrono i requisiti']];
+var COLS=COLS_ALL;
 var AIC_T='https://www.assocalciatori.it/sites/default/files/attachment/pagina/SPORT-CO.CO_.CO_LORDO-NETTO-VALORI-2026.pdf';
 var AIC_N='https://www.assocalciatori.it/sites/default/files/attachment/pagina/NOTE-INTRODUTTIVE-2026.pdf';
 R.sim=function(){
+  syncAltro();COLS=activeCols();
+  var sh=document.getElementById('sim-h'),sl=document.getElementById('sim-lead');if(sh&&sl){if(COLS.length===1){sh.textContent='Quanto mi resta in '+COLS[0][1];sl.textContent='Metti il compenso lordo annuo che ti offrono. La categoria è quella che hai scelto nel passo «Che contratto devo avere?»: se vuoi cambiarla, cambiala lì.'}else{sh.textContent='Quanto mi resta, per categoria';sl.textContent='Metti il compenso lordo annuo che ti offrono in ogni categoria. Il fisco è uguale per tutte, cambia solo quanto il club paga e che tipo di accordo usa.'}}
   var altro=num(S.sim.altro),ri=num(S.sim.rimb),o=S.sim;
   var mesi=mesiPag(o.mesi);
-  var res=COLS.map(function(c){var Ca=num(S.sim[c[0]]),nt=num(S.sim['n'+c[0].charAt(1)]),inc=!!o.rinc,sol=false;
+  var COLSall=COLS,resAll=COLS.map(function(c){var Ca=num(S.sim[c[0]]),nt=num(S.sim['n'+c[0].charAt(1)]),inc=!!o.rinc,sol=false;
     if(nt>0&&!(Ca>0)){Ca=solveGross(function(g){var x=inc?Math.min(ri,g):ri,q=calc(inc?Math.max(0,g-x):g,altro);return q.net+x},nt);sol=true}
     var rE=inc?Math.min(ri,Ca):ri,r=calc(inc?Math.max(0,Ca-rE):Ca,altro);r.sol=sol;r.nt=nt;r.Ca=Ca;r.ri=rE;r.tot=r.net+rE;r.rem=r.w+r.inaW+r.tax+r.add;return r});
+  var cand=COLSall.map(function(c,i){return (num(S.sim[c[0]])>0||num(S.sim['n'+c[0].charAt(1)])>0)?i:-1}).filter(function(i){return i>=0}),selI=-1;
+  if(cand.length){selI=cand[0];cand.forEach(function(i){if(COLSall[i][0]===S.sim.last)selI=i})}
+  var mh='<h3>Compenso annuo</h3><table class="mini"><thead><tr><th>Categoria</th><th>Lordo</th><th>Netto</th></tr></thead><tbody>'+COLSall.map(function(c,i){var k='n'+c[0].charAt(1),L=num(S.sim[c[0]])>0,N=num(S.sim[k])>0;
+    return '<tr><td><b>'+c[1]+'</b></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Lordo '+c[1]+'" data-k="sim.'+c[0]+'" data-r="sim" value="'+(S.sim[c[0]]||'')+'"'+(N&&!L?' disabled placeholder="'+eur(resAll[i].Ca)+'"':'')+'></div></td><td><div class="eur"><input type="text" inputmode="decimal" aria-label="Netto '+c[1]+'" data-k="sim.'+k+'" data-r="sim" value="'+(S.sim[k]||'')+'"'+(L?' disabled':'')+'></div></td></tr>'}).join('')+'</tbody></table><p class="sub" style="margin:8px 0 0">Compila solo Lordo o solo Netto: l\'altro si blocca, perché non sono confrontabili. Con il netto ti dico il lordo da far scrivere nel contratto. Il riepilogo qui sotto mostra solo la categoria che hai compilato.</p>';
+  var inEl=$('#sim-in');
+  function bindIn(){$$('#sim-in [data-k]').forEach(function(el){el.addEventListener('input',function(){var kk=el.getAttribute('data-k');S.sim.last='l'+kk.charAt(kk.length-1);setP(kk,el.value);save();renderAll()})})}
+  var act=document.activeElement,ak=act&&act.getAttribute&&act.getAttribute('data-k'),ap=act&&act.selectionStart,inIn=act&&act.closest&&act.closest('#sim-in');
+  if(inEl){inEl.innerHTML=mh;bindIn();if(inIn&&ak){var nn=inEl.querySelector('[data-k="'+ak+'"]');if(nn){nn.focus();try{nn.setSelectionRange(ap,ap)}catch(e){}}}}
+  if(selI<0){$('#sim-out').innerHTML='<p class="sub" style="margin:0">Scrivi il lordo o il netto di una categoria per vedere il riepilogo.</p>';$('#sim-how').innerHTML='';renderVar();return}
+  COLS=[COLSall[selI]];var res=[resAll[selI]];
   function row(l,f,cls){return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+l+'</td>'+res.map(function(r){return '<td>'+f(r)+'</td>'}).join('')+'</tr>'}
   function head(t){return '<tr><td colspan="'+(COLS.length+1)+'" class="sec-h">'+t+'</td></tr>'}
-  var h='<table style="min-width:700px"><thead><tr><th></th>'+COLS.map(function(c){return '<th>'+c[1]+'</th>'}).join('')+'</tr></thead><tbody>';
-  h+='<tr><td>Compenso lordo annuo</td>'+COLS.map(function(c){return '<td><div class="eur"><input type="text" inputmode="decimal" aria-label="Compenso lordo '+c[1]+'" data-k="sim.'+c[0]+'" data-r="sim" value="'+(S.sim[c[0]]||'')+'"'+(num(S.sim['n'+c[0].charAt(1)])>0&&!(num(S.sim[c[0]])>0)?' disabled placeholder="'+eur(res[COLS.indexOf(c)].Ca)+'"':'')+'></div></td>'}).join('')+'</tr>';
-  h+='<tr><td>oppure Netto annuo che vuoi in tasca</td>'+COLS.map(function(c){var k='n'+c[0].charAt(1);return '<td><div class="eur"><input type="text" inputmode="decimal" aria-label="Netto voluto '+c[1]+'" data-k="sim.'+k+'" data-r="sim" value="'+(S.sim[k]||'')+'"'+(num(S.sim[c[0]])>0?' disabled':'')+'></div></td>'}).join('')+'</tr>';
-  h+='<tr><td class="sub" colspan="'+(COLS.length+1)+'" style="text-align:left;white-space:normal;font-size:.8rem">Scrivi solo il lordo o solo il netto. Con il netto ti dico il lordo da far scrivere nel contratto (riga «Compenso lordo annuo»).</td></tr>';
+  var h='<table style="min-width:0;width:100%"><thead><tr><th></th>'+COLS.map(function(c){return '<th>'+c[1]+'</th>'}).join('')+'</tr></thead><tbody>';
   h+='<tr><td>Contratto tipico</td>'+COLS.map(function(c){return '<td class="sub" style="font-size:.8rem">'+c[2]+'</td>'}).join('')+'</tr>';
   if(o.rinc){
     h+=row('Meno i rimborsi già dentro il compenso',function(r){return '−'+eur(r.ri)});
@@ -1547,7 +1604,7 @@ R.sim=function(){
 };
 function renderVar(){
   var el=$('#var-out');if(!el)return;
-  var key=S.sim.cmp||'lD',Ca=num(S.sim[key]),C=S.sim.rinc?Math.max(0,Ca-Math.min(num(S.sim.rimb),Ca)):Ca,cur=num(S.sim.altro),nm=(COLS.filter(function(c){return c[0]===key})[0]||COLS[0])[1];
+  COLS=activeCols();var key=COLS.some(function(c){return c[0]===S.sim.cmp})?S.sim.cmp:COLS[0][0],Ca=num(S.sim[key]),C=S.sim.rinc?Math.max(0,Ca-Math.min(num(S.sim.rimb),Ca)):Ca,cur=num(S.sim.altro),nm=(COLS.filter(function(c){return c[0]===key})[0]||COLS[0])[1];
   if(!(Ca>0)){el.innerHTML='<p class="sub" style="margin:0">Scrivi un compenso per '+nm+' nella tabella sopra.</p>';return}
   var L=[0,10000,15000,20000,28000,35000,50000,60000,80000];
   if(L.indexOf(cur)<0)L.push(cur);
@@ -1710,7 +1767,7 @@ function lampoDone(){var L=S.budL||{};return lampoKeys().filter(function(k){var 
 function lampoComplete(){return lqDone()&&lampoDone()>=lampoKeys().length}
 window.ttLampo=function(){return {mode:S.bmode,q:lqDone(),done:lampoComplete()}};
 function renderBMode(){var c=document.getElementById('b-mode');if(!c)return;var m=S.bmode,h='',N=lampoKeys().length;
-  if(!m){h='<h3 class="bm-t">Come vuoi fare il Budget?</h3><div class="bm-opts"><button type="button" class="bm-o" data-bmode="lampo"><b>⚡ Budget lampo</b><span>4 domande e da 16 a 29 voci, quelle che contano di più. Circa 3-5 minuti. Ti dà un\'idea <b>indicativa</b> delle tue spese e ti fa andare avanti nel percorso.</span></button><button type="button" class="bm-o" data-bmode="full"><b>📋 Budget completo</b><span>Tutte le voci. Circa 15-20 minuti, ma i risultati sono <b>precisi</b>.</span></button></div><p class="bm-n">Parliamo dei tuoi soldi: per risultati precisi serve un po\' di impegno in più. Puoi partire dal lampo per farti un\'idea, ma ti consiglio fortemente di completare poi il Budget completo: è quello che ti permette di costruire un futuro solido.</p>'}
+  if(!m){h='<h3 class="bm-t">Come vuoi fare il Budget?</h3><div class="bm-opts"><button type="button" class="bm-o" data-bmode="lampo"><b>⚡ Budget lampo</b><span>4 domande e da 16 a 29 voci, quelle che contano di più. Circa 3-5 minuti. Ti dà un\'idea <b>indicativa</b> delle tue spese.</span></button><button type="button" class="bm-o" data-bmode="full"><b>📋 Budget completo</b><span>Tutte le voci. Circa 15-20 minuti, ma i risultati sono <b>precisi</b>.</span></button></div><p class="bm-n">Parliamo dei tuoi soldi: per risultati precisi serve un po\' di impegno in più. Puoi partire dal lampo per farti un\'idea, ma ti consiglio fortemente di completare poi il Budget completo: è quello che ti permette di costruire un futuro solido.</p>'}
   else if(m==='lampo'&&!lqDone()){var q=S.lq||{};h='<div class="bm-bar"><b>⚡ 4 domande veloci</b><p class="bm-n" style="margin:4px 0 10px!important">Così ti mostro solo le voci che ti servono.</p>'+LQ.map(function(x){return '<div class="lq"><span>'+x[1]+'</span><div class="lq-o">'+x[2].map(function(o){return '<button type="button" class="lq-b" data-lq="'+x[0]+'" data-v="'+o[0]+'" aria-pressed="'+(q[x[0]]===o[0])+'">'+o[1]+'</button>'}).join('')+'</div></div>'}).join('')+'<p class="bm-n bm-s"><button type="button" class="bm-l" data-bmode="">← Cambia tipo di budget</button></p></div>'}
   else if(m==='lampo'){var d=lampoDone(),ok=d>=N;h='<div class="bm-bar"><div><b>⚡ Budget lampo</b> · '+d+' di '+N+' voci</div><div class="bm-pg"><i style="width:'+Math.round(d/N*100)+'%"></i></div><p class="bm-n">'+(ok?'<b>Fatto!</b> Hai completato il Budget lampo e puoi andare avanti nel percorso. È un risultato <b>indicativo</b>: quando vuoi, estendilo al Budget completo per numeri precisi.':'Stima veloce. Scrivi un importo in ogni voce (0 se non ti riguarda): la ✓ verde ti dice che è fatta. Le sezioni delle spese si aprono una dopo l\'altra.')+'</p><button type="button" class="btn'+(ok?'':' ghost')+'" id="bm-full" data-bmode="full">Estendi al Budget completo</button><span class="bm-s">Il Budget completo parte vuoto. Quando inserisci la prima voce, l\'app calcola solo sul completo; il lampo resta salvato.</span><button type="button" class="bm-l" data-lqreset style="display:block;margin-top:8px">Cambia le 4 risposte</button></div>'}
   else{var fOn=hasB(S.budF),lHas=hasB(S.budL),useL=S.buse==='lampo'&&lHas;
@@ -1804,8 +1861,8 @@ R.bud=function(){
     });
   });
   SECS.forEach(function(sec){var se=$('#st_'+sec.key);if(se)se.textContent=T[sec.key]?eur(T[sec.key])+' all\'anno':''});
-  $('#tot-exp').textContent=eur(sp)+' all\'anno';
-  $('#tot-inc').textContent=eur(ent)+' all\'anno';
+  $('#tot-exp').textContent=eur(sp)+' all\'anno · '+eur(sp/12)+' al mese';
+  $('#tot-inc').textContent=eur(ent)+' all\'anno · '+eur(ent/12)+' al mese';
   function setK(id,v,isP){var el=$(id);el.textContent=v===null?'–':(isP?pct(v):eur(v));el.className=(v!==null&&v<0)?'neg':''}
   setK('#k-m',ent||sp?sur/12:null);setK('#k-a',ent||sp?sur:null);setK('#k-t',tasso,true);
   var band=tasso===null?'none':(tasso<0?'risk':(tasso<0.1?'warn':'ok'));
@@ -2172,10 +2229,38 @@ var FAQ=[
  ]},
  {t:"Rimborsi, premi e trasferte",a:[
   {t:"Cosa non si tassa",q:[
-   ["I rimborsi spese e le trasferte sono tassati?","Entro certi limiti no, e non pagano contributi. Nel Simulatore uso circa 4.300 € come tetto indicativo. Non l'ho trovato nei testi del progetto: confermalo con il commercialista.","Normativa 2026 §6; App",1],
+   ["I rimborsi spese e le trasferte sono tassati?","Entro certi limiti no, e non pagano contributi né contano per le soglie di 5.000 e 15.000 €. I limiti sono per singola trasferta (diaria, spese senza ricevuta) e servono documenti e pagamenti tracciabili: vedi le domande qui sotto.","Normativa 2026 §6; Guida rimborsi spese (PDF del progetto)"],
    ["Il club può dare solo rimborsi invece del compenso?","Rischioso. I rimborsi fittizi, cioè non legati a spese reali, sono un rischio fiscale. Devono essere coerenti e documentabili.","Normativa 2026 §10"],
    ["I premi partita sono tassati?","Sono parte del compenso. Contano nelle soglie come il resto.","Normativa 2026 §5",1],
-   ["I rimborsi sono compresi nel compenso lordo?","Dipende da cosa c'è scritto nel contratto. Nel Simulatore puoi scegliere. Se non sono compresi, il club li paga in più.","App"]]}
+   ["I rimborsi sono compresi nel compenso lordo?","Dipende da cosa c'è scritto nel contratto. Nel Simulatore puoi scegliere. Se non sono compresi, il club li paga in più.","App"]]},
+  {t:"Rimborsi spese: le regole di base",q:[
+   ["Il rimborso spese è uguale al compenso?","No. Il compenso è quello che guadagni per giocare. Il rimborso restituisce soldi che hai speso tu per conto del club (viaggio, pasti, alloggio). Devono restare due voci separate sul contratto e nei pagamenti, altrimenti l'Agenzia delle Entrate può trattare il rimborso come compenso e chiedere tasse e contributi.","Guida rimborsi spese co.co.co. (PDF del progetto), §2-3"],
+   ["Che regole seguono i rimborsi di un co.co.co. sportivo?","Quelle ordinarie del TUIR, le stesse dei dipendenti. Vale per i calciatori e per i collaboratori tecnici (stesso contratto, art. 25 D.Lgs. 36/2021) e anche per i collaboratori amministrativo-gestionali (contratto diverso, art. 37 D.Lgs. 36/2021, ma stesse regole sui rimborsi).","Guida rimborsi spese co.co.co. (PDF del progetto), §1"],
+   ["Esiste un rimborso forfettario mensile, come i 400 €?","Per il co.co.co. no. Il rimborso forfettario fino a 400 € al mese vale solo per i volontari sportivi puri. Se hai un contratto co.co.co., i rimborsi sono solo quelli che seguono le regole sotto, una spesa alla volta.","Guida rimborsi spese co.co.co. (PDF del progetto), §2"],
+   ["C'è un tetto annuo di rimborsi esenti, tipo 4.300 €?","Nel PDF del progetto non c'è un tetto annuo. I limiti sono per singolo giorno di trasferta (diaria e spese non documentate) e per tipo di spesa. Il «circa 4.300 €» che usavo prima come tetto non è confermato da nessuna fonte del progetto: non fidarti di quella cifra e chiedi al commercialista.","Guida rimborsi spese co.co.co. (PDF del progetto), §2; verifica con un professionista",1],
+   ["Cos'è la «sede di lavoro»?","È il Comune in cui svolgi abitualmente l'attività, di solito dove ti alleni o dove ha sede la società. Tutto dipende da qui: spese dentro quel Comune seguono una regola, spese in trasferta fuori da quel Comune ne seguono un'altra.","Guida rimborsi spese co.co.co. (PDF del progetto), §2A"],
+   ["Quali spese nel Comune della sede sono esenti?","Quasi nessuna. Il trasporto pubblico (bus, treno, metro) è esente solo con biglietto o abbonamento. Il rimborso chilometrico con la tua auto dentro il Comune è sempre tassato. Pasti e alloggio nel Comune sono sempre tassati. Esempio: se vivi a Terni e ti alleni a Terni, la benzina per andare al campo rimborsata dal club è un reddito tassato.","Guida rimborsi spese co.co.co. (PDF del progetto), §2A"],
+   ["Il rimborso che resta esente conta per le soglie di 5.000 e 15.000 €?","No. I rimborsi esenti secondo queste regole non si sommano al compenso per le soglie di 5.000 € (INPS) e 15.000 € (IRPEF). Al contrario, quelli non documentati, forfettari oltre i limiti o non tracciabili si sommano al compenso.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"]]},
+  {t:"Trasferte: i tre metodi di rimborso",q:[
+   ["Quando c'è una trasferta?","Quando la società ti manda in un altro Comune rispetto alla sede: partite fuori casa, ritiri, tornei, riunioni federali. Per ogni trasferta il club può scegliere uno dei tre metodi: analitico, forfettario o misto.","Guida rimborsi spese co.co.co. (PDF del progetto), §2B"],
+   ["Come funziona il rimborso analitico (a piè di lista)?","Il club ti rimborsa esattamente quello che hai speso, con fatture, ricevute fiscali o scontrini parlanti/tracciabili. Vitto, alloggio, viaggio e trasporto sono esenti al 100%. In più puoi avere fino a 15,49 € al giorno in Italia (25,82 € all'estero) per piccole spese senza ricevuta. Esempio: trasferta di un giorno in Italia, pranzo 18 € con scontrino e treno 12 €. Rimborso esente: 30 € + fino a 15,49 € senza documenti = fino a 45,49 €.","Guida rimborsi spese co.co.co. (PDF del progetto), §2B"],
+   ["Come funziona il rimborso forfettario (diaria)?","Il club ti dà una cifra fissa al giorno, senza chiederti ricevute di pranzo e hotel. È esente fino a 46,48 € al giorno in Italia e 77,47 € all'estero. Quello che supera il limite è tassato. Il viaggio documentato si rimborsa a parte, al 100%. Esempio: diaria da 60 € per una trasferta in Italia: 46,48 € esenti e 13,52 € tassati come compenso.","Guida rimborsi spese co.co.co. (PDF del progetto), §2B"],
+   ["Come funziona il metodo misto?","Il club ti paga direttamente o ti rimborsa a ricevuta il pasto oppure l'hotel, e aggiunge una diaria ridotta. Se è coperto uno solo tra vitto e alloggio, la diaria esente scende di un terzo: 30,99 € in Italia (51,65 € all'estero). Se sono coperti entrambi, scende di due terzi: 15,49 € in Italia (25,82 € all'estero).","Guida rimborsi spese co.co.co. (PDF del progetto), §2B"],
+   ["Esempio completo: due giorni a Perugia partendo da Terni","Sede Terni, trasferta di 2 giorni. Metodo misto: il club paga l'hotel con bonifico (alloggio coperto), tu mangi e il club ti dà la diaria ridotta di 30,99 € al giorno. Esenti: 2 × 30,99 = 61,98 €, più il biglietto del treno documentato. Se invece il club pagasse sia hotel sia pasti, la diaria esente scenderebbe a 15,49 € al giorno.","Esempio costruito sulle regole di Guida rimborsi spese co.co.co. (PDF del progetto), §2B"],
+   ["Quale metodo conviene alla squadra e quale al giocatore?","Analitico: più carta da gestire, ma nulla è tassato e se spendi poco il club paga poco. Forfettario: meno carta e un costo prevedibile per il club, ma sopra 46,48 € al giorno si paga tassa. Misto: utile quando il club prenota già l'hotel o i pasti. In pratica, per trasferte brevi e semplici il forfettario fa risparmiare burocrazia; per trasferte lunghe e costose l'analitico evita di perdere esenzioni.","Valutazione pratica sulle regole di Guida rimborsi spese co.co.co. (PDF del progetto), §2B"]]},
+  {t:"Auto propria, pagamenti e documenti",q:[
+   ["Posso farmi rimborsare i chilometri con la mia auto?","Sì, ma esentasse solo per trasferte fuori dal Comune sede di lavoro. L'importo è: chilometri percorsi × tariffa delle tabelle ACI per il tuo modello di auto. I chilometri si contano dalla sede di lavoro al luogo della trasferta, oppure dalla tua residenza se è più vicina. Esempio con una tariffa inventata di 0,40 €/km: 120 km × 0,40 € = 48 €. La tariffa vera dipende dal tuo modello.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Il rimborso chilometrico per andare agli allenamenti è esente?","No. Per gli spostamenti dentro il Comune sede di lavoro il rimborso chilometrico è sempre tassato.","Guida rimborsi spese co.co.co. (PDF del progetto), §2A"],
+   ["Come devo pagare le spese perché il rimborso sia esente?","Con strumenti tracciabili: carta di credito o debito, bancomat, app di pagamento. Vale per vitto, alloggio, viaggio e trasporto (taxi e noleggio con conducente compresi). Eccezione: i titoli di viaggio del trasporto pubblico di linea (treni, aerei, autobus). Anche il club deve rimborsarti con bonifico o mezzo tracciabile. Regola introdotta dalla Legge di Bilancio 2025. Esempio: pranzo pagato in contanti 18 €: non è esente.","Guida rimborsi spese co.co.co. (PDF del progetto), §3 (Legge di Bilancio 2025)"],
+   ["Cosa deve esserci nella nota spese?","Una nota spese firmata, con: data, luogo, motivo sportivo della trasferta, giustificativi allegati. Per il rimborso chilometrico anche targa del veicolo e tragitto. Serve inoltre una lettera di incarico o autorizzazione preventiva della società alla trasferta.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Cosa rischio se i documenti mancano?","Che l'Agenzia delle Entrate riqualifichi il rimborso come compenso mascherato. Il club e tu dovreste pagare imposte e contributi sul recuperato, e quella cifra si somma ai compensi per le soglie di 5.000 e 15.000 €.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Esempio: i rimborsi mi fanno superare i 15.000 €?","Compenso 13.000 €. Il club ti dà 3.000 € di rimborsi: 1.500 € con ricevute e pagamenti tracciabili (esenti) e 1.500 € senza documenti (non esenti). Per le soglie conta 13.000 + 1.500 = 14.500 €: resti sotto i 15.000 €. Se invece tutti i 3.000 € non fossero documentati, sarebbero 16.000 €: l'IRPEF si pagherebbe sulla parte sopra 15.000 €.","Esempio costruito sulle regole di Guida rimborsi spese co.co.co. (PDF del progetto), §3"]]},
+  {t:"Come può usarli la squadra, passo per passo",q:[
+   ["Cosa deve fare la società prima della trasferta?","1) Mandare una lettera di incarico o autorizzazione. 2) Decidere il metodo (analitico, forfettario o misto) per quella trasferta. 3) Dire ai giocatori come pagare (carta o app, non contanti) e di conservare le ricevute.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Cosa deve fare la società dopo la trasferta?","1) Farsi consegnare la nota spese firmata con i giustificativi. 2) Rimborsare con bonifico o mezzo tracciabile. 3) Conservare tutto insieme alla lettera di incarico, così che a un controllo sia dimostrabile che il rimborso non è un compenso.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Esempio di una trasferta ben fatta","Mercoledì la società scrive: «Domenica trasferta a Foligno, partenza da Terni, metodo misto». Domenica un giocatore paga il pranzo con la carta (18 €) e la società paga il pullman. Lunedì il giocatore consegna la nota spese firmata con lo scontrino. Martedì la società rimborsa il pranzo con bonifico. Il rimborso resta separato dal compenso ed esente.","Esempio costruito sulle regole di Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Un club può pagare tutto in contanti per semplicità?","No, se vuole l'esenzione. Contanti e pagamenti non tracciabili fanno perdere l'esenzione per vitto, alloggio, viaggio e trasporto in trasferta. Fanno eccezione solo i biglietti del trasporto pubblico di linea.","Guida rimborsi spese co.co.co. (PDF del progetto), §3"],
+   ["Questi rimborsi valgono anche per chi non è calciatore?","Sì. Valgono per tecnici e per i collaboratori amministrativo-gestionali (segreteria, tesseramenti). Cambia il contratto: gli amministrativo-gestionali hanno obbligo di iscrizione e premio INAIL e comunicazione UNILAV, mentre atleti e tecnici hanno la comunicazione sul portale RASD.","Guida rimborsi spese co.co.co. (PDF del progetto), §1"]]}
  ]}
 ]},
 {id:"tutele",t:"Tutele e problemi",d:"Infortuni, pagamenti mancati, rischi",m:[
@@ -3147,6 +3232,7 @@ $('#b-clear').addEventListener('click',function(){if(window.ttConfirm)window.ttC
 $('#b-open').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=true})});
 $('#b-close').addEventListener('click',function(){$$('#p-budget details').forEach(function(d){d.open=false})});
 
+(function(){var ov=$('#ov-r'),btn=$('#info-rimb');if(!ov||!btn)return;function o(){ov.hidden=false;try{$('.ov-p',ov).focus()}catch(e){}}function c(){ov.hidden=true;try{btn.focus()}catch(e){}}btn.addEventListener('click',o);$('#ov-r-close').addEventListener('click',c);ov.addEventListener('click',function(e){if(e.target===ov)c()});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)c()})})();
 (function(){
   var ov=$('#ov'),btn=$('#info-min'),cl=$('#ov-close'),panel=$('.ov-p',ov);
   function open(){ov.hidden=false;try{panel.focus()}catch(e){}}
@@ -3272,7 +3358,7 @@ function rkInit(){var pb=document.getElementById('p-budget');if(pb){pb.addEventL
   ['input','change'].forEach(function(ev){document.addEventListener(ev,function(){clearTimeout(__pbT);__pbT=setTimeout(function(){try{percBar()}catch(e){}},300)},true)});
   (function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{rkPaint();curaLab()}catch(e){}return x}})();
   rkPaint();try{curaLab();percBar()}catch(e){}}
-buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.qhb');if(!b)return;var p=b.nextElementSibling,o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Chiudi':'Come controllo?'});buildBudget();schedVis();bindAll();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}try{schedVis()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
+buildQ();$('#comp-q').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.qhb');if(!b)return;var p=b.nextElementSibling,o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',o?'true':'false');b.textContent=o?'Chiudi':'Come controllo?'});buildBudget();schedVis();bindAll();(function(){var c=document.getElementById('e_cat');if(c)c.addEventListener('change',function(){S.eng.catSet=true;save();renderAll()})})();othRender();renderAll();rkInit();(function(){var rb=R.bud;R.bud=function(){var x=rb.apply(this,arguments);try{budExcl()}catch(e){}try{schedVis()}catch(e){}return x}})();R.bud();applyBMode();document.getElementById('p-budget').addEventListener('input',function(e){if(e.target&&e.target.matches&&e.target.matches('[data-bud]'))renderBMode()});
 
 (function(){
   var KEY='terzotempo.',FB_URL='',msg=document.getElementById('hlp-msg');
